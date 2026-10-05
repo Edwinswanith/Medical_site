@@ -6,7 +6,7 @@ import gsap from "gsap";
 import { BRAND, NAV } from "@/content/site";
 import { lockScroll, prefersReducedMotion } from "@/lib/motion";
 import { TLink } from "./TLink";
-import { Mark } from "./Mark";
+import { Logo } from "./Logo";
 
 export function Header() {
   const pathname = usePathname();
@@ -118,8 +118,7 @@ export function Header() {
     <>
       <header className="header" data-scrolled={scrolled} data-tone={tone} data-open={open}>
         <TLink href="/" className="header__brand" aria-label={`${BRAND.logo} home`}>
-          <Mark />
-          <span>{BRAND.logo}</span>
+          <Logo />
         </TLink>
         <nav className="header__nav" aria-label="Primary">
           {NAV.map((n) => (

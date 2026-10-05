@@ -392,6 +392,18 @@ em {
   width: 30px;
   height: 30px;
 }
+.logo img {
+  display: block;
+  width: auto;
+  height: 36px;
+}
+.logo--light,
+.header[data-tone="dark"]:not([data-open="true"]) .logo--ink {
+  display: none;
+}
+.header[data-tone="dark"]:not([data-open="true"]) .logo--light {
+  display: block;
+}
 .header__nav {
   justify-self: center;
   display: flex;
@@ -2571,6 +2583,9 @@ html {
   .mark {
     width: 24px;
     height: 24px;
+  }
+  .logo img {
+    height: 30px;
   }
   .header .pill {
     display: inline-flex;
