@@ -4,10 +4,10 @@
 
 | Item | On the site today | Verdict |
 |---|---|---|
-| Business name | Tech Cogniverse (title, footer), cogniverseStudio (header), Cogniverse (loader) | Inconsistent. Pick one. |
+| Business name | CogniVerse Studio everywhere (5 Oct 2026) | Done. |
 | Address | None | Nothing to mark up. Correct not to invent one. |
-| Phone | +91 9003 020 030 (India) | Factual, but works against a UK buyer. |
-| Email | edwinswanith006@gmail.com | A domain email is a stronger trust signal. |
+| Phone | +44 (0)7436 194150 (UK mobile; replaced +91 on 5 Oct 2026) | Done. |
+| Email | info@cogniversestudio.com (replaced Gmail on 5 Oct 2026) | Done. |
 | Coverage | Not stated | Must be stated, truthfully. |
 | Opening hours | None | Not needed for a service business without walk-ins. |
 | Google Business Profile | None supplied | See below. |

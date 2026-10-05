@@ -68,9 +68,9 @@ Severity: CRITICAL, HIGH, MEDIUM, LOW. "Direct" = can be implemented without new
 
 | ID | Sev | Problem | Fix | Status |
 |---|---|---|---|---|
-| L1 | CRITICAL | Only contact is +91 phone and Gmail | Real UK number and domain email, if they exist. Never invented. | Blocked: facts |
+| L1 | CRITICAL | Only contact is +91 phone and Gmail | Real UK number and domain email, if they exist. Never invented. | Done: +44 (0)7436 194150, info@cogniversestudio.com |
 | L2 | CRITICAL | No address, company details or stated coverage | See `LOCAL_SEO.md` decision tree | Blocked: facts |
-| L3 | HIGH | Three brand names | One name everywhere; `BRAND` in `site.ts` drives it | Blocked: decision |
+| L3 | HIGH | Three brand names | One name everywhere; `BRAND` in `site.ts` drives it | Done: CogniVerse Studio |
 | L4 | MEDIUM | Location pages | Not justified (no offices, one London-area client) | Decided: none |
 
 ### D to F. Architecture, linking, structured data

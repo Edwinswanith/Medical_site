@@ -18,8 +18,8 @@ export const BRAND = {
   short: "CogniVerse",
   logo: "CogniVerse Studio",
   domain: "cogniversestudio.com", // user, 5 Oct 2026
-  email: "edwinswanith006@gmail.com", // Tech Cogniverse /about. Plainsight lists a different inbox; confirm which to use.
-  phone: { display: "+91 9003 020 030", tel: "+919003020030" }, // Tech Cogniverse /about
+  email: "info@cogniversestudio.com", // user, 5 Oct 2026
+  phone: { display: "+44 (0)7436 194150", tel: "+447436194150" }, // user, 5 Oct 2026
   responseTime: "Typically respond within 24 hours", // Tech Cogniverse /about
 };
 
