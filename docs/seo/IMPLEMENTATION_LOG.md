@@ -60,3 +60,16 @@ The design, motion and content are unchanged. No new claims, locations, reviews 
 | Split headings: no layout change | PASS | Line boxes measured + screenshot |
 | Existing regression (menu focus, scroll lock, form fallback, no console errors) | PASS | `review/reg.mjs` |
 | Live domain: status codes, bot protection, Search Console | NOT TESTED | No live URL |
+
+## Brand pass: CogniVerse Studio (5 Oct 2026)
+
+| Change | Files | Why |
+|---|---|---|
+| One name everywhere: "CogniVerse Studio" (title, header, share card, schema, footer) | `src/content/site.ts` (`BRAND`) | Brand kit tokens v1.1; resolves audit issue L3 |
+| Canonical origin defaults to `https://cogniversestudio.com` (env override still possible) | `src/lib/site-url.ts` | Domain confirmed by the user; resolves T2 without a Vercel variable |
+| Brand palette: paper `#f5f8fc`, navy text, slate muted, aqua-to-blue gradient for fills and strokes, accent ink `#0066b8` for small text | `src/app/globals.css` | Kit blue `#0299fa` is 2.8:1 on paper and aqua 1.3:1, so neither carries text on light |
+| Navy sections (intro, curtain, presenter, footer, featured package) through a scoped token set; header turns light over them | `globals.css`, `Header.tsx`, `Presenter.tsx`, `Footer.tsx` | The cyan only reads on navy |
+| Mobile: template thumbnails were 750px tall close-ups (the img height attribute overrode aspect-ratio); now 4:3 previews | `globals.css` | Bug from the earlier mobile pass, also on the dark build |
+| Mobile: "Book a call" wrapped to two lines next to the longer wordmark | `globals.css` | Fits at 360px and 390px |
+
+Validation after the pass: build PASS, typecheck PASS, `seo:check` 69/69 against `https://cogniversestudio.com`, JS off PASS, reduced motion PASS, keyboard PASS, mobile overflow PASS, existing regression PASS, no console errors.

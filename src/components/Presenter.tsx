@@ -8,7 +8,7 @@ import { MediaSwap } from "./MediaSwap";
  */
 export function Presenter() {
   return (
-    <section id="presenter" className="pre" data-chapter="Presenter" aria-labelledby="pre-h">
+    <section id="presenter" className="pre" data-tone="dark" data-chapter="Presenter" aria-labelledby="pre-h">
       <div className="pre__grow" data-scrub data-scrub-start="top top" data-scrub-end="bottom bottom">
         <div className="pre__stage">
           <div className="pre__frame">

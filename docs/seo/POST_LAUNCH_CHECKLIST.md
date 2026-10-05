@@ -4,7 +4,7 @@ Nothing below has been configured. Each item needs your accounts. Tick only what
 
 ## Before deploy
 
-- [ ] Set `NEXT_PUBLIC_SITE_URL` in Vercel (Production) to the final origin, e.g. `https://www.example.co.uk`. Pick www or non-www and redirect the other in Vercel Domains.
+- [ ] The canonical origin is `https://cogniversestudio.com` (non-www), built in. In Vercel Domains, add both `cogniversestudio.com` and `www.cogniversestudio.com` and redirect www to the apex (308). `NEXT_PUBLIC_SITE_URL` is only needed to override it.
 - [ ] Redeploy, then run `npm run seo:check -- https://<domain> https://<domain>`: expect 0 fails.
 - [ ] Open `https://<domain>/robots.txt` and `/sitemap.xml`: absolute URLs on the final domain, not `*.vercel.app`.
 - [ ] Preview deployments: Vercel serves `X-Robots-Tag: noindex` on preview URLs by default. Confirm with `curl -I https://<preview>.vercel.app`.

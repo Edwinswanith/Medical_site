@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
-export const viewport: Viewport = { themeColor: "#f4f2ec" };
+export const viewport: Viewport = { themeColor: "#f5f8fc" };
 
 // Runs before paint: marks JS as available; reduced motion skips the intro.
 // Safety net: if the app bundle never runs, reveal everything after 10 s anyway.

@@ -24,7 +24,6 @@ export function SiteJsonLd({ description }: { description: string }) {
             "@type": "Organization",
             "@id": ORG_ID,
             name: BRAND.name,
-            alternateName: [BRAND.logo],
             url: absolute("/"),
             logo: { "@type": "ImageObject", url: absolute("/logo.png"), width: 512, height: 512 },
             description,

@@ -13,7 +13,7 @@ export default async function OpenGraphImage() {
   const icon = `data:image/png;base64,${(await readFile(join(process.cwd(), "public/brand/studio-icon.png"))).toString("base64")}`;
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 72, background: "#f4f2ec", color: "#15181a", fontFamily: "Archivo", textTransform: "uppercase" }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 72, background: "#f5f8fc", color: "#0b1830", fontFamily: "Archivo", textTransform: "uppercase" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 18, fontSize: 34 }}>
           <img src={icon} width={60} height={60} alt="" />
           {BRAND.name}
@@ -22,9 +22,9 @@ export default async function OpenGraphImage() {
           <span>Websites,</span>
           <span>patient films</span>
           <span>and AI presenters</span>
-          <span style={{ color: "#b8300f" }}>for your practice.</span>
+          <span style={{ color: "#0066b8" }}>for your practice.</span>
         </div>
-        <div style={{ display: "flex", height: 10, width: 220, background: "#f2461e" }} />
+        <div style={{ display: "flex", height: 10, width: 220, background: "linear-gradient(160deg, #03f5d3 0%, #02e3e4 38%, #0299fa 100%)" }} />
       </div>
     ),
     { ...size, fonts: [{ name: "Archivo", data: display, weight: 800, style: "normal" }] },

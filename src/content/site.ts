@@ -14,9 +14,10 @@
  */
 
 export const BRAND = {
-  name: "Tech Cogniverse",
-  short: "Cogniverse",
-  logo: "cogniverseStudio", // header wordmark (user, 5 Oct 2026). Confirm the one name to use everywhere.
+  name: "CogniVerse Studio", // brand kit tokens v1.1 (user, 5 Oct 2026)
+  short: "CogniVerse",
+  logo: "CogniVerse Studio",
+  domain: "cogniversestudio.com", // user, 5 Oct 2026
   email: "edwinswanith006@gmail.com", // Tech Cogniverse /about. Plainsight lists a different inbox; confirm which to use.
   phone: { display: "+91 9003 020 030", tel: "+919003020030" }, // Tech Cogniverse /about
   responseTime: "Typically respond within 24 hours", // Tech Cogniverse /about
