@@ -5,9 +5,9 @@ export default function NotFound() {
     <section className="phero wrap nf">
       <p className="label">404</p>
       <h1 className="display-xl">
-        Flatline. <em>This page isn&apos;t here.</em>
+        Cut. <em>This page isn&apos;t here.</em>
       </h1>
-      <TLink href="/" className="blob blob--ink">Back to the clinic</TLink>
+      <TLink href="/" className="blob blob--ink">Back to the studio</TLink>
     </section>
   );
 }

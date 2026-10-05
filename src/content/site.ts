@@ -1,116 +1,83 @@
 /*
  * Every fact on the site lives in this file.
- * Everything marked PLACEHOLDER must be replaced with the clinic's real details
- * before launch. Do not invent doctors, credentials, numbers or reviews.
+ * Company facts are copied from Tech Cogniverse's own content
+ * (Website_threadd/src/content, carried over from the previously published site);
+ * `source` keeps the original page path. Do not add a claim, client, metric or
+ * testimonial that has no source here.
  */
 
-export const CLINIC = {
-  name: "Meridian", // PLACEHOLDER: clinic name
-  fullName: "Meridian Clinic", // PLACEHOLDER
-  tagline: "Care that keeps time with you.", // PLACEHOLDER
+export const BRAND = {
+  name: "Tech Cogniverse",
+  short: "Cogniverse",
+  // Positioning chosen for this site (user decision, 5 Oct 2026), not a published fact.
+  offer: "Websites, patient films and AI presenters for doctors and clinics.",
+  offerEm: "for doctors and clinics.",
   intro:
-    "A multi-speciality clinic for families and individuals. One team, one record, one place to come back to.", // PLACEHOLDER
-  phone: "+00 000 000 0000", // PLACEHOLDER
-  emergencyPhone: "", // PLACEHOLDER: leave empty to hide
-  email: "hello@example.com", // PLACEHOLDER
-  address: ["000 Street Name", "Area, City 000000"], // PLACEHOLDER
-  mapUrl: "", // PLACEHOLDER: Google Maps link, empty hides the button
-  hours: [
-    { days: "Mon to Fri", time: "08:00 to 20:00" }, // PLACEHOLDER
-    { days: "Saturday", time: "09:00 to 14:00" }, // PLACEHOLDER
-    { days: "Sunday", time: "Closed" }, // PLACEHOLDER
-  ],
-  social: [] as { label: string; href: string }[], // PLACEHOLDER: e.g. { label: "Instagram", href: "https://..." }
+    "We make the things a practice needs to be understood: a fast, honest website, films that explain treatment in plain language, and short clips for the places patients actually look.",
+  email: "edwinswanith006@gmail.com", // source: /about
+  phone: { display: "+91 9003 020 030", tel: "+919003020030" }, // source: /about
+  responseTime: "Typically respond within 24 hours", // source: /about
+  founders: "Founded by Suhail and Edwin Swanith.", // source: /about
 };
 
-export type Service = {
+export type WorkStatus = "Launched" | "Production-ready MVP" | "Concept";
+
+export type Work = {
   slug: string;
   name: string;
-  short: string;
-  body: string;
-  includes: string[];
-  tone: "mint" | "ink" | "bone";
+  tagline: string;
+  kind: "client" | "product" | "concept";
+  status: WorkStatus;
+  client?: string;
+  summary: string;
+  metrics: { value: string; label: string }[];
+  tags: string[];
+  liveUrl?: string;
+  /** Real screenshot of the live site. Leave empty until the client approves its use. */
+  screenshot?: { src: string; alt: string };
+  screenshotPending?: boolean;
+  source: string;
 };
 
-// PLACEHOLDER: replace with the services the clinic actually offers.
-export const SERVICES: Service[] = [
+export const WORK: Work[] = [
   {
-    slug: "general-medicine",
-    name: "General Medicine",
-    short: "Everyday illness, check-ups and the first conversation about anything new.",
-    body: "Your first stop for fevers, infections, long-standing conditions and the questions you have been putting off. The doctor who sees you coordinates whatever comes next.",
-    includes: ["Consultations", "Chronic condition reviews", "Vaccinations", "Referrals"],
-    tone: "mint",
-  },
-  {
-    slug: "cardiology",
-    name: "Cardiology",
-    short: "Heart health, from routine screening to ongoing care.",
-    body: "Assessment and follow-up for blood pressure, chest pain, palpitations and known heart conditions, with tests arranged in-house where possible.",
-    includes: ["ECG", "Blood pressure management", "Risk screening", "Follow-up plans"],
-    tone: "ink",
-  },
-  {
-    slug: "paediatrics",
-    name: "Paediatrics",
-    short: "Care for babies, children and teenagers.",
-    body: "Growth checks, childhood illness, vaccinations and advice for parents, in a setting built to keep children at ease.",
-    includes: ["Well-baby checks", "Immunisation schedule", "Childhood illness", "Parent guidance"],
-    tone: "bone",
-  },
-  {
-    slug: "womens-health",
-    name: "Women's Health",
-    short: "Gynaecology and care across every stage of life.",
-    body: "Consultations for menstrual health, pregnancy planning, menopause and screening, handled with privacy and time to talk.",
-    includes: ["Gynaecology consults", "Antenatal care", "Screening", "Menopause care"],
-    tone: "mint",
-  },
-  {
-    slug: "diagnostics",
-    name: "Diagnostics",
-    short: "Lab tests and imaging, reported back to your doctor.",
-    body: "Sample collection and routine tests on site, with results going straight to the doctor who ordered them so nothing falls between the cracks.",
-    includes: ["Blood tests", "Urine tests", "ECG", "Imaging referrals"],
-    tone: "ink",
-  },
-  {
-    slug: "preventive-health",
-    name: "Preventive Health",
-    short: "Health checks built around your age and history.",
-    body: "Structured check-ups that look for problems early, with a plain-language report and a plan you can follow.",
-    includes: ["Annual health checks", "Lifestyle counselling", "Screening packages", "Follow-up review"],
-    tone: "bone",
+    slug: "prof-hemant-sheth",
+    name: "Prof. Hemant Sheth",
+    tagline: "Robotic & laparoscopic surgeon website",
+    kind: "client",
+    status: "Launched",
+    client: "Consultant Upper GI, Laparoscopic & Robotic Surgeon, London & Hertfordshire, UK",
+    summary:
+      "A fast, search-optimised practice website for a UK consultant surgeon: treatment information, clinic finder and consultation booking.",
+    metrics: [
+      { value: "15+", label: "Treatment pages" },
+      { value: "4", label: "Specialities" },
+    ],
+    tags: ["Healthcare website", "Consultation booking", "Technical SEO", "Content verification"],
+    liveUrl: "https://londonroboticsurgeon.co.uk/",
+    screenshotPending: true, // TODO: add /media/work/prof-hemant-sheth.jpg once the client approves
+    source: "Website_threadd projects.ts → londonroboticsurgeon.co.uk (project case study)",
   },
 ];
 
-// PLACEHOLDER: replace with the real team. Names and roles only, no invented credentials.
-export const DOCTORS = [
-  { name: "Dr. Name Surname", role: "General Physician", focus: "General Medicine" },
-  { name: "Dr. Name Surname", role: "Cardiologist", focus: "Cardiology" },
-  { name: "Dr. Name Surname", role: "Paediatrician", focus: "Paediatrics" },
-  { name: "Dr. Name Surname", role: "Gynaecologist", focus: "Women's Health" },
-];
-
-// How a visit works. Process, not claims, so it is safe to keep as written.
-export const JOURNEY = [
-  { n: "01", title: "Reach out", body: "Call, or send an enquiry. Tell us what is going on and when suits you." },
-  { n: "02", title: "We confirm", body: "The front desk calls back to confirm a time with the right doctor." },
-  { n: "03", title: "Your visit", body: "An unhurried consultation. Tests, if needed, are arranged the same day where possible." },
-  { n: "04", title: "Follow-up", body: "Results and next steps go back to the same doctor, so your care stays in one place." },
-];
-
-// PLACEHOLDER: short values / principles. Edit to match the clinic's voice.
-export const PRINCIPLES = [
-  { title: "One record", body: "Every visit, test and note lives in one place, read by everyone treating you." },
-  { title: "Time to talk", body: "Appointments are scheduled so the doctor can listen first." },
-  { title: "Plain language", body: "You leave knowing what was found, what it means and what happens next." },
-];
+/** The hero film. AI-generated, so it is always captioned as such. */
+export const HERO_FILM = {
+  poster: { webp: "/media/film/hero-poster.webp", jpg: "/media/film/hero-poster.jpg" },
+  // H.264 for Safari and Chrome; VP9 WebM where H.264 is unavailable (e.g. open-source Chromium).
+  sources: {
+    large: { mp4: "/media/film/hero-1080.mp4", webm: "/media/film/hero-1080.webm" },
+    small: { mp4: "/media/film/hero-720.mp4", webm: "/media/film/hero-720.webm" },
+  },
+  caption: "Concept film · AI-generated (Veo 3.1) · illustrative, not a clinical diagram",
+  alt: "A slow camera move through a calm consultation room towards a monitor showing a heart illustration.",
+};
 
 export const NAV = [
-  { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
-  { href: "/doctors", label: "Doctors" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/#work", label: "Work" },
+  { href: "/contact", label: "Start a project" },
 ];
+
+export const ENQUIRY = {
+  needs: ["Practice website", "Patient film", "AI presenter", "Social clips", "Subtitles & dubbing", "Not sure yet"],
+  budgets: ["Under £5k", "£5k–£15k", "£15k–£35k", "£35k+", "Not sure yet"], // source: contact form
+};

@@ -1,4 +1,4 @@
-# Clinic website
+# Tech Cogniverse: healthcare media studio site
 
 Next.js 16 (App Router, TypeScript), GSAP + Lenis for motion. No CMS, no database.
 
@@ -9,27 +9,29 @@ npm run build      # production build (also typechecks)
 npm run start
 ```
 
-## Before launch: replace the placeholders
+## Content and assets
 
-Every fact on the site lives in **`src/content/site.ts`**. Anything marked `PLACEHOLDER`
-(clinic name, phone, address, hours, services, doctors) must be replaced with real details.
-Do not invent doctors, credentials, patient numbers or reviews.
+Every fact lives in **`src/content/site.ts`**, copied with its source from Tech Cogniverse's own
+content. Do not add a client, metric or testimonial without a source. Generated media and its
+approval status are tracked in **`assets-src/ASSETS.md`**; raw masters stay in the gitignored
+`assets-src/gen/`. Anything AI-generated is captioned as such on the page.
 
 ## Enquiry form
 
 `/api/enquiry` delivers through the provider named in `.env` (see `.env.example`):
 `CONTACT_PROVIDER=resend` (email) or `webhook` (Make, Zapier, Slack…). Unconfigured, it
 returns 503 and the form tells people to call. It never shows success without a real 2xx.
-The form deliberately asks for no medical history.
+It is a business enquiry and asks for no patient information.
 
 ## Structure
 
 - `src/content/site.ts`: all content
-- `src/app/`: pages (`/`, `/services`, `/services/[slug]`, `/doctors`, `/about`, `/contact`)
+- `src/app/`: pages (`/`, `/contact`); the rest of the storyboard is still to be built
+- `src/components/FilmHero.tsx`: scene 1, a framed film that opens to full screen on scroll
+- `src/components/WorkCard.tsx`: scene 2, the lead case study card
 - `src/components/Motion.tsx`: smooth scroll, curtain page transitions, scroll reveals
-- `src/components/Pulse.tsx`: the hero heartbeat that follows the cursor
 - `src/components/Header.tsx`: header + full-screen circular-reveal menu
 - `src/app/globals.css`: tokens (bone, ink, mint), type, every component
 
-Reduced motion is respected throughout (no intro, no smooth scroll, static pulse).
+Reduced motion is respected throughout (no intro, no smooth scroll, no autoplay, static hero).
 Without JavaScript the site shows its finished state.

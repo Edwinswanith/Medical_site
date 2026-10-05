@@ -3,28 +3,21 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
-import { CLINIC, NAV, SERVICES } from "@/content/site";
+import { BRAND, NAV } from "@/content/site";
 import { lockScroll, prefersReducedMotion } from "@/lib/motion";
 import { TLink } from "./TLink";
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const panel = useRef<HTMLDivElement>(null);
   const button = useRef<HTMLButtonElement>(null);
   const tl = useRef<gsap.core.Timeline | null>(null);
 
-  // Hide on scroll down, return on scroll up.
+  // The header stays put so "Start a project" is always one click away; it only gains a backdrop once scrolled.
   useEffect(() => {
-    let last = window.scrollY;
-    const on = () => {
-      const y = window.scrollY;
-      setScrolled(y > 40);
-      if (Math.abs(y - last) > 6) setHidden(y > last && y > 240);
-      last = y;
-    };
+    const on = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
   }, []);
@@ -44,6 +37,7 @@ export function Header() {
       tl.current = gsap
         .timeline()
         .set(p, { visibility: "visible" })
+        .call(() => p.querySelector<HTMLElement>("a")?.focus({ preventScroll: true }))
         .fromTo(
           p,
           { clipPath: `circle(0px at ${cx}px ${cy}px)` },
@@ -55,13 +49,16 @@ export function Header() {
           { yPercent: 0, opacity: 1, duration: reduce ? 0 : 0.8, stagger: 0.05, ease: "expo.out" },
           "-=0.45",
         );
-      p.querySelector<HTMLElement>("a")?.focus({ preventScroll: true });
     } else if (p.style.visibility === "visible") {
       tl.current = gsap
         .timeline({
           onComplete: () => {
             gsap.set(p, { visibility: "hidden" });
             lockScroll(false);
+            // Return focus to the trigger, unless focus already moved on (e.g. a route change).
+            if (!document.activeElement || document.activeElement === document.body || p.contains(document.activeElement)) {
+              b.focus({ preventScroll: true });
+            }
           },
         })
         .to(p, { clipPath: `circle(0px at ${cx}px ${cy}px)`, duration: reduce ? 0 : 0.7, ease: "expo.inOut" });
@@ -78,21 +75,21 @@ export function Header() {
 
   return (
     <>
-      <header className="header" data-hidden={hidden && !open} data-scrolled={scrolled} data-open={open}>
-        <TLink href="/" className="header__brand" aria-label={`${CLINIC.fullName} home`}>
+      <header className="header" data-scrolled={scrolled} data-open={open}>
+        <TLink href="/" className="header__brand" aria-label={`${BRAND.name} home`}>
           <Mark />
-          <span>{CLINIC.name}</span>
+          <span>{BRAND.name}</span>
         </TLink>
         <nav className="header__nav" aria-label="Primary">
-          {NAV.slice(1).map((n) => (
-            <TLink key={n.href} href={n.href} data-active={pathname.startsWith(n.href)}>
+          {NAV.filter((n) => n.href !== "/contact").map((n) => (
+            <TLink key={n.href} href={n.href} data-active={pathname === n.href}>
               {n.label}
             </TLink>
           ))}
         </nav>
         <div className="header__actions">
           <TLink href="/contact" className="pill pill--mint">
-            Book a visit
+            Start a project
           </TLink>
           <button
             ref={button}
@@ -110,7 +107,7 @@ export function Header() {
 
       <div id="menu" ref={panel} className="menu" role="dialog" aria-modal="true" aria-label="Menu" inert={!open}>
         <nav className="menu__links">
-          {NAV.map((n, i) => (
+          {[{ href: "/", label: "Home" }, ...NAV].map((n, i) => (
             <TLink key={n.href} href={n.href} className="menu__link" data-active={pathname === n.href}>
               <span className="menu__link-inner">
                 <span className="menu__num">0{i + 1}</span>
@@ -121,28 +118,15 @@ export function Header() {
         </nav>
         <aside className="menu__aside">
           <div>
-            <p className="label">Specialities</p>
-            <ul>
-              {SERVICES.map((s) => (
-                <li key={s.slug}>
-                  <TLink href={`/services/${s.slug}`}>{s.name}</TLink>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <p className="label">Call the desk</p>
-            <a className="menu__phone" href={`tel:${CLINIC.phone.replace(/\s/g, "")}`}>
-              {CLINIC.phone}
+            <p className="label">Email</p>
+            <a className="menu__phone" href={`mailto:${BRAND.email}`}>
+              {BRAND.email}
             </a>
           </div>
           <div>
-            <p className="label">Hours</p>
-            {CLINIC.hours.map((h) => (
-              <p key={h.days}>
-                {h.days} <span className="muted">{h.time}</span>
-              </p>
-            ))}
+            <p className="label">Call</p>
+            <a href={`tel:${BRAND.phone.tel}`}>{BRAND.phone.display}</a>
+            <p className="muted">{BRAND.responseTime}</p>
           </div>
         </aside>
       </div>
@@ -154,7 +138,7 @@ export function Mark() {
   return (
     <svg className="mark" viewBox="0 0 32 32" aria-hidden>
       <rect x="1" y="1" width="30" height="30" rx="9" />
-      <path d="M5 17h6l2.5-6 4 11 2.5-5H27" />
+      <path d="M13 10.5v11l9-5.5z" />
     </svg>
   );
 }

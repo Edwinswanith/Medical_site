@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Instrument_Serif, JetBrains_Mono } from "next/font/google";
-import { CLINIC } from "@/content/site";
+import { BRAND } from "@/content/site";
 import { Motion } from "@/components/Motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -14,14 +14,15 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--f-mono" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
-  title: { default: `${CLINIC.fullName}: ${CLINIC.tagline}`, template: `%s · ${CLINIC.fullName}` },
-  description: CLINIC.intro,
+  title: { default: `${BRAND.name}: ${BRAND.offer}`, template: `%s · ${BRAND.name}` },
+  description: BRAND.intro,
 };
 
 export const viewport: Viewport = { themeColor: "#0b2422" };
 
 // Runs before paint: marks JS as available and skips the intro for return visits.
-const boot = `(function(){var d=document.documentElement;d.dataset.js="";try{if(sessionStorage.getItem("seen-intro")||matchMedia("(prefers-reduced-motion: reduce)").matches){d.dataset.ready="";d.dataset.introDone=""}}catch(e){}})()`;
+// Safety net: if the app bundle never runs, reveal everything after 5 s anyway.
+const boot = `(function(){var d=document.documentElement,o=function(){d.dataset.ready="";d.dataset.introDone=""};d.dataset.js="";try{if(sessionStorage.getItem("seen-intro")||matchMedia("(prefers-reduced-motion: reduce)").matches)o()}catch(e){}setTimeout(o,5000)})()`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -34,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <Motion>
-          <Preloader name={CLINIC.name} />
+          <Preloader name={BRAND.short} />
           <Header />
           <main id="main">{children}</main>
           <Footer />

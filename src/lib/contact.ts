@@ -2,10 +2,11 @@ import "server-only";
 
 export type Enquiry = {
   name: string;
-  phone: string;
+  org: string;
   email: string;
-  service: string;
-  when: string;
+  phone: string;
+  need: string;
+  budget: string;
   message: string;
 };
 
@@ -14,10 +15,11 @@ export type DeliveryResult = { ok: true } | { ok: false; reason: "unconfigured" 
 const text = (e: Enquiry) =>
   [
     `Name: ${e.name}`,
-    `Phone: ${e.phone}`,
-    `Email: ${e.email || "(none)"}`,
-    `Service: ${e.service || "(not chosen)"}`,
-    `Preferred time: ${e.when || "(any)"}`,
+    `Organisation: ${e.org || "(none)"}`,
+    `Email: ${e.email}`,
+    `Phone: ${e.phone || "(none)"}`,
+    `Need: ${e.need || "(not chosen)"}`,
+    `Budget: ${e.budget || "(not chosen)"}`,
     "",
     e.message || "(no message)",
   ].join("\n");
@@ -39,8 +41,8 @@ export async function deliver(e: Enquiry): Promise<DeliveryResult> {
         body: JSON.stringify({
           from: CONTACT_FROM,
           to: CONTACT_TO.split(",").map((s) => s.trim()),
-          reply_to: e.email || undefined,
-          subject: `Appointment enquiry: ${e.name}`,
+          reply_to: e.email,
+          subject: `Project enquiry: ${e.name}${e.org ? ` (${e.org})` : ""}`,
           text: text(e),
         }),
       });

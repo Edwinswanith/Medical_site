@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { CLINIC, SERVICES } from "@/content/site";
+import { BRAND, ENQUIRY } from "@/content/site";
 
 type State = { kind: "idle" } | { kind: "sending" } | { kind: "sent" } | { kind: "error"; msg: string };
 
-export function EnquiryForm({ preset = "" }: { preset?: string }) {
+/** Business enquiry. Asks for nothing about patients. */
+export function EnquiryForm() {
   const [state, setState] = useState<State>({ kind: "idle" });
 
   const submit = async (ev: FormEvent<HTMLFormElement>) => {
@@ -22,14 +23,11 @@ export function EnquiryForm({ preset = "" }: { preset?: string }) {
       if (res.ok) return setState({ kind: "sent" });
       const data = await res.json().catch(() => ({}));
       if (res.status === 503 || res.status === 502) {
-        return setState({
-          kind: "error",
-          msg: `We couldn't send this online right now. Please call the desk on ${CLINIC.phone}.`,
-        });
+        return setState({ kind: "error", msg: `We couldn't send this online right now. Please email ${BRAND.email}.` });
       }
       setState({ kind: "error", msg: data.error ?? "Something went wrong. Please try again." });
     } catch {
-      setState({ kind: "error", msg: `No connection. Please call the desk on ${CLINIC.phone}.` });
+      setState({ kind: "error", msg: `No connection. Please email ${BRAND.email}.` });
     }
   };
 
@@ -37,44 +35,35 @@ export function EnquiryForm({ preset = "" }: { preset?: string }) {
     return (
       <div className="form__done" role="status">
         <p className="display-m">
-          Thank you. <em>We&apos;ll call you back.</em>
+          Thank you. <em>We&apos;ll be in touch.</em>
         </p>
-        <p className="muted">
-          The front desk will ring to confirm a time. If it&apos;s urgent, call {CLINIC.phone}.
-        </p>
+        <p className="muted">{BRAND.responseTime}.</p>
       </div>
     );
   }
 
   return (
-    <form className="form" onSubmit={submit} noValidate={false}>
+    <form className="form" onSubmit={submit}>
       <div className="form__row">
-        <Field label="Full name" name="name" required autoComplete="name" />
-        <Field label="Phone" name="phone" type="tel" required autoComplete="tel" />
+        <Field label="Your name" name="name" required autoComplete="name" />
+        <Field label="Practice or organisation" name="org" autoComplete="organization" />
       </div>
       <div className="form__row">
-        <Field label="Email (optional)" name="email" type="email" autoComplete="email" />
-        <label className="field">
-          <span>Speciality</span>
-          <select name="service" defaultValue={preset}>
-            <option value="">Not sure yet</option>
-            {SERVICES.map((s) => (
-              <option key={s.slug} value={s.name}>
-                {s.name}
-              </option>
-            ))}
-          </select>
-        </label>
+        <Field label="Email" name="email" type="email" required autoComplete="email" />
+        <Field label="Phone (optional)" name="phone" type="tel" autoComplete="tel" />
       </div>
-      <Field label="Preferred day or time" name="when" placeholder="e.g. Weekday mornings" />
+      <div className="form__row">
+        <Select label="What do you need?" name="need" options={ENQUIRY.needs} />
+        <Select label="Budget" name="budget" options={ENQUIRY.budgets} />
+      </div>
       <label className="field">
-        <span>Anything we should know to book you in?</span>
-        <textarea name="message" rows={4} maxLength={1500} placeholder="Keep it brief. Please don't share medical history here; your doctor will ask in person." />
+        <span>Anything else?</span>
+        <textarea name="message" rows={4} maxLength={2000} placeholder="Your specialty, timelines, what you have today. Please don't include any patient information." />
       </label>
       <input className="hp" name="company" tabIndex={-1} autoComplete="off" aria-hidden />
       <label className="check">
         <input type="checkbox" name="consent" required />
-        <span>I agree to be contacted about this enquiry by phone or email.</span>
+        <span>I agree to be contacted about this enquiry.</span>
       </label>
       <div className="form__foot">
         <button className="blob blob--ink" disabled={state.kind === "sending"}>
@@ -88,25 +77,29 @@ export function EnquiryForm({ preset = "" }: { preset?: string }) {
   );
 }
 
-function Field({
-  label,
-  name,
-  type = "text",
-  required,
-  autoComplete,
-  placeholder,
-}: {
-  label: string;
-  name: string;
-  type?: string;
-  required?: boolean;
-  autoComplete?: string;
-  placeholder?: string;
-}) {
+function Field({ label, name, type = "text", required, autoComplete }: { label: string; name: string; type?: string; required?: boolean; autoComplete?: string }) {
   return (
     <label className="field">
       <span>{label}</span>
-      <input name={name} type={type} required={required} autoComplete={autoComplete} placeholder={placeholder} />
+      <input name={name} type={type} required={required} autoComplete={autoComplete} />
+    </label>
+  );
+}
+
+function Select({ label, name, options }: { label: string; name: string; options: readonly string[] }) {
+  return (
+    <label className="field">
+      <span>{label}</span>
+      <select name={name} defaultValue="">
+        <option value="" disabled>
+          Choose one
+        </option>
+        {options.map((o) => (
+          <option key={o} value={o}>
+            {o}
+          </option>
+        ))}
+      </select>
     </label>
   );
 }

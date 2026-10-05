@@ -10,6 +10,7 @@ export function TLink({ href, onClick, ...rest }: ComponentProps<typeof Link> & 
   const handle = (e: MouseEvent<HTMLAnchorElement>) => {
     onClick?.(e);
     if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    if (href.startsWith("/#") && window.location.pathname === "/") return; // same-page anchor: let it scroll
     e.preventDefault();
     navigate(href);
   };

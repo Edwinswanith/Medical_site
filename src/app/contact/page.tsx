@@ -1,45 +1,31 @@
 import type { Metadata } from "next";
-import { CLINIC } from "@/content/site";
-import { PageHero } from "@/components/PageHero";
+import { BRAND } from "@/content/site";
 import { EnquiryForm } from "@/components/EnquiryForm";
+import { Split } from "@/components/Split";
 
-export const metadata: Metadata = { title: "Book a visit" };
+export const metadata: Metadata = { title: "Start a project" };
 
 export default function ContactPage() {
-  const tel = CLINIC.phone.replace(/\s/g, "");
   return (
     <>
-      <PageHero
-        label="Book a visit"
-        title="Tell us when suits you"
-        em="suits you"
-        intro="Send an enquiry and the front desk will call back to confirm a time. Prefer to talk now? Call us."
-      />
+      <section className="phero wrap">
+        <p className="label">Start a project</p>
+        <Split as="h1" className="display-xl" text="Tell us what your practice needs" em="your practice needs" />
+        <p className="phero__intro lede" data-reveal>
+          A few details is enough. We reply with questions or a short proposal, never an automated sequence.
+        </p>
+      </section>
       <section className="wrap section book book--page">
         <aside className="book__aside">
           <div>
-            <p className="label">Call the desk</p>
-            <a className="display-s ulink" href={`tel:${tel}`}>{CLINIC.phone}</a>
-          </div>
-          <div>
             <p className="label">Email</p>
-            <a className="ulink" href={`mailto:${CLINIC.email}`}>{CLINIC.email}</a>
+            <a className="display-s ulink" href={`mailto:${BRAND.email}`}>{BRAND.email}</a>
           </div>
           <div>
-            <p className="label">Visit</p>
-            {CLINIC.address.map((l) => <p key={l}>{l}</p>)}
+            <p className="label">Call</p>
+            <a className="ulink" href={`tel:${BRAND.phone.tel}`}>{BRAND.phone.display}</a>
           </div>
-          <div>
-            <p className="label">Hours</p>
-            <dl className="hours">
-              {CLINIC.hours.map((h) => (
-                <div key={h.days}>
-                  <dt>{h.days}</dt>
-                  <dd>{h.time}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
+          <p className="muted">{BRAND.responseTime}</p>
         </aside>
         <EnquiryForm />
       </section>
