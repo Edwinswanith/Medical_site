@@ -7,7 +7,7 @@ import { PROCESS } from "@/content/site";
 export function Process() {
   const last = PROCESS.steps.length - 1;
   return (
-    <section id="process" className="prc" data-tone="dark" data-chapter="Process" aria-labelledby="prc-h">
+    <section id="process" className="prc" data-chapter="Process" aria-labelledby="prc-h">
       <div className="prc__head">
         <p className="label">How it works</p>
         <h2 id="prc-h" className="big" data-reveal>

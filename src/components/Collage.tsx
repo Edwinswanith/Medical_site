@@ -7,7 +7,7 @@ import { COLLAGE } from "@/content/site";
  */
 export function Collage() {
   return (
-    <section className="col" data-tone="dark" aria-label="Behind every page">
+    <section className="col" aria-label="Behind every page">
       <div className="col__field" aria-hidden>
         {COLLAGE.items.map((it, i) => (
           <figure

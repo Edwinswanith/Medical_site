@@ -56,7 +56,7 @@ export function Numbers() {
   }, []);
 
   return (
-    <section ref={root} className="num" data-tone="dark" aria-label="Film library in numbers">
+    <section ref={root} className="num" aria-label="Film library in numbers">
       <div className="num__stage">
         {NUMBERS.map((x, i) => (
           <div key={x.value} className="num__layer" style={{ ["--k" as string]: i }}>

@@ -10,7 +10,7 @@ export function FilmGrid() {
   const cols = [0, 1, 2, 3].map((c) => TILES.filter((_, i) => i % 4 === c));
   const speeds = [0.08, -0.14, 0.18, -0.06];
   return (
-    <section id="films" className="fg" data-tone="dark" data-chapter="Films" aria-labelledby="fg-h">
+    <section id="films" className="fg" data-chapter="Films" aria-labelledby="fg-h">
       <div className="fg__head">
         <h2 id="fg-h" className="big" data-reveal>
           <span className="line">

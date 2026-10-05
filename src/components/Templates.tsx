@@ -41,7 +41,7 @@ export function Templates() {
   }, []);
 
   return (
-    <section id="websites" className="tpl" data-tone="dark" data-chapter="Websites" aria-labelledby="tpl-h">
+    <section id="websites" className="tpl" data-chapter="Websites" aria-labelledby="tpl-h">
       <div className="tpl__head">
         <p className="label">Websites</p>
         <h2 id="tpl-h" className="big" data-reveal>

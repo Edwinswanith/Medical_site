@@ -6,7 +6,7 @@ import { CASE } from "@/content/site";
  */
 export function Case() {
   return (
-    <section id="work" className="case" data-tone="dark" data-chapter="Work" aria-labelledby="case-h">
+    <section id="work" className="case" data-chapter="Work" aria-labelledby="case-h">
       <p className="label">Built, launched, in use</p>
       <h2 id="case-h" className="case__name" data-reveal>
         <span className="line">
