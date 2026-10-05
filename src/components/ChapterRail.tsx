@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { CHAPTERS } from "@/content/site";
-import { getLenis } from "@/lib/motion";
+import { getLenis, prefersReducedMotion } from "@/lib/motion";
 
 /**
  * A quiet chapter index on the right edge (wide screens only): where you are,
@@ -45,7 +45,7 @@ export function ChapterRail() {
     if (!el) return;
     const l = getLenis();
     if (l) l.scrollTo(el, { duration: 1.4 });
-    else el.scrollIntoView({ behavior: "smooth" });
+    else el.scrollIntoView({ behavior: prefersReducedMotion() ? "instant" : "smooth" });
   };
 
   return (

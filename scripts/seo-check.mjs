@@ -1,63 +1,96 @@
-// SEO checks against a running production build: robots, sitemap, titles, descriptions, canonicals,
-// Open Graph, JSON-LD, headings, alt attributes, internal links, 404. Usage: npm run seo:check -- <server> <canonical origin>
-// e.g. NEXT_PUBLIC_SITE_URL=https://www.example.co.uk npm run build && npm run start, then npm run seo:check -- http://localhost:3000 https://www.example.co.uk
-const [base = "http://localhost:3000", origin = process.env.NEXT_PUBLIC_SITE_URL] = process.argv.slice(2);
-if (!origin) throw new Error("Pass the canonical origin, or set NEXT_PUBLIC_SITE_URL.");
-const res = []; const ok = (name, pass, detail = '') => res.push([pass ? 'PASS' : 'FAIL', name, detail]);
-const get = async (p) => { const r = await fetch(base + p, { redirect: 'manual' }); return { status: r.status, type: r.headers.get('content-type'), body: await r.text() }; };
-const attr = (h, re) => (h.match(re) || [])[1];
-const strip = (s) => s.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+import { load } from 'cheerio';
+import { readdir } from 'node:fs/promises';
+import { join } from 'node:path';
+import { get as httpGet } from 'node:http';
+import { get as httpsGet } from 'node:https';
+import { inspectPage, hasFragment } from './lib/seo-audit.mjs';
 
-const robots = await get('/robots.txt');
-ok('robots.txt 200 text/plain', robots.status === 200 && /text\/plain/.test(robots.type));
-ok('robots allows all, blocks /api/ only', /User-Agent: \*\nAllow: \/\nDisallow: \/api\//i.test(robots.body), JSON.stringify(robots.body));
-ok('robots points to absolute sitemap', robots.body.includes(`Sitemap: ${origin}/sitemap.xml`));
-
-const sm = await get('/sitemap.xml');
-const locs = [...sm.body.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => m[1]);
-ok('sitemap.xml 200 xml', sm.status === 200 && /xml/.test(sm.type), `${locs.length} urls`);
-ok('sitemap urls absolute on origin', locs.length > 0 && locs.every((u) => u.startsWith(origin)), locs.join(' '));
-
-const titles = new Set(), descs = new Set(), ids = {};
-for (const loc of locs) {
-  const path = loc.slice(origin.length) || '/';
-  const p = await get(path); const h = p.body;
-  ok(`${path} 200`, p.status === 200, String(p.status));
-  const title = strip(attr(h, /<title>(.*?)<\/title>/s) || ''); const desc = attr(h, /<meta name="description" content="([^"]*)"/);
-  const canon = attr(h, /<link rel="canonical" href="([^"]*)"/);
-  ok(`${path} title unique, 30-65 chars`, title && !titles.has(title) && title.length >= 30 && title.length <= 65, `${title.length}: ${title}`); titles.add(title);
-  ok(`${path} description unique, 70-170 chars`, desc && !descs.has(desc) && desc.length >= 70 && desc.length <= 170, `${desc?.length}`); descs.add(desc);
-  ok(`${path} canonical self, absolute`, canon === loc || canon === loc.replace(/\/$/, ''), canon);
-  ok(`${path} not noindexed`, !/<meta name="robots" content="[^"]*noindex/.test(h));
-  for (const k of ['og:title', 'og:description', 'og:url', 'og:image', 'og:site_name', 'og:locale']) ok(`${path} ${k}`, new RegExp(`property="${k}"`).test(h), attr(h, new RegExp(`property="${k}" content="([^"]*)"`)));
-  ok(`${path} og:image absolute`, (attr(h, /property="og:image" content="([^"]*)"/) || '').startsWith(origin));
-  ok(`${path} twitter card`, /name="twitter:card" content="summary_large_image"/.test(h));
-  ok(`${path} html lang en-GB`, /<html lang="en-GB"/.test(h));
-  // JSON-LD: parses, ids on the origin, every referenced @id defined somewhere on the page
-  const blocks = [...h.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map((m) => m[1]);
-  let parsed = []; try { parsed = blocks.map((b) => JSON.parse(b)); ok(`${path} JSON-LD parses`, blocks.length > 0, `${blocks.length} blocks`); } catch (e) { ok(`${path} JSON-LD parses`, false, String(e)); }
-  const defined = new Set(), refs = new Set(); const walk = (n) => { if (Array.isArray(n)) return n.forEach(walk); if (n && typeof n === 'object') { if (n['@id']) (Object.keys(n).length > 1 ? defined : refs).add(n['@id']); Object.values(n).forEach(walk); } };
-  walk(parsed);
-  ok(`${path} JSON-LD @ids resolve`, [...refs].every((r) => defined.has(r)), [...refs].filter((r) => !defined.has(r)).join(' '));
-  ok(`${path} JSON-LD ids on origin`, [...defined].every((d) => d.startsWith(origin)));
-  for (const d of defined) (ids[d] ||= []).push(path);
-  // Headings: one h1, no skipped levels, no words glued together across lines
-  const hs = [...h.matchAll(/<h([1-6])[^>]*>(.*?)<\/h\1>/gs)].map((m) => [+m[1], strip(m[2].replace(/<svg.*?<\/svg>/gs, ''))]);
-  ok(`${path} exactly one h1`, hs.filter((x) => x[0] === 1).length === 1, hs.find((x) => x[0] === 1)?.[1]);
-  const skips = hs.filter((x, i) => i && x[0] > hs[i - 1][0] + 1); ok(`${path} no skipped heading levels`, !skips.length, skips.map((s) => s[1]).join(' | '));
-  const glued = hs.filter(([, t]) => /[a-z’.,][A-Z]/.test(t) || /(practice’smedia|thatget|plainEnglish|dothe|aboutyour|website\.Every|Sheth,robotic)/.test(t)); ok(`${path} heading text has word breaks`, !glued.length, glued.map((g) => g[1]).join(' | '));
-  // Images: every non-decorative image has alt; width/height reserved
-  const imgs = [...h.matchAll(/<img[^>]*>/g)].map((m) => m[0]);
-  ok(`${path} every img has an alt attribute`, imgs.every((i) => /alt="/.test(i)), `${imgs.length} imgs`);
-  // Internal links resolve
-  const links = [...new Set([...h.matchAll(/href="(\/[^"#]*)/g)].map((m) => m[1]))].filter((l) => !l.startsWith('/_next'));
-  for (const l of links) { const r = await fetch(base + (l || '/'), { redirect: 'manual' }); ok(`${path} link ${l || '/'} resolves`, r.status === 200, String(r.status)); }
-  // Core content is in the server HTML (no JS needed)
-  const words = strip(h.replace(/<(script|style)[^>]*>.*?<\/\1>/gs, '')).split(' ').length; ok(`${path} server HTML has real text`, words > 100, `${words} words`);
-}
-const nf = await get('/this-does-not-exist'); ok('unknown URL returns 404', nf.status === 404, String(nf.status));
-ok('404 page is noindex', /<meta name="robots" content="[^"]*noindex/.test(nf.body));
-for (const p of ['/favicon.ico', '/icon.png', '/apple-icon.png', '/opengraph-image', '/logo.png']) { const r = await fetch(base + p); ok(`${p} 200`, r.status === 200, r.headers.get('content-type')); }
-ok('Organization @id identical across pages', Object.entries(ids).filter(([k]) => k.endsWith('#organization')).every(([, v]) => v.length === locs.length));
-for (const [s, n, d] of res) console.log(s.padEnd(5), n, d ? `(${String(d).slice(0, 110)})` : '');
-console.log(`\n${res.filter((r) => r[0] === 'PASS').length} pass, ${res.filter((r) => r[0] === 'FAIL').length} fail`);
+const [base = 'http://localhost:3100', origin = 'https://www.cogniversestudio.com'] = process.argv.slice(2);
+const canonicalOrigin = new URL(origin).origin;
+const results = [], cache = new Map();
+const check = (name, pass, detail = '') => results.push({ name, pass: !!pass, detail });
+const get = path => {
+  if (!cache.has(path)) cache.set(path, (async () => {
+    const response = await fetch(new URL(path, base), { redirect: 'manual', signal: AbortSignal.timeout(20000) });
+    return { status: response.status, headers: response.headers, body: await response.text() };
+  })());
+  return cache.get(path);
+};
+const headersForHost = host => new Promise((resolve, reject) => {
+  const url = new URL('/', base);
+  // Fetch normalises Host; native HTTP is needed to test host-based Next headers.
+  const request = (url.protocol === 'https:' ? httpsGet : httpGet)(url, { headers: { Host: host } }, response => { response.resume(); resolve(response.headers); });
+  request.on('error', reject); request.setTimeout(20000, () => request.destroy(new Error('Host header check timed out')));
+});
+const sourceRoutes = async (directory, parts = []) => {
+  const paths = [];
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    if (entry.isDirectory() && entry.name !== 'api') paths.push(...await sourceRoutes(join(directory, entry.name), [...parts, entry.name]));
+    else if (entry.name === 'page.tsx') paths.push('/' + parts.filter(part => !part.startsWith('(')).join('/'));
+  }
+  return paths;
+};
+try {
+  const robots = await get('/robots.txt');
+  check('robots: 200 text/plain', robots.status === 200 && robots.headers.get('content-type')?.includes('text/plain'));
+  check('public crawlers allowed; API excluded', /User-Agent: \*/i.test(robots.body) && /^Allow: \/$/m.test(robots.body) && /^Disallow: \/api\/$/m.test(robots.body) && !/^Disallow: \/$/m.test(robots.body));
+  check('robots canonical sitemap', robots.body.includes(`Sitemap: ${canonicalOrigin}/sitemap.xml`));
+  const sitemap = await get('/sitemap.xml');
+  const xml = load(sitemap.body, { xml: true });
+  const locations = xml('loc').toArray().map(el => xml(el).text());
+  check('sitemap 200 XML', sitemap.status === 200 && sitemap.headers.get('content-type')?.includes('xml') && xml('urlset').attr('xmlns') === 'http://www.sitemaps.org/schemas/sitemap/0.9');
+  check('sitemap URLs canonical and unique', locations.length > 0 && new Set(locations).size === locations.length && locations.every(loc => { const url = new URL(loc); return url.origin === canonicalOrigin && !url.search && !url.hash && (url.pathname === '/' || !url.pathname.endsWith('/')); }));
+  const paths = locations.map(loc => new URL(loc).pathname);
+  const inventory = await sourceRoutes('src/app');
+  check('sitemap covers all public routes', inventory.every(path => paths.includes(path)) && paths.every(path => inventory.includes(path)), `${inventory.length} source routes, ${paths.length} sitemap URLs`);
+  const titles = new Set(), descriptions = new Set(), inbound = new Set(['/']), orgIds = new Set(), external = new Set();
+  for (const loc of locations) {
+    const path = new URL(loc).pathname;
+    const page = await get(path);
+    check(`${path}: HTTP 200 HTML`, page.status === 200 && page.headers.get('content-type')?.includes('text/html'));
+    const audit = inspectPage(page.body, loc), $ = audit.$;
+    audit.issues.forEach(issue => check(`${path}: ${issue.name}`, issue.pass, issue.detail));
+    check(`${path}: unique title`, !titles.has(audit.title)); titles.add(audit.title);
+    check(`${path}: unique description`, !descriptions.has(audit.description)); descriptions.add(audit.description);
+    orgIds.add(audit.organizationId);
+    for (const link of $('a[href]').toArray()) {
+      const href = $(link).attr('href');
+      const target = new URL(href, loc);
+      if (!['http:', 'https:'].includes(target.protocol)) continue;
+      if (target.origin !== canonicalOrigin && target.origin !== new URL(base).origin) { external.add(target.href); continue; }
+      inbound.add(target.pathname);
+      const response = await get(target.pathname + target.search);
+      check(`${path}: link ${href}`, response.status === 200, `HTTP ${response.status}`);
+      if (target.hash) check(`${path}: fragment ${href}`, hasFragment(response.body, target.hash.slice(1)));
+    }
+    for (const image of $('img').toArray()) {
+      const src = $(image).attr('src');
+      if (!src || src.startsWith('data:')) continue;
+      const response = await get(src);
+      check(`${path}: image ${src}`, response.status === 200 && response.headers.get('content-type')?.startsWith('image/'));
+    }
+    const query = await get(path + '?utm_source=seo-check');
+    check(`${path}: query uses clean canonical`, load(query.body)('link[rel="canonical"]').attr('href') === loc);
+    if (path !== '/') {
+      const slash = await get(path + '/');
+      check(`${path}: trailing slash redirects once`, [307, 308].includes(slash.status) && new URL(slash.headers.get('location'), base).pathname === path);
+    }
+  }
+  check('no orphan public pages', paths.every(path => inbound.has(path)));
+  check('one stable organization across pages', orgIds.size === 1 && orgIds.has(`${canonicalOrigin}/#organization`));
+  for (const url of external) {
+    const response = await fetch(url, { redirect: 'follow', signal: AbortSignal.timeout(20000) });
+    check(`external link ${url}`, response.ok, `HTTP ${response.status}`);
+  }
+  const missing = await get('/this-does-not-exist');
+  check('unknown URL: 404 and noindex', missing.status === 404 && load(missing.body)('meta[name="robots"]').attr('content')?.includes('noindex'));
+  for (const path of ['/favicon.ico', '/icon.png', '/apple-icon.png', '/opengraph-image', '/logo.png']) check(`${path}: HTTP 200`, (await get(path)).status === 200);
+  const preview = await headersForHost('medicalsite-two.vercel.app');
+  check('Vercel alias excluded from indexing', preview['x-robots-tag']?.includes('noindex'));
+  const primary = await headersForHost(new URL(origin).hostname);
+  check('primary host remains indexable', !primary['x-robots-tag']?.includes('noindex'));
+} catch (error) { check('audit completed', false, error.message); }
+for (const result of results) if (!result.pass || process.env.SEO_VERBOSE) console.log(`${result.pass ? 'PASS' : 'FAIL'} ${result.name} ${result.detail || ''}`);
+const failed = results.filter(result => !result.pass).length;
+console.log(`${results.length - failed} PASS, ${failed} FAIL`);
+process.exitCode = failed ? 1 : 0;

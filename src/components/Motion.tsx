@@ -84,6 +84,7 @@ export function Motion({ children }: { children: ReactNode }) {
     }
 
     const els = document.querySelectorAll<HTMLElement>("[data-reveal]");
+    document.documentElement.dataset.motionReady = "";
     if (prefersReducedMotion()) {
       els.forEach((el) => el.classList.add("is-in"));
       return;

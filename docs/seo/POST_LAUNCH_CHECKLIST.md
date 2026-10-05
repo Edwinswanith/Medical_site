@@ -1,42 +1,48 @@
 # Post-launch checklist
 
-Nothing below has been configured. Each item needs your accounts. Tick only what you have actually done.
+5 October 2026. These are operational actions to perform after the tested code is deployed. No external account has been configured by this work.
 
-## Before deploy
+## Before publishing
 
-- [ ] The canonical origin is `https://cogniversestudio.com` (non-www), built in. In Vercel Domains, add both `cogniversestudio.com` and `www.cogniversestudio.com` and redirect www to the apex (308). `NEXT_PUBLIC_SITE_URL` is only needed to override it.
-- [ ] Redeploy, then run `npm run seo:check -- https://<domain> https://<domain>`: expect 0 fails.
-- [ ] Open `https://<domain>/robots.txt` and `/sitemap.xml`: absolute URLs on the final domain, not `*.vercel.app`.
-- [ ] Preview deployments: Vercel serves `X-Robots-Tag: noindex` on preview URLs by default. Confirm with `curl -I https://<preview>.vercel.app`.
+- [ ] Supply the legal/controller identity, actual enquiry receiver, retention period and international processing arrangements; finish the privacy notice. The current notice does not establish a complete business privacy policy.
+- [ ] Configure the real Resend or webhook environment. Test a controlled enquiry and confirm receipt in the intended account, with authorisation to send that message.
+- [ ] Keep NEXT_PUBLIC_SITE_URL set to https://www.cogniversestudio.com. Confirm the custom domain belongs to this production deployment.
+- [ ] Keep Vercel aliases/previews noindexed; confirm the new host-based X-Robots-Tag header reaches the live alias. Noindex is not access control: use deployment protection for confidential previews.
+- [ ] Request actual approved film/presenter/social samples and permission to publish them. Keep concept labels until real proof is available.
 
-## Crawler access
+## Production URLs and redirects
 
-- [ ] Vercel Firewall / Bot Protection / Attack Challenge Mode: confirm they are off, or that verified search bots are allowed. Test: `curl -A "Mozilla/5.0 (compatible; Googlebot/2.1)" -I https://<domain>/` and the same with `OAI-SearchBot`, `bingbot`, `PerplexityBot`: expect 200, not 403 or a challenge page.
+- [ ] Run the build/lint/type/test checks and the HTTP audit again against the deployed version. Confirm all ten sitemap URLs return 200 on the canonical host.
+- [ ] Check canonical and og:url on every page, robots sitemap URL, Service/provider IDs and visible breadcrumbs.
+- [ ] Check apex HTTPS goes directly to www HTTPS. The inspected HTTP apex currently uses two hops (HTTP apex → HTTPS apex → HTTPS www). Review Vercel/domain redirect settings to shorten that chain; repository canonicals already point to the final host.
+- [ ] Confirm trailing slashes resolve to the same clean URL without a chain; query parameters should not change canonical URLs.
+- [ ] Check the alternate Vercel production address and preview deployments are noindexed, with primary-domain pages indexable. Verify there is no firewall challenge for legitimate crawlers using logs/real crawler-IP checks.
+- [ ] Retest contact with JavaScript enabled and disabled, provider unavailable and provider failure; never count a screen message alone as proof of actual receipt.
+- [ ] Run Google's Rich Results Test where applicable and Schema.org Validator for Service/WebPage relationships. Local parsing is already tested; external validators are NOT TESTED.
 
 ## Google Search Console
 
-- [ ] Add a **Domain** property (DNS TXT record at your registrar).
-- [ ] Submit `https://<domain>/sitemap.xml`.
-- [ ] URL Inspection on `/` and `/contact`: "URL is available to Google", user-declared canonical = Google-selected canonical, rendered screenshot shows the content.
-- [ ] Rich Results Test / Schema Markup Validator on `/`: Organization detected, no errors.
-- [ ] After 28 days: Core Web Vitals report (mobile). Performance report filtered by query.
-- [ ] Where the reports exist in your account: AI features / generative AI performance, and multimodal search reporting. Availability varies; don't assume.
-
-## Bing Webmaster Tools
-
-- [ ] Import the site from Search Console (fastest) or verify by DNS.
-- [ ] Submit the sitemap. URL Inspection on `/`.
-- [ ] IndexNow: not implemented (see `GEO_AI_SEARCH.md`).
+- [ ] Verify the domain property using the real account and DNS access.
+- [ ] Submit https://www.cogniversestudio.com/sitemap.xml.
+- [ ] Inspect homepage, four services, About and the project. Check user-declared versus Google-selected canonical, crawl response, rendered HTML and indexing status.
+- [ ] Review page indexing and Core Web Vitals reports when enough data exists. Local Lighthouse cannot establish field INP or field CWV status.
+- [ ] Review query relevance, UK impressions/clicks and qualified enquiries. Check generative-AI or multimodal reporting only if available in the account at that time; do not claim it is configured or available without checking.
 
 ## Google Business Profile
 
-- [ ] **Only if** the business has a real UK location with in-person contact, or travels to clients. A remote studio is not eligible; a virtual office breaks the guidelines. See `LOCAL_SEO.md`.
+- [ ] Establish real storefront/in-person service arrangements and eligibility first. UK-wide digital service coverage does not itself establish eligibility.
+- [ ] If eligible, verify the real business identity, address visibility, appropriate category, actual hours, permitted service areas, images and preferred website URL.
+- [ ] Add verified profile/social URLs to sameAs only after their ownership and relevance are established. Publish only real reviews with appropriate permission.
 
-## Consistency
+## Bing and Copilot
 
-- [ ] One brand name on the site, LinkedIn, Companies House, email signature and any directory.
-- [ ] Add each real profile URL to `sameAs` in `src/components/JsonLd.tsx`.
+- [ ] Verify the site in Bing Webmaster Tools and submit the canonical sitemap.
+- [ ] Check canonical selection, crawl responses, indexing and query relevance.
+- [ ] IndexNow is not implemented. Reassess only if publishing frequency makes notifications useful. Follow the official key-file protocol and submit only actual URL changes.
 
-## Social previews
+## Performance and content follow-up
 
-- [ ] Paste the URL into LinkedIn Post Inspector and the Facebook Sharing Debugger: the card shows the share image and title.
+- [ ] Monitor production mobile LCP: local lab LCP remains above 2.5 seconds despite responsive images and deferred clips. Preserve the signature motion while profiling actual device/network bottlenecks.
+- [ ] Measure field INP/CLS/LCP when traffic supplies data; use lab TBT only as a diagnostic, not as an INP claim.
+- [ ] Use the three-month roadmap to gather first-hand evidence before writing comparison guides. Identify real author/reviewer responsibility and truthful dates.
+- [ ] Keep a small dated log of observed AI citations and prompts. A single answer or schema block is not a recommendation guarantee.

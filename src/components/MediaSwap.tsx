@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import type { Media } from "@/content/site";
 import { canAutoplay, isTouch, prefersReducedMotion } from "@/lib/motion";
 
@@ -45,7 +46,12 @@ export function MediaSwap({
     if (!v || !media.video) return;
     const go = wants.current && visible.current && !document.hidden && !prefersReducedMotion();
     if (go) {
-      if (!v.src) v.src = pick(v, media.video);
+      if (!v.src) {
+        // Reuse the responsive still already selected by the browser; don't fetch every
+        // below-fold video's full-size poster during the initial page load.
+        v.poster = root.current?.querySelector("img")?.currentSrc || media.still.webp;
+        v.src = pick(v, media.video);
+      }
       if (current && current !== v) current.pause();
       current = v;
       v.play().catch(() => {});
@@ -127,17 +133,17 @@ export function MediaSwap({
   return (
     <div ref={root} className={`swap ${className}`} style={{ aspectRatio: `${media.still.w} / ${media.still.h}` }}>
       <picture>
-        <source srcSet={media.still.webp} type="image/webp" />
-        <img
-          src={media.still.jpg}
+        <Image
+          src={media.still.webp}
           alt={media.alt}
           width={media.still.w}
           height={media.still.h}
+          sizes="(max-width: 640px) 90vw, (max-width: 899px) 45vw, 35vw"
           loading={priority ? "eager" : "lazy"}
           decoding="async"
         />
       </picture>
-      {media.video && <video ref={video} muted loop playsInline preload="none" aria-hidden />}
+      {media.video && <video ref={video} muted loop playsInline preload="none" data-poster={media.still.webp} width={media.still.w} height={media.still.h} aria-hidden />}
       {media.video && <span className="swap__play" aria-hidden />}
       {media.ai && showAiLabel && <span className="swap__ai">AI-generated</span>}
     </div>

@@ -1,0 +1,260 @@
+{
+  "recordedAt": "2026-10-05T14:16:52.194Z",
+  "baselineCommit": "8655bbc",
+  "target": "local production build",
+  "deployed": false,
+  "build": "PASS",
+  "lint": "PASS",
+  "typecheck": "PASS",
+  "regressionTests": {
+    "pass": 8,
+    "fail": 0
+  },
+  "httpAudit": {
+    "pass": 766,
+    "fail": 0
+  },
+  "enquiryIntegration": {
+    "json": "PASS",
+    "native": "PASS",
+    "multipart": "PASS",
+    "mockFailure": "PASS",
+    "unconfigured": "PASS",
+    "realExternalDelivery": "NOT TESTED"
+  },
+  "browser": [
+    {
+      "name": "home-mobile",
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "scrollWidth": 390,
+        "hidden": 0,
+        "cuts": 0,
+        "clippedActions": 0,
+        "heading": "YOUR PRACTICE’S\nMEDIA partner.",
+        "headingRight": 374,
+        "videoSources": 0
+      }
+    },
+    {
+      "name": "home-small-mobile",
+      "status": "PASS",
+      "metrics": {
+        "width": 320,
+        "scrollWidth": 320,
+        "hidden": 0,
+        "cuts": 0,
+        "clippedActions": 0,
+        "heading": "YOUR PRACTICE’S\nMEDIA partner.",
+        "headingRight": 304,
+        "videoSources": 0
+      }
+    },
+    {
+      "name": "home-desktop",
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "scrollWidth": 1425,
+        "hidden": 0,
+        "cuts": 0,
+        "clippedActions": 0,
+        "heading": "YOUR PRACTICE’S\nMEDIA partner.",
+        "headingRight": 1369,
+        "videoSources": 0
+      }
+    },
+    {
+      "name": "service-mobile",
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "scrollWidth": 390,
+        "hidden": 0,
+        "cuts": 0,
+        "clippedActions": 0,
+        "heading": "WEBSITES FOR CONSULTANTS AND PRIVATE CLINICS",
+        "headingRight": 374,
+        "videoSources": 0
+      }
+    },
+    {
+      "name": "service-desktop",
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "scrollWidth": 1425,
+        "hidden": 0,
+        "cuts": 0,
+        "clippedActions": 0,
+        "heading": "PATIENT FILMS THAT EXPLAIN YOUR PROCEDURES",
+        "headingRight": 1041.96875,
+        "videoSources": 0
+      }
+    },
+    {
+      "name": "contact-mobile",
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "scrollWidth": 390,
+        "hidden": 0,
+        "cuts": 0,
+        "clippedActions": 0,
+        "heading": "TELL US WHAT YOUR PRACTICE NEEDS",
+        "headingRight": 374,
+        "videoSources": 0
+      }
+    },
+    {
+      "name": "about-mobile",
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "scrollWidth": 390,
+        "hidden": 0,
+        "cuts": 0,
+        "clippedActions": 0,
+        "heading": "A MEDIA PARTNER FOR YOUR PRACTICE.",
+        "headingRight": 374,
+        "videoSources": 0
+      }
+    },
+    {
+      "name": "work-mobile",
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "scrollWidth": 390,
+        "hidden": 0,
+        "cuts": 0,
+        "clippedActions": 0,
+        "heading": "PROF. HEMANT SHETH: A SPECIALTY WEBSITE.",
+        "headingRight": 374,
+        "videoSources": 0
+      }
+    },
+    {
+      "name": "keyboard menu: open, trap, Escape, focus return",
+      "status": "PASS"
+    },
+    {
+      "name": "normal motion: intro and curtain navigation finish and unlock scrolling",
+      "status": "PASS"
+    },
+    {
+      "name": "delayed JavaScript: content revealed after watchdog",
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "scrollWidth": 390,
+        "hidden": 0,
+        "cuts": 0,
+        "clippedActions": 0,
+        "heading": "TELL US WHAT YOUR PRACTICE NEEDS",
+        "headingRight": 374,
+        "videoSources": 0
+      }
+    },
+    {
+      "name": "delayed JavaScript: homepage sections and headline readable",
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "scrollWidth": 390,
+        "hidden": 0,
+        "cuts": 0,
+        "clippedActions": 0,
+        "heading": "YOUR PRACTICE’S\nMEDIA partner.",
+        "headingRight": 374,
+        "videoSources": 0
+      }
+    },
+    {
+      "name": "no JavaScript: content and native form available",
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "scrollWidth": 390,
+        "hidden": 0,
+        "cuts": 0,
+        "clippedActions": 0,
+        "heading": "TELL US WHAT YOUR PRACTICE NEEDS",
+        "headingRight": 374,
+        "videoSources": 0
+      }
+    },
+    {
+      "name": "no JavaScript: homepage content readable",
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "scrollWidth": 390,
+        "hidden": 0,
+        "cuts": 0,
+        "clippedActions": 0,
+        "heading": "YOUR PRACTICE’S\nMEDIA partner.",
+        "headingRight": 374,
+        "videoSources": 0
+      }
+    },
+    {
+      "name": "no uncaught JavaScript errors",
+      "status": "PASS"
+    }
+  ],
+  "performance": {
+    "mobile": {
+      "measuredAt": "2026-10-05T14:08:52.560Z",
+      "scores": {
+        "performance": 0.91,
+        "accessibility": 1,
+        "seo": 1
+      },
+      "metrics": {
+        "largest-contentful-paint": 3458.528375,
+        "cumulative-layout-shift": 0,
+        "total-blocking-time": 8.5,
+        "total-byte-weight": 1100576
+      },
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "fieldINP": "NOT TESTED"
+    },
+    "desktop": {
+      "measuredAt": "2026-10-05T14:12:17.697Z",
+      "scores": {
+        "performance": 0.97,
+        "accessibility": 1,
+        "seo": 1
+      },
+      "metrics": {
+        "largest-contentful-paint": 1003.9521500000003,
+        "cumulative-layout-shift": 0.002698240873304735,
+        "total-blocking-time": 0,
+        "total-byte-weight": 3644179
+      },
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 10240,
+        "requestLatencyMs": 0,
+        "downloadThroughputKbps": 0,
+        "uploadThroughputKbps": 0,
+        "cpuSlowdownMultiplier": 1
+      },
+      "fieldINP": "NOT TESTED"
+    }
+  },
+  "limitations": [
+    "Mobile lab LCP remains above 2.5 seconds.",
+    "Mobile metrics precede the final fallback-only CSS refinement; desktop and browser checks include it.",
+    "Field CWV, external schema validators, search accounts, true crawler IP access, office eligibility and privacy business arrangements are unverified."
+  ]
+}

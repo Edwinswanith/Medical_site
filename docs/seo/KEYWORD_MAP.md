@@ -1,41 +1,32 @@
 # Keyword and search-intent map
 
-**No search volumes here.** No keyword tool was available, so every theme is "volume unverified". Validate in Google Keyword Planner (UK, English) before writing, and in Search Console once the site has been live for a few weeks. Do not pick topics by invented numbers.
+5 October 2026. These are qualitative query themes inferred from the actual offer, not keyword-volume or ranking measurements. UK-wide coverage is user-confirmed. The homepage remains a broad introduction; each commercial service has one primary destination.
 
-UK spelling throughout (specialty and specialist are both used in UK search; "speciality" too: check which the tool shows).
+| Priority / intent | Primary query theme | Secondary themes | Destination / action | Useful next step |
+|---|---|---|---|---|
+| P1 Core service | medical website design UK | consultant websites, private clinic websites, specialty website design | /services/medical-websites — new, implemented | Discuss website scope |
+| P1 Core service | patient education video production | procedure films, clinician-approved patient videos, film transcripts | /services/patient-films — new, implemented | Request specialty samples |
+| P2 Core service | AI presenter for clinicians | consent-based clinician avatar, face and voice for patient films | /services/ai-presenter — new, implemented | Discuss consent/recording |
+| P2 Core service | social content for medical practices | patient film shorts, medical Instagram Reels, practice YouTube content | /services/social-content — new, implemented | Agree channels and formats |
+| P1 Commercial comparison | website with films or films for existing site | healthcare media packages, new site versus existing site | /services — new hub, implemented | Choose scope and request proposal |
+| P2 Commercial comparison | AI presenter or conventional recording | clinician time, review control, consent requirements | /services/ai-presenter now; future evidence-led guide only if useful | Discuss suitable format |
+| P1 Location/service area | medical website design across the UK | UK consultant website agency, national practice media support | /services/medical-websites and /about — visible coverage added | Book a call |
+| P2 Location/service area | patient film production UK | UK practice film service | /services/patient-films — UK coverage added | Share topics |
+| P1 Problem/solution | explain procedures on a clinic website | treatment directory, plain-English procedure pages | /services/medical-websites + /work/prof-hemant-sheth | Explore real project |
+| P2 Problem/solution | reuse patient videos for social media | vertical medical shorts, silent-viewing captions | /services/social-content | Plan a batch |
+| P2 Industry/use case | consultant surgeon website | private GP, cardiology, orthopaedic website templates | /services/medical-websites + /#websites | Discuss your specialty |
+| P2 Informational | what is included in patient film production | script review, transcript, master/vertical formats | /services/patient-films — useful answers included | Request examples |
+| P3 Informational | how to plan a patient education film | topic choice, source notes, clinical sign-off | Roadmap: /insights/planning-patient-films — not created | Discuss topic plan |
+| P1 Brand/navigation | CogniVerse Studio | studio contact, healthcare media studio | / and /about — updated / new | Explore services |
+| P1 Brand/navigation | CogniVerse Studio contact | phone, email, enquiry | /contact — improved | Enquire |
+| P2 Project/navigation | Prof Hemant Sheth website project | consultant treatment directory project | /work/prof-hemant-sheth — implemented | Explore website service |
 
-## Principles
+## Architecture and linking
 
-- One primary intent per URL. No page targets a theme another page already owns.
-- No city or specialty permutations (`/cardiology-website-london`). Templates and specialties live on the websites page until each has real content of its own.
-- "UK" appears in titles only once UK coverage is confirmed.
+Implemented: /, /services, four service URLs, /work/prof-hemant-sheth, /about, /contact, /privacy. These ten pages are listed in the sitemap. Header and footer link to the services and project; footer links to the hub and About. Homepage service cards link to service pages. Service pages link to related services and contact; the website service links to the real project. Breadcrumbs return to Home and Services. The project links back to the website service.
 
-## Map
+No /industries or /locations directories are justified yet. Twelve template screenshots do not establish twelve delivered client case studies. London and Hertfordshire describe the case client's practice, not a studio office. A local page needs unique, approved local projects or operational facts; changing a city name is insufficient.
 
-| # | Intent | Primary theme | Secondary themes | Destination | Existing or new | CTA |
-|---|---|---|---|---|---|---|
-| 1 | Core service | website design for doctors / consultants | medical website design, private practice website, consultant website, clinic website design | `/services/medical-websites` | New (approval) | Book a call |
-| 2 | Core service | patient education videos | patient information videos, medical explainer videos, procedure videos for patients | `/services/patient-education-films` | New (approval) | Book a call |
-| 3 | Core service | AI avatar / AI presenter for doctors | AI video presenter for clinics, doctor digital twin video | `/services/ai-presenter` | New (approval) | Book a call |
-| 4 | Core service | social media for private clinics | healthcare social media management, social content for doctors | `/services/social-media` | New (approval) | Book a call |
-| 5 | Core service (hub) | healthcare media studio / agency | medical marketing agency, healthcare content agency | `/services` and `/` | New hub + existing home | Book a call |
-| 6 | Problem / solution | how to get found in ChatGPT / AI search as a doctor | GEO for doctors, consultant not showing in AI answers | `/services/medical-websites` section first; article later (CONTENT_PLAN M2) | Existing section on `/` (#geo) | Book a call |
-| 7 | Problem / solution | private consultant website not on Google | why patients can't find my practice | article (CONTENT_PLAN) | New, later | Book a call |
-| 8 | Commercial comparison | specialist healthcare web agency vs general agency | questions to ask a medical website agency | article (MOFU) | New, later | Book a call |
-| 9 | Commercial comparison | AI presenter vs filming yourself | AI avatar or real video for patient education | `/services/ai-presenter` FAQ, then article | New | Book a call |
-| 10 | Commercial (cost) | how much does a consultant website cost UK | patient video cost | article, only with real price ranges | Blocked: pricing facts | Book a call |
-| 11 | Industry / use case | cardiology / orthopaedic / ophthalmology... website | specialty templates | `/services/medical-websites#templates` (one section, 12 real screenshots) | Existing section on `/` | See the template / Book a call |
-| 12 | Proof | example of a surgeon website | robotic surgeon website case study | `/work/prof-hemant-sheth` | New (approval) | Book a call |
-| 13 | Informational | GMC / ASA advertising rules for private doctors | CAP code healthcare marketing | article (TOFU) | New, later; needs expert review | Read service page |
-| 14 | Informational | how long should a patient education video be | writing patient information from NICE guidance | article (TOFU) | New, later | Read service page |
-| 15 | Location | (none) | | none | Not justified: no offices or local proof | |
-| 16 | Brand / navigational | [brand name] | [brand] contact, [brand] reviews | `/`, `/contact`, `/about` | Blocked on the one brand name | |
+## Scope boundaries
 
-## What changes on existing pages
-
-- `/`: keeps its design and its brand-line H1. Title now carries the service terms. Each service section gets a descriptive link ("How our patient films are made") to its page once pages exist.
-- `/contact`: unique title and description (done).
-
-## Anchor text
-
-Descriptive and varied, e.g. "how we build specialty websites", "see Prof. Sheth's site", not "medical website design UK" repeated.
+Pricing questions are answered with a project-specific proposal, not invented price ranges. Budget bands in the enquiry form are buyer inputs. No fixed completion time, lead uplift or assistant recommendation is asserted. Informational pages remain proposals until first-hand material and an accountable reviewer are available.

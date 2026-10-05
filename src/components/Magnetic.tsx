@@ -8,7 +8,7 @@ export function Magnetic({ children, strength = 0.35 }: { children: ReactNode; s
   const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     const el = ref.current;
-    if (!el || !window.matchMedia("(pointer: fine)").matches) return;
+    if (!el || !window.matchMedia("(pointer: fine)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const x = gsap.quickTo(el, "x", { duration: 0.6, ease: "elastic.out(1, 0.4)" });
     const y = gsap.quickTo(el, "y", { duration: 0.6, ease: "elastic.out(1, 0.4)" });
     const move = (e: PointerEvent) => {

@@ -1,54 +1,27 @@
-# GEO and AI search
+# GEO and AI-search discoverability
 
-GEO here means making the business easy for search and answer engines to understand, retrieve, verify and cite. There are no hacks. Eligibility improves; no placement is guaranteed in AI Overviews, AI Mode, Copilot, ChatGPT or Perplexity.
+5 October 2026. Objective: improve eligibility, understanding and verification of CogniVerse Studio. No ranking, citation or recommendation outcome is guaranteed.
 
-## Crawler access (robots.txt)
+## Implemented
 
-Current policy (`src/app/robots.ts`): every crawler may fetch every public page; `/api/` is blocked; the sitemap is declared.
+Four server-rendered service pages state the provider, offer, buyer, UK coverage, deliverables, review process, proof limitations and next action. The website service links to a real client project. The other services label public previews as AI-generated concepts and invite relevant samples. Text remains actual HTML; it is not hidden in video, canvas or imagery.
 
-| Crawler | Purpose | Status now |
-|---|---|---|
-| Googlebot, Bingbot | Search indexing (Bing also feeds Copilot) | Allowed |
-| OAI-SearchBot | Appearing in ChatGPT Search results | Allowed |
-| ChatGPT-User | Fetching a page when a ChatGPT user asks about it | Allowed |
-| PerplexityBot | Perplexity search | Allowed |
-| GPTBot | Collecting content to **train** OpenAI models | Allowed (default, no rule) |
-| Google-Extended | Using content to train / ground Gemini models; does not affect Google Search | Allowed (default) |
-| ClaudeBot | Collecting content to train Anthropic models | Allowed (default) |
+Organization, WebSite, WebPage, Service and visible BreadcrumbList entities use stable www IDs. Each Service connects to the same Organization and its page. The studio has no invented office, credentials, review rating or medical-provider type. Buyer questions are visible content without speculative FAQ rich-result markup. Concept loops are not marked VideoObject or described as delivered client films.
 
-**Search and training are separate permissions.** Blocking GPTBot, Google-Extended or ClaudeBot does not remove the site from ChatGPT Search, Google Search or AI Overviews. For a marketing site that wants to be known, allowing everything is a reasonable default, and it is the default now. It is still a business decision: **no training-crawler rule has been changed without your sign-off.**
+The homepage now explains GEO as helping systems understand, retrieve and verify a practice, with an explicit statement that rankings and recommendations are not guaranteed. A hypothetical assistant exchange remains labelled Illustration.
 
-Robots rules only work if the host lets crawlers through. Check after launch that Vercel's firewall or bot protection does not answer these user agents with 403 or a challenge (POST_LAUNCH_CHECKLIST).
+## Crawler policy
 
-## llms.txt
+robots.txt allows public content through User-Agent: * and excludes /api/. This permits Googlebot, Bingbot and OAI-SearchBot unless deployment-level controls intervene. The existing policy also allows training crawlers; it has not been changed by this work.
 
-- The site does not serve one.
-- Google says AI Overviews and AI Mode need no special AI text file or special schema. No major engine has confirmed using `llms.txt`.
-- **The sales copy presents it as a pillar** ("Open: Crawl rules and an llms.txt file that let AI assistants in") and as a package item. That overclaims. Suggested wording: "Crawl rules that let AI search crawlers in, rather than blocking them by default." Keep offering `llms.txt` to clients who want it, without implying it changes visibility.
-- No `llms.txt` was added here, so the site does not claim a benefit it cannot show.
+OAI-SearchBot is used for search discovery; GPTBot concerns model-training access. They can be controlled separately. Changing the GPTBot policy requires an explicit business decision after explaining that distinction. A search permission is not a promise that a page will be indexed or cited. User-agent probes cannot prove access from genuine crawler IPs; verify server/firewall logs after launch.
 
-## Entity clarity (what an engine needs to answer "who is this?")
+## llms.txt and IndexNow decisions
 
-| Question | Answered on the site? |
-|---|---|
-| Who are we? | Partly: three names, no About |
-| What do we do? | Yes (four services, clear copy) |
-| Who is it for? | Implied ("your practice"); state it plainly on service pages |
-| Where? | No |
-| What is included? | Partly (packages) |
-| How does the process work? | Yes (five steps, safeguards) |
-| What evidence? | One real case; concept media elsewhere |
-| How to contact? | Yes |
+No llms.txt exists on this studio site, and none was added. The approved Sheth case mentions its project's llms.txt as a factual deliverable; this is not evidence of SEO benefit. [Google's AI optimisation guidance](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) does not require special AI text files and prioritises ordinary search quality and technical clarity.
 
-Structured data now ties every page to one Organization `@id` (`/#organization`) and one WebSite `@id` (`/#website`). Service pages will add `Service` nodes with `provider` pointing at the same Organization.
+IndexNow is not implemented. The current ten-page site changes through deployments rather than a publishing feed; sitemap submission and webmaster monitoring are the first operational steps. Reconsider for frequent additions/updates. A future implementation must follow the [official protocol](https://www.indexnow.org/documentation), use a real verification key file on the canonical host and submit only added, materially updated or removed URLs. Do not ping unchanged pages, and do not claim faster notification guarantees indexing.
 
-## What actually moves citation potential
+## Next authority work
 
-1. One unambiguous entity: one name, real company details, an About page.
-2. One page per service, each answering who, what, how, how long and for whom in plain sentences that can be quoted.
-3. Original, checkable material: the case study in detail, the scripting method, a real approved film with transcript, and (if run properly) the AI-assistant test in CONTENT_PLAN month 2.
-4. Being mentioned elsewhere: the client's site credit, LinkedIn, interviews, directories that matter to UK healthcare buyers. No on-site change replaces this.
-
-## IndexNow
-
-Not implemented. The site has 2 URLs today and changes on deploys, not on a publishing schedule; the sitemap is enough. Revisit when the insights section publishes regularly: then ping IndexNow from the deploy, for changed URLs only, with the key file served from `public/`.
+Acquire approved first-hand film/presenter/social examples and accountable author/reviewer attribution. Explain actual methodology with original examples, not generated testimonials. Use the content roadmap for useful comparisons only when supporting evidence exists. Check a small consistent set of buyer prompts across search/answer tools and record dates, sources and observed responses. Actual citations, search account data and post-launch field performance remain NOT TESTED.

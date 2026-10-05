@@ -15,6 +15,8 @@ export default async function OpenGraphImage() {
     (
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 72, background: "#f5f8fc", color: "#0b1830", fontFamily: "Archivo", textTransform: "uppercase" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 18, fontSize: 34 }}>
+          {/* ImageResponse renders embedded pixels; next/image is unavailable in this renderer. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={icon} width={60} height={60} alt="" />
           {BRAND.name}
         </div>

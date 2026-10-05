@@ -28,9 +28,9 @@ export const BRAND = {
 // Titles and descriptions per page. Each one restates what is visible on that page, nothing more.
 export const SEO = {
   home: {
-    title: "Websites and patient films for clinicians",
+    title: "Websites and patient films for UK clinicians",
     description:
-      "Specialty websites built to be found on Google and by AI assistants, with patient films, an AI presenter in your own voice and social content for your practice.",
+      "Websites, patient education films, AI presenters and social content for clinicians and practices across the UK. Explore our services and real website work.",
   },
   privacy: {
     title: "Privacy notice",
@@ -78,7 +78,7 @@ export const HERO = {
   titleB: "media",
   titleEm: "partner.",
   intro:
-    "We build the website patients and AI assistants find, put patient films inside it, present them in your own voice, and run your content on Instagram, TikTok, YouTube and Facebook.",
+    "For clinicians and practices across the UK: websites built for search, patient education films, an AI presenter in your own voice, and content for Instagram, TikTok, YouTube and Facebook.",
 };
 
 /* ───────────── 2. What we do ───────────── */
@@ -117,28 +117,28 @@ export const SERVICES = [
     name: "Websites",
     line: "Built for your specialty, and built to be found: on Google, and by the AI assistants patients now ask.",
     media: gen("svc-websites", 1280, 720, "A laptop on a clinic reception desk showing an abstract website."),
-    href: "#websites",
+    href: "/services/medical-websites",
   },
   {
     id: "films",
     name: "Patient films",
     line: "Two to three minutes in plain English, embedded on the page where the patient needs them.",
     media: gen("svc-films", 1280, 720, "A cinema camera set up in a consultation room."),
-    href: "#films",
+    href: "/services/patient-films",
   },
   {
     id: "presenter",
     name: "Your AI presenter",
     line: "An AI clone of you presents each film with your own face and voice, from one recording session.",
     media: gen("svc-presenter", 1280, 720, "An AI-generated presenter on a monitor. Not a real person."),
-    href: "#presenter",
+    href: "/services/ai-presenter",
   },
   {
     id: "social",
     name: "Social content",
     line: "Every film cut into shorts, and your channels managed across Instagram, TikTok, YouTube and Facebook.",
     media: gen("svc-social", 1280, 720, "A phone in a waiting room playing a vertical clip."),
-    href: "#social",
+    href: "/services/social-content",
   },
 ];
 
@@ -162,10 +162,10 @@ export const TEMPLATES = [
 /* ───────────── 4. Found by AI assistants ───────────── */
 
 export const GEO = {
-  title: "When a patient asks an assistant, it names the consultant it can",
+  title: "Help search engines and AI assistants",
   titleEm: "read, check and quote.",
   intro:
-    "GEO means generative engine optimisation: being the consultant that ChatGPT, Gemini or Perplexity names. Every site we build is made for that, as well as for Google.",
+    "GEO means generative engine optimisation: making your practice easier for search and answer systems to understand, retrieve and verify. Readable pages and clear facts support discovery; they cannot guarantee rankings or recommendations from Google, ChatGPT, Gemini or Perplexity.",
   pillars: [
     { name: "Readable", body: "Every film ships with its full transcript, so what you say on screen exists as text an assistant can read." },
     { name: "Checkable", body: "Your GMC number, appointments and hospitals stated once, consistently, with the sources behind each page named." },
@@ -309,7 +309,7 @@ export const PACKAGES = [
     n: "Most complete start",
     name: "Website with films",
     fit: "You want a site that patients and AI assistants can find.",
-    items: ["A GEO-friendly website for your specialty", "A film embedded on each procedure page", "Structured data, transcripts and llms.txt built in"],
+    items: ["A website built for search and your specialty", "A film embedded on each agreed procedure page", "Structured data, transcripts and an XML sitemap built in"],
     featured: true,
   },
   {
@@ -336,11 +336,11 @@ export const CHAPTERS = [
 ];
 
 export const NAV = [
-  { href: "/#work", label: "Work" },
-  { href: "/#websites", label: "Websites" },
-  { href: "/#films", label: "Films" },
-  { href: "/#presenter", label: "AI presenter" },
-  { href: "/#social", label: "Social" },
+  { href: "/work/prof-hemant-sheth", label: "Work" },
+  { href: "/services/medical-websites", label: "Websites" },
+  { href: "/services/patient-films", label: "Films" },
+  { href: "/services/ai-presenter", label: "AI presenter" },
+  { href: "/services/social-content", label: "Social" },
 ];
 
 export const ENQUIRY = {

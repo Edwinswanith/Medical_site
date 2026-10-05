@@ -30,6 +30,8 @@ export function Footer() {
                 <TLink href={n.href}>{n.label}</TLink>
               </p>
             ))}
+            <p><TLink href="/services">All services</TLink></p>
+            <p><TLink href="/about">About the studio</TLink></p>
           </div>
           <div>
             <p className="label">Contact</p>
@@ -40,6 +42,7 @@ export function Footer() {
               <a href={`tel:${BRAND.phone.tel}`}>{BRAND.phone.display}</a>
             </p>
             <p className="muted">{BRAND.responseTime}</p>
+            <p>Working with clinicians and practices across the UK.</p>
           </div>
         </div>
       </div>

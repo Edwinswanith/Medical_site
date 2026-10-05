@@ -28,7 +28,7 @@ export const viewport: Viewport = { themeColor: "#f5f8fc" };
 
 // Runs before paint: marks JS as available; reduced motion skips the intro.
 // Safety net: if the app bundle never runs, reveal everything after 10 s anyway.
-const boot = `(function(){var d=document.documentElement,o=function(){d.dataset.ready="";d.dataset.introDone=""};d.dataset.js="";try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)o()}catch(e){}setTimeout(o,10000)})()`;
+const boot = `(function(){var d=document.documentElement,o=function(){d.dataset.ready="";d.dataset.introDone="";d.dataset.motionFallback="";d.classList.remove("is-locked")};d.dataset.js="";try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)o()}catch(e){}setTimeout(function(){if(!d.hasAttribute("data-motion-ready")||!d.hasAttribute("data-intro-done"))o()},10000)})()`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

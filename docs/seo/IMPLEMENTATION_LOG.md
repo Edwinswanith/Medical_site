@@ -1,94 +1,106 @@
 # Implementation log
 
-## Phase A: technical fixes that need no new business facts (5 Oct 2026, branch `Light-Theme`)
+5 October 2026. Latest main pulled to `8655bbc` before implementation. The user's “incorporate all the feedbacks” authorised the structural/content changes; “all area in UK” confirmed national coverage. Implementation was validated locally before the user's subsequent instruction to commit and push it to main. This log records local checks; deployment, external account configuration and real enquiry delivery are not verified.
 
-The design, motion and content are unchanged. No new claims, locations, reviews or clients.
+## What changed
 
-| Change | Files | Why |
+| Change | Main files | Purpose |
 |---|---|---|
-| Canonical origin helper: `NEXT_PUBLIC_SITE_URL`, else Vercel's production domain, else localhost | `src/lib/site-url.ts` | Canonicals, sitemap and OG URLs were resolving to `http://localhost:3000` |
-| robots.txt: all crawlers allowed, `/api/` disallowed, sitemap declared. No AI-training rule changed. | `src/app/robots.ts` | Was 404 |
-| sitemap.xml: canonical, indexable pages only (`/`, `/contact`). No `lastmod` (no reliable dates). | `src/app/sitemap.ts` | Was 404 |
-| Per-page metadata helper: title, description, canonical, full Open Graph and Twitter (Next merges shallowly, so each page gets the whole object) | `src/lib/seo.ts`, `src/app/page.tsx`, `src/app/contact/page.tsx`, `src/app/layout.tsx` | Duplicate description on /contact; no OG tags; title without service terms |
-| Titles and descriptions moved into content | `src/content/site.ts` (`SEO`) | Facts live in one file |
-| Home title "Websites and patient films for clinicians \| Tech Cogniverse"; contact title "Book a call about your practice \| Tech Cogniverse" | `site.ts` | Service terms in the title; "UK" left out until coverage is confirmed |
-| `html lang="en-GB"` | `layout.tsx` | British-English content |
-| JSON-LD: Organization (`/#organization`) + WebSite (`/#website`) on every page; WebPage on `/`, ContactPage on `/contact`. Only visible facts: name, alternate name (header wordmark), logo, email, phone. No address, area served, sameAs, LocalBusiness, reviews or ratings. `<` escaped. | `src/components/JsonLd.tsx` | No structured data at all |
-| Share image 1200x630 in the site's display face (Archivo 800, OFL, committed) | `src/app/opengraph-image.tsx`, `assets/fonts/` | No preview card on LinkedIn, WhatsApp, Slack |
-| Favicon, SVG icon, Apple touch icon, 512px logo for schema | `src/app/favicon.ico`, `icon.svg`, `apple-icon.png`, `public/logo.png` | Favicon was 404 |
-| Real space between split heading lines (no visual change: lines are block boxes) | Hero, Templates, FilmGrid, Social, Case, Process, Footer | Raw HTML read "Your practice’smedia partner", "plainEnglish", "We dothe rest" |
-| Header wordmark read from `BRAND.logo` instead of a constant in the component | `site.ts`, `Header.tsx` | One source of truth for the name |
-| `npm run seo:check` validator | `scripts/seo-check.mjs`, `package.json` | Repeatable checks |
+| Consistent www canonical origin, including legacy apex environment values | src/lib/site-url.ts; .env.example | Match the inspected live HTTPS redirect destination |
+| Service hub and four distinct service pages | src/content/services.ts; src/components/ServicePage.tsx; src/app/services/* | Give each actual offer a useful commercial destination with deliverables, process, evidence limits and buyer questions |
+| Factual About and approved website project | src/app/about/page.tsx; src/app/work/prof-hemant-sheth/page.tsx | Explain identity/process and show the existing client work without invented credentials or outcome metrics |
+| Visible UK-wide coverage | site.ts; service content; About; contact; footer | Reflect the user's confirmation consistently |
+| Connected Service and visible BreadcrumbList schema | JsonLd.tsx; Breadcrumbs.tsx; ServicePage.tsx | Tie the provider, offer and page together using stable IDs |
+| Deliberate internal links and ten-page sitemap | NAV/SERVICES; Footer; Case; Templates; sitemap.ts | Connect services, project, About, contact and related services; preserve homepage anchors |
+| Vercel aliases/previews receive noindex, follow | next.config.ts | Keep alternate deployment addresses out of search indexing while preserving the primary domain |
+| GEO claims describe eligibility, not guaranteed recommendations | src/content/site.ts | Remove outcome implications; retain the labelled hypothetical illustration |
+| Native POST enquiry fallback, safe state-only redirects and JSON support | EnquiryForm.tsx; api/enquiry/route.ts; contact/page.tsx | Support enquiries without JavaScript and keep personal details out of URLs |
+| Shape/type/permission/length/honeypot validation; bounded body stream | src/lib/enquiry.ts; api/enquiry/route.ts | Reject malformed or oversized submissions before delivery |
+| Provider timeout and honest result handling | src/lib/contact.ts | Only an actual provider 2xx counts as success; unavailable and failed delivery remain errors |
+| Static watchdog fallback and scroll unlock | layout.tsx; Motion.tsx; globals.css | Reveal all content after a delayed/failed bundle or incomplete intro, without leaving CSS fade/reveal states active |
+| Mobile grid/headline/header refinements | globals.css | Fit headline, enquiry CTA and navigation at 320px and 390px; the narrowest header uses the menu for its call link |
+| Keyboard menu trap and background inert state | Header.tsx | Support Enter, forward/backward Tab, Escape and focus return |
+| Reduced-motion pointer/scroll behaviour | Cursor; Magnetic; Templates; BackToTop; ChapterRail | Avoid pointer effects and smooth-scroll transitions under reduced motion |
+| Responsive media, dimensions and deferred posters | Hero; MediaSwap; Templates; Collage; Case; project page | Reduce image downloads and reserve space without replacing approved visuals |
+| Hero clips begin after the intro, pause when hidden; shorter phone intro | Hero.tsx; Preloader.tsx | Give critical content initial bandwidth while retaining the signature animation |
+| Readable minimum contrast for scrub text | globals.css | Fix the measured accessibility failure while retaining text motion |
+| Stronger HTTP/HTML audit and regression/integration/browser tooling | scripts/*; tests/*; eslint.config.mjs; package.json | Make checks repeatable and make failures return nonzero |
+| Current documentation and roadmap | README.md; docs/seo/* | Replace stale brand/route/audit information with this implementation and factual owner dependencies |
 
-### Corrected during the work
+No existing public URL was renamed or removed, so there are no new legacy-path redirects. The homepage section IDs remain. No location pages, generated articles, fabricated testimonials, unverified sameAs, ratings, priceRange or healthcare-provider schema were added. The original robots policy and its training-crawler permissions remain unchanged. No studio llms.txt or IndexNow key/notification system was added.
 
-- Audit claimed 12 template images lacked alt text. They have it on the thumbnails; the empty-alt copies are duplicate hover previews. No change made.
+## Validation results
 
-### Not done, on purpose
+Results below were actually executed against the production build. PASS is scoped to the described check; it is not a ranking or legal-compliance claim.
 
-- No `llms.txt` (see `GEO_AI_SEARCH.md`).
-- No GPTBot / Google-Extended / ClaudeBot rules (business decision).
-- No IndexNow (2 URLs, deploy-driven changes).
-- No VideoObject (all video is AI concept footage).
-
-## Validation (5 Oct 2026, local production build with `NEXT_PUBLIC_SITE_URL=https://www.example.co.uk`)
-
-| Check | Result | How |
+| Check | Result | Evidence / limit |
 |---|---|---|
-| Production build | PASS | `next build` |
-| Typecheck | PASS | `tsc --noEmit` |
-| Lint | NOT TESTED | No ESLint configured in this repo |
-| Automated test suite | NOT TESTED | None exists |
-| robots.txt (200, text/plain, rules, absolute sitemap) | PASS | `seo:check` |
-| sitemap.xml (200, absolute URLs on origin, each URL 200 and self-canonical) | PASS | `seo:check` |
-| Titles unique, 30 to 65 chars | PASS | `seo:check` |
-| Descriptions unique, 70 to 170 chars | PASS | `seo:check` |
-| Canonicals absolute and self-referencing | PASS | `seo:check` |
-| OG / Twitter tags, exactly one absolute og:image per page | PASS | `seo:check` + tag count |
-| JSON-LD parses, every referenced `@id` defined, ids on origin, same Organization id on every page | PASS | `seo:check` |
-| JSON-LD against Google Rich Results / schema.org validator | NOT TESTED | No access to external validators from this environment. Run after launch. |
-| One H1 per page, no skipped heading levels, no glued words | PASS | `seo:check` |
-| Every `<img>` has an alt attribute | PASS | `seo:check` (empty alt only on decorative or duplicate images) |
-| Internal links resolve (200) | PASS | `seo:check` |
-| External link to londonroboticsurgeon.co.uk | NOT TESTED | Blocked by this environment's network policy |
-| Unknown URL returns 404 with noindex | PASS | `seo:check` |
-| Redirects | N/A | No URLs changed, so none needed |
-| Content visible with JS disabled | PASS | Playwright, JS off |
-| Reduced motion: intro skipped, content visible, no autoplay | PASS | Playwright |
-| Keyboard: skip link first, nav and Book a call reachable, focus ring drawn | PASS | Playwright |
-| Mobile 390px: no horizontal overflow | PASS | Playwright |
-| Split headings: no layout change | PASS | Line boxes measured + screenshot |
-| Existing regression (menu focus, scroll lock, form fallback, no console errors) | PASS | `review/reg.mjs` |
-| Live domain: status codes, bot protection, Search Console | NOT TESTED | No live URL |
+| Production build | PASS | Next 16.3.8; all ten public pages generated; contact/API server-rendered |
+| Lint | PASS | ESLint CLI; zero errors and warnings in the final run |
+| Typecheck | PASS | tsc --noEmit |
+| Automated regression tests | PASS | Eight tests: malformed enquiries, permission/contact data, bounds/bot checks, valid normalisation, missing media, canonical/schema/heading failures, fragments and bad JSON-LD/alt/dimensions |
+| Internal/external links and fragments | PASS | Production HTTP audit, including real project and ICO links |
+| Sitemap and robots | PASS | Ten canonical public routes; inventory coverage; wildcard public crawl and API exclusion |
+| Metadata and canonicals | PASS | Unique title/description, absolute clean canonical and og:url, query canonical consistency |
+| JSON-LD | PASS | Parses, unique IDs, references resolve, Service provider and visible description/UK coverage, visible breadcrumbs |
+| Heading hierarchy and alt audit | PASS | One main H1, no skipped levels, alt attributes and media dimensions |
+| Images and icon/share assets | PASS | Referenced images return image responses; all published local media exists and is nonempty |
+| Redirects / unknown URL | PASS locally | Slash variants redirect to clean path; unknown path is 404/noindex |
+| Primary and preview indexing headers | PASS locally | Native HTTP Host tests: Vercel alias noindex, primary host indexable |
+| Aggregate HTTP/HTML checks | PASS | 766 PASS, 0 FAIL; failures were observed to exit nonzero during development |
+| JSON/native/multipart enquiry delivery | PASS | Isolated local webhook: 2xx success, 500 failure; no external messages |
+| Unconfigured enquiry provider | PASS | Isolated blank provider: JSON 503 and native unavailable redirect; zero provider calls |
+| Mobile and desktop browser rendering | PASS | 320/390/1440px; no clipped headline, navigation or CTA; service, About, contact and project screenshots |
+| Reduced motion | PASS | Static content, no decorative video source/autoplay, no hidden reveals |
+| Keyboard navigation | PASS | Enter opens menu; Tab/Shift-Tab wrap; background inert; Escape closes and returns focus |
+| Normal animation/navigation | PASS | Intro and curtain navigation finish and unlock scrolling |
+| Delayed JavaScript | PASS | External bundles blocked; watchdog reveals contact and homepage immediately into static state after ten seconds |
+| JavaScript disabled | PASS | Homepage/contact readable, boot marker absent, native method/action present |
+| Browser errors | PASS | No uncaught page errors in the final 15-scenario run |
+| Live redirect probes | PASS for observation | HTTP apex 308 → HTTPS apex 308 → HTTPS www 200; Vercel alias 200. Two-hop HTTP chain remains an operational refinement |
+| Crawler user-agent probes | PASS for observation | Existing live homepage returned 200 for Googlebot, Bingbot and OAI-SearchBot strings; actual crawler IP/firewall access NOT TESTED |
+| Production package audit | PASS | npm audit --omit=dev: zero reported vulnerabilities at check time |
+| All dependency audit | FAIL / upstream tooling | Five high advisory entries in the dev-only Next ESLint → fast-glob/micromatch/braces chain. Registry's braces latest was 3.0.3; no patched version available. No forced framework/config downgrade was applied |
+| Privacy/business fact completeness | NOT TESTED / owner confirmation needed | Provider identity, real retention, full controller/legal identity and international arrangements not supplied; unsupported deletion/transfer assurances removed |
+| GBP, Search Console, Bing account setup | NOT TESTED | No authorised account access or changes |
+| Google/Schema.org external validators | NOT TESTED | Local JSON-LD checks passed; external service-specific validation remains a launch action |
+| Field CWV, indexing, rankings, leads and AI citations | NOT TESTED | No field/account data or post-deployment observations |
 
-## Brand pass: CogniVerse Studio (5 Oct 2026)
+## Performance measurements
 
-| Change | Files | Why |
-|---|---|---|
-| One name everywhere: "CogniVerse Studio" (title, header, share card, schema, footer) | `src/content/site.ts` (`BRAND`) | Brand kit tokens v1.1; resolves audit issue L3 |
-| Canonical origin defaults to `https://cogniversestudio.com` (env override still possible) | `src/lib/site-url.ts` | Domain confirmed by the user; resolves T2 without a Vercel variable |
-| Brand palette: paper `#f5f8fc`, navy text, slate muted, aqua-to-blue gradient for fills and strokes, accent ink `#0066b8` for small text | `src/app/globals.css` | Kit blue `#0299fa` is 2.8:1 on paper and aqua 1.3:1, so neither carries text on light |
-| Navy sections (intro, curtain, presenter, footer, featured package) through a scoped token set; header turns light over them | `globals.css`, `Header.tsx`, `Presenter.tsx`, `Footer.tsx` | The cyan only reads on navy |
-| Mobile: template thumbnails were 750px tall close-ups (the img height attribute overrode aspect-ratio); now 4:3 previews | `globals.css` | Bug from the earlier mobile pass, also on the dark build |
-| Mobile: "Book a call" wrapped to two lines next to the longer wordmark | `globals.css` | Fits at 360px and 390px |
+Lighthouse local production homepage, normal motion. Mobile uses simulated 150ms RTT, approximately 1.6Mbps throughput and 4× CPU slowdown, 412×823 at 1.75 device scale. Desktop uses the Lighthouse desktop preset. These are single lab runs, not field measurements or repeatable ranking scores. Mobile was measured after the media optimisations, before the final fallback-only CSS refinement; final desktop and browser checks include that refinement.
 
-Validation after the pass: build PASS, typecheck PASS, `seo:check` 69/69 against `https://cogniversestudio.com`, JS off PASS, reduced motion PASS, keyboard PASS, mobile overflow PASS, existing regression PASS, no console errors.
+| Metric | Mobile | Desktop | Assessment |
+|---|---|---|---|
+| Performance score | 91/100 | 97/100 | Diagnostic only |
+| Accessibility score | 100/100 | 100/100 | Automated scope; not a full accessibility certification |
+| SEO score | 100/100 | 100/100 | Lighthouse checks; not a ranking score |
+| LCP | 3.46s | 1.00s | Mobile FAIL against ≤2.5s target; desktop PASS in this run |
+| CLS | 0 | 0.0027 | PASS against ≤0.1 lab target |
+| Total blocking time | 8.5ms | 0ms | Low lab main-thread blocking; does not measure field INP |
+| INP | NOT TESTED | NOT TESTED | Requires interaction/field evidence |
+| Total transferred payload | 1,100,576 bytes | 3,644,179 bytes | Desktop retains two decorative clips; mobile loads the smaller single clip |
 
-## UI/UX fixes (5 Oct 2026)
+Mobile transfer breakdown: JavaScript 213,216 bytes, fonts 162,501 bytes, video 405,855 bytes, images 231,582 bytes. The first mobile run in this implementation pass transferred 1,441,237 bytes, had 4.21s LCP and accessibility 96; it is not a measurement of the untouched original site. Removing duplicate full-size posters, deferring hero clips and fixing contrast improved these measured values. No canvas/WebGL/3D runtime exists to profile.
 
-| Change | Why |
-|---|---|
-| Contact details: +44 (0)7436 194150, info@cogniversestudio.com | Trust: replaced the +91 number and Gmail |
-| Prof. Sheth case study moved to straight after Services; Work first in the nav and chapter rail | The only real proof sat 80% down the page, below all the concept footage |
-| `/privacy` notice (UK GDPR), linked from the form consent and the footer; in the sitemap | The form collects personal data. Statements match the code: no cookies, no analytics, self-hosted fonts. **Confirm the retention wording and the delivery provider before launch.** |
-| Labels 11px to 12px; every small text style raised about 1px (nothing under 10px) | Legibility for an older clinician audience |
-| Muted text on the hover card tint back above 4.5:1 | Contrast |
-| Numbers scene 320vh to 240vh, collage 150vh to 120vh, presenter 200vh | About 2 screens shorter; same choreography |
-| Intro: full length on arrival, about 0.7 s on refresh or back/forward (read from the browser, nothing stored) | Returning visitors no longer wait 2 s every time |
-| Footer on `/contact` drops "Book a call" (keeps the email) | It linked to the page you were on |
-| Image reveal wipes in navy; the gradient kept for accents | Quieter scroll; the gradient stays special |
-| AI-search demo question from orthopaedics (knee replacement) | The example now matches the 12 specialties |
-| GEO "Open" pillar no longer claims llms.txt lets assistants in | Overclaim (see GEO_AI_SEARCH.md) |
-| `.ulink` styled (contact and privacy links were unstyled) | Links looked like plain text |
+Remaining performance work: profile real production devices and critical font/animation timing before changing the signature motion. Mobile lab LCP still exceeds the target; field status must remain unclaimed. See POST_LAUNCH_CHECKLIST.
 
-Validation: build PASS, typecheck PASS, `seo:check` 99/99 (now with /privacy), JS off, reduced motion, keyboard, mobile overflow, existing regression, intro timing (2.2 s arrival, 0.77 s refresh), section order, footer per page, privacy render: all PASS. No console errors.
+## Reproduce
+
+```sh
+npm ci
+npm run lint
+npm run typecheck
+npm test
+npm run build
+npm run start -- --port 3100
+npm run seo:check -- http://localhost:3100 https://www.cogniversestudio.com
+npm run enquiry:check
+npm run browser:check -- http://localhost:3100
+```
+
+The in-app browser backend was unavailable; local Chrome's debugging protocol provided the browser checks and screenshots. The browser script uses no Playwright fallback. Evidence is saved in the Codex workspace's `seo-validation` visualisation folder; a compact durable result is saved as `docs/seo/validation-results.json`. `.tmp` is ignored for future local screenshots. Real external delivery, deployment and account setup are separate authorised actions.
+
+## Outstanding owner and hosting work
+
+Confirm provider/retention/controller details before enabling real form delivery and completing privacy information. Supply genuine film/presenter/social proof, office/in-person arrangements for any GBP decision, legal identity and verified profiles if applicable. Review Vercel's HTTP apex redirect chain. Deploy this code, rerun the live checks and use the launch checklist for search accounts. No ranking outcome is promised.

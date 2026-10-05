@@ -52,20 +52,18 @@ export default function PrivacyPage() {
 
         <h2>Who handles it</h2>
         <p>
-          The form passes your enquiry to the email or messaging service we use to receive it, which delivers it to
-          our team. The site is hosted by Vercel, whose servers process standard technical data (such as IP addresses
-          in security logs) to run and protect the site. We do not sell your details or share them for advertising.
+          When online delivery is available, the form passes your enquiry to our configured email or messaging
+          service. It shows an error if delivery is unavailable. The site is hosted by Vercel, whose servers process
+          standard technical data (such as IP addresses in security logs) to run and protect the site.
         </p>
         <p>
-          If your details are handled outside the UK, we make sure the safeguards required by UK data protection law
-          are in place.
+          Contact {mail} for the receiving provider and any international processing arrangements that apply to your enquiry.
         </p>
 
         <h2>How long we keep it</h2>
         <p>
-          We keep an enquiry for as long as we need it to reply and follow up. If you become a client, it becomes part
-          of your client record. Otherwise we delete it when it is no longer needed. Ask us at any time and we will
-          delete it sooner.
+          Contact {mail} to ask about the retention period for your enquiry, or to request deletion. We have not
+          published a fixed retention period here.
         </p>
 
         <h2>Cookies</h2>

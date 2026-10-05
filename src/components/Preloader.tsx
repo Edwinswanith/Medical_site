@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { lockScroll, prefersReducedMotion } from "@/lib/motion";
+import { isTouch, lockScroll, prefersReducedMotion } from "@/lib/motion";
 import { Mark } from "./Mark";
 
 /**
@@ -61,6 +61,7 @@ export function Preloader({ name }: { name: string }) {
       .add(finish);
     const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
     if (nav && nav.type !== "navigate") tl.timeScale(3);
+    else if (isTouch()) tl.timeScale(2); // retain the intro, with a shorter wait on phones
 
     // React dev mode runs effects twice: on cleanup, rewind instead of finishing,
     // so the second run plays the whole intro again.

@@ -16,7 +16,10 @@ export const prefersReducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 export const lockScroll = (locked: boolean) => {
-  if (lenis) (locked ? lenis.stop() : lenis.start());
+  if (lenis) {
+    if (locked) lenis.stop();
+    else lenis.start();
+  }
   document.documentElement.classList.toggle("is-locked", locked);
 };
 

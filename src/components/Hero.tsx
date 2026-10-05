@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import Image from "next/image";
 import { HERO, HERO_FILM, HERO_STATS, TEMPLATES } from "@/content/site";
 import { canAutoplay, isTouch, prefersReducedMotion } from "@/lib/motion";
 import { TLink } from "./TLink";
@@ -27,14 +28,26 @@ export function Hero() {
     // Play the clips while the hero is on screen. Phones play only the film; the short stays a still.
     const vids = canAutoplay() ? (isTouch() ? [film.current!] : [film.current!, phone.current!]) : [];
     const filmSrc = isTouch() ? HERO_FILM.sources.phone : HERO_FILM.sources.small;
-    if (vids[0]) vids[0].src = canMp4(vids[0]) ? filmSrc.mp4 : filmSrc.webm;
-    if (vids[1]) vids[1].src = canMp4(vids[1]) ? HERO_FILM.vertical.video!.mp4 : HERO_FILM.vertical.video!.webm;
-    const io = new IntersectionObserver(([e]) =>
-      vids.forEach((v) => (e.intersectionRatio > 0 && !document.hidden ? v.play().catch(() => {}) : v.pause())),
-    );
+    let visible = false;
+    const sync = () => vids.forEach((v, i) => {
+      // Wait until the intro has lifted before downloading decorative clips.
+      // Critical text, fonts and stills get the initial connection capacity.
+      if (!visible || document.hidden || !document.documentElement.hasAttribute("data-intro-done")) return v.pause();
+      if (!v.src) {
+        const source = i === 0 ? filmSrc : HERO_FILM.vertical.video!;
+        v.poster = v.parentElement?.querySelector("img")?.currentSrc || (i === 0 ? HERO_FILM.poster.webp : HERO_FILM.vertical.still.webp);
+        v.src = canMp4(v) ? source.mp4 : source.webm;
+      }
+      v.play().catch(() => {});
+    });
+    const io = new IntersectionObserver(([e]) => { visible = e.intersectionRatio > 0; sync(); });
     io.observe(s);
+    document.addEventListener("visibilitychange", sync);
+    const intro = new MutationObserver(sync);
+    intro.observe(document.documentElement, { attributes: true, attributeFilter: ["data-intro-done"] });
+    const clean = () => { io.disconnect(); intro.disconnect(); document.removeEventListener("visibilitychange", sync); vids.forEach(v => v.pause()); };
 
-    if (!window.matchMedia("(pointer: fine)").matches) return () => io.disconnect();
+    if (!window.matchMedia("(pointer: fine)").matches) return clean;
     const layers = [...s.querySelectorAll<HTMLElement>("[data-depth]")].map((el) => ({
       d: Number(el.dataset.depth),
       x: gsap.quickTo(el, "x", { duration: 1.2, ease: "power3" }),
@@ -50,7 +63,7 @@ export function Hero() {
     };
     window.addEventListener("pointermove", move);
     return () => {
-      io.disconnect();
+      clean();
       window.removeEventListener("pointermove", move);
       vids.forEach((v) => v.pause());
     };
@@ -118,22 +131,21 @@ export function Hero() {
             <i>yourname.co.uk</i>
           </div>
           <picture>
-            <source srcSet={cardio.img.webp} type="image/webp" />
-            <img src={cardio.img.jpg} alt="Cardiology website template" width={1200} height={750} fetchPriority="high" />
+            <Image src={cardio.img.webp} alt="Cardiology website template" width={1200} height={750} sizes="(max-width: 899px) 90vw, 50vw" loading="eager" fetchPriority="high" />
           </picture>
           <figcaption className="hs__tag label">Your website</figcaption>
         </figure>
         <figure className="hs hs--film notch" data-depth="1">
-          <img src={HERO_FILM.poster.webp} alt="" />
-          <video ref={film} muted loop playsInline preload="none" aria-hidden />
+          <Image src={HERO_FILM.poster.webp} alt="" width={1920} height={1080} sizes="(max-width: 899px) 65vw, 35vw" loading="eager" />
+          <video ref={film} muted loop playsInline preload="none" data-poster={HERO_FILM.poster.webp} width={1920} height={1080} aria-hidden />
           <figcaption className="hs__tag label">Your film, inside it</figcaption>
           <span className="hs__play" aria-hidden>
             ▶ Play the film
           </span>
         </figure>
         <figure className="hs hs--phone" data-depth="1.6">
-          <img src={HERO_FILM.vertical.still.webp} alt="" />
-          <video ref={phone} muted loop playsInline preload="none" aria-hidden />
+          <Image src={HERO_FILM.vertical.still.webp} alt="" width={720} height={1280} sizes="(max-width: 899px) 20vw, 12vw" loading="eager" />
+          <video ref={phone} muted loop playsInline preload="none" data-poster={HERO_FILM.vertical.still.webp} width={720} height={1280} aria-hidden />
           <figcaption className="hs__tag label">Your shorts</figcaption>
         </figure>
         <p className="hs__ai label">Film frames: AI-generated concept footage</p>

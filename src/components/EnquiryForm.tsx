@@ -43,7 +43,7 @@ export function EnquiryForm() {
   }
 
   return (
-    <form className="form" onSubmit={submit}>
+    <form className="form" method="post" action="/api/enquiry" onSubmit={submit}>
       <div className="form__row">
         <Field label="Your name" name="name" required autoComplete="name" />
         <Field label="Practice or organisation" name="org" autoComplete="organization" />

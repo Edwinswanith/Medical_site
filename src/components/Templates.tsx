@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import Image from "next/image";
 import { TEMPLATES } from "@/content/site";
+import { TLink } from "./TLink";
 
 /**
  * Scene 3. Twelve real specialty templates as a results table. Hovering a row
@@ -17,7 +19,7 @@ export function Templates() {
   useEffect(() => {
     const t = table.current;
     const c = card.current;
-    if (!t || !c || !window.matchMedia("(pointer: fine)").matches) return;
+    if (!t || !c || !window.matchMedia("(pointer: fine)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const x = gsap.quickTo(c, "x", { duration: 0.6, ease: "power3" });
     const y = gsap.quickTo(c, "y", { duration: 0.6, ease: "power3" });
     const r = gsap.quickTo(c, "rotation", { duration: 0.8, ease: "power3" });
@@ -82,17 +84,18 @@ export function Templates() {
             <span className="tpl__name">{t.name}</span>
             <span className="tpl__line">“{t.line}”</span>
             <span className="tpl__tag label">Concept</span>
-            <img className="tpl__thumb" src={t.img.webp} alt={`${t.name} website template`} loading="lazy" width={1200} height={750} />
+            <Image className="tpl__thumb" src={t.img.webp} alt={`${t.name} website template`} width={1200} height={750} sizes="(max-width: 899px) 80vw, 1px" />
           </li>
         ))}
       </ol>
 
       <div ref={card} className="tpl__card" data-on={active !== null} aria-hidden>
         {TEMPLATES.map((t, i) => (
-          <img key={t.slug} src={t.img.webp} alt="" data-active={active === i} loading="lazy" />
+          <Image key={t.slug} src={t.img.webp} alt="" data-active={active === i} width={1200} height={750} sizes="32vw" />
         ))}
         <span className="tpl__card-url">yourname.co.uk</span>
       </div>
+      <p><TLink className="arrow-link" href="/services/medical-websites">Explore websites for your specialty <span aria-hidden>→</span></TLink></p>
     </section>
   );
 }

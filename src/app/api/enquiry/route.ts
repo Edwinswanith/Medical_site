@@ -1,44 +1,47 @@
-import { deliver, type Enquiry } from "@/lib/contact";
+import { deliver } from "@/lib/contact";
+import { validateEnquiry } from "@/lib/enquiry";
 
-const LIMITS: Record<keyof Enquiry, number> = {
-  name: 120,
-  org: 160,
-  email: 200,
-  phone: 40,
-  need: 80,
-  budget: 40,
-  message: 2000,
-};
+async function boundedText(req: Request) {
+  const reader = req.body?.getReader();
+  if (!reader) return "";
+  const decoder = new TextDecoder();
+  let length = 0, text = "";
+  try {
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      length += value.byteLength;
+      if (length > 16000) { await reader.cancel(); return null; }
+      text += decoder.decode(value, { stream: true });
+    }
+    return text + decoder.decode();
+  } finally { reader.releaseLock(); }
+}
 
 export async function POST(req: Request) {
-  let body: Record<string, unknown>;
+  const contentType = req.headers.get("content-type") || "";
+  const native = contentType.startsWith("application/x-www-form-urlencoded") || contentType.startsWith("multipart/form-data");
+  const reply = (status: number, state: "sent" | "invalid" | "unavailable", error?: string) => {
+    // Native forms use POST/redirect/GET; no personal details are placed in a URL.
+    if (native) return new Response(null, { status: 303, headers: { Location: `/contact?enquiry=${state}`, "Cache-Control": "no-store" } });
+    return Response.json(error ? { error } : { ok: true }, { status, headers: { "Cache-Control": "no-store" } });
+  };
+  if (Number(req.headers.get("content-length")) > 16000) return reply(413, "invalid", "Request is too large.");
+  let body: unknown;
   try {
-    body = await req.json();
+    const raw = await boundedText(req);
+    if (raw === null) return reply(413, "invalid", "Request is too large.");
+    if (native) {
+      const form = await new Request(req.url, { method: "POST", headers: { "Content-Type": contentType }, body: raw }).formData();
+      body = { ...Object.fromEntries(form), consent: form.get("consent") === "on" };
+    } else if (contentType.startsWith("application/json")) body = JSON.parse(raw);
+    else return reply(415, "invalid", "Unsupported request format.");
   } catch {
-    return Response.json({ error: "Invalid request." }, { status: 400 });
+    return reply(400, "invalid", "Invalid request.");
   }
-
-  // Honeypot: bots fill every field.
-  if (typeof body.company === "string" && body.company.trim()) {
-    return Response.json({ error: "Invalid request." }, { status: 400 });
-  }
-
-  const e = {} as Enquiry;
-  for (const k of Object.keys(LIMITS) as (keyof Enquiry)[]) {
-    const v = typeof body[k] === "string" ? (body[k] as string).trim() : "";
-    if (v.length > LIMITS[k]) return Response.json({ error: `${k} is too long.` }, { status: 400 });
-    e[k] = v;
-  }
-  if (!e.name || !e.email) return Response.json({ error: "Name and email are required." }, { status: 400 });
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.email)) {
-    return Response.json({ error: "Please check the email address." }, { status: 400 });
-  }
-  if (e.phone && !/^[+\d][\d\s()-]{6,}$/.test(e.phone)) {
-    return Response.json({ error: "Please check the phone number." }, { status: 400 });
-  }
-  if (body.consent !== true) return Response.json({ error: "Please confirm we may contact you." }, { status: 400 });
-
-  const result = await deliver(e);
-  if (result.ok) return Response.json({ ok: true });
-  return Response.json({ error: result.reason }, { status: result.reason === "unconfigured" ? 503 : 502 });
+  const result = validateEnquiry(body);
+  if (!result.ok) return reply(400, "invalid", result.error);
+  const delivery = await deliver(result.enquiry);
+  if (delivery.ok) return reply(200, "sent");
+  return reply(delivery.reason === "unconfigured" ? 503 : 502, "unavailable", "We couldn't send this online. Please use the email link on our contact page.");
 }

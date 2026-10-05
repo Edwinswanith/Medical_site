@@ -1,6 +1,6 @@
 "use client";
 
-import { getLenis } from "@/lib/motion";
+import { getLenis, prefersReducedMotion } from "@/lib/motion";
 
 export function BackToTop() {
   return (
@@ -9,7 +9,7 @@ export function BackToTop() {
       onClick={() => {
         const l = getLenis();
         if (l) l.scrollTo(0, { duration: 1.6 });
-        else window.scrollTo({ top: 0, behavior: "smooth" });
+        else window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "instant" : "smooth" });
       }}
     >
       Back to top ↑

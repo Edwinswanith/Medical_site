@@ -8,7 +8,7 @@ export function Cursor() {
   const dot = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!window.matchMedia("(pointer: fine)").matches || !dot.current) return;
+    if (!window.matchMedia("(pointer: fine)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches || !dot.current) return;
     const el = dot.current;
     document.documentElement.classList.add("has-cursor");
     const x = gsap.quickTo(el, "x", { duration: 0.35, ease: "power3" });
