@@ -11,7 +11,6 @@ export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [tone, setTone] = useState<"dark" | "light">("dark");
   const panel = useRef<HTMLDivElement>(null);
   const button = useRef<HTMLButtonElement>(null);
   const tl = useRef<gsap.core.Timeline | null>(null);
@@ -23,30 +22,6 @@ export function Header() {
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
   }, []);
-
-  // Match the tone of the section under the header: observe a 1px line at y = 36.
-  useEffect(() => {
-    let io: IntersectionObserver | null = null;
-    const under = new Set<Element>();
-    const setup = () => {
-      io?.disconnect();
-      under.clear();
-      io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => (e.isIntersecting ? under.add(e.target) : under.delete(e.target)));
-          setTone(under.size ? "dark" : "light");
-        },
-        { rootMargin: `-36px 0px -${Math.max(0, window.innerHeight - 37)}px 0px` },
-      );
-      document.querySelectorAll("main [data-tone='dark'], footer[data-tone='dark']").forEach((el) => io!.observe(el));
-    };
-    setup();
-    window.addEventListener("resize", setup);
-    return () => {
-      io?.disconnect();
-      window.removeEventListener("resize", setup);
-    };
-  }, [pathname]);
 
   // Menu reveal: a circle grows out of the menu button, then the links rise.
   useEffect(() => {
@@ -101,7 +76,7 @@ export function Header() {
 
   return (
     <>
-      <header className="header" data-scrolled={scrolled} data-tone={tone} data-open={open}>
+      <header className="header" data-scrolled={scrolled} data-open={open}>
         <TLink href="/" className="header__brand" aria-label={`${BRAND.name} home`}>
           <Mark />
           <span>{BRAND.name}</span>

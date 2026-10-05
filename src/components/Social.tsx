@@ -7,7 +7,7 @@ import { MediaSwap } from "./MediaSwap";
  */
 export function Social() {
   return (
-    <section id="social" className="soc" data-tone="dark" data-chapter="Social" aria-labelledby="soc-h">
+    <section id="social" className="soc" data-chapter="Social" aria-labelledby="soc-h">
       <div className="soc__head">
         <p className="label">Shorts and social</p>
         <h2 id="soc-h" className="big" data-reveal>

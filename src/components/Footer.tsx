@@ -6,7 +6,7 @@ import { BackToTop } from "./BackToTop";
 /** The close: one invitation, a signal-coloured glow rising from the bottom edge, and the essentials. */
 export function Footer() {
   return (
-    <footer className="foot" data-tone="dark" data-scrub="" data-scrub-start="top bottom" data-scrub-end="bottom bottom">
+    <footer className="foot" data-scrub="" data-scrub-start="top bottom" data-scrub-end="bottom bottom">
       <div className="foot__panel notch">
         <p className="label">A short call is where it starts</p>
         <h2 className="foot__title" data-reveal>

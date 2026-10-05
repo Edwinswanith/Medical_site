@@ -57,7 +57,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section id="intro" className="hero" data-tone="dark" data-chapter="Intro" aria-labelledby="hero-h">
+    <section id="intro" className="hero" data-chapter="Intro" aria-labelledby="hero-h">
       <div className="hero__copy">
         <p className="hero__kicker label">
           {HERO.kicker.map((k, i) => (

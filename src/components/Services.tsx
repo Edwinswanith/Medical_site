@@ -5,7 +5,7 @@ import { MediaSwap } from "./MediaSwap";
 /** Scene 2. The promise, lit word by word, then the four services as clipped-corner cards. */
 export function Services() {
   return (
-    <section id="services" className="svc" data-tone="dark" data-chapter="Services" aria-labelledby="svc-h">
+    <section id="services" className="svc" data-chapter="Services" aria-labelledby="svc-h">
       <p className="label svc__label">What we do</p>
       <ScrubText className="svc__statement" text={STATEMENT} />
       <span id="svc-h" className="sr-only">

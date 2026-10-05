@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   description: HERO.intro,
 };
 
-export const viewport: Viewport = { themeColor: "#0e0f0f" };
+export const viewport: Viewport = { themeColor: "#f4f2ec" };
 
 // Runs before paint: marks JS as available; reduced motion skips the intro.
 // Safety net: if the app bundle never runs, reveal everything after 10 s anyway.
