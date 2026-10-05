@@ -6,8 +6,8 @@ import { lockScroll, prefersReducedMotion } from "@/lib/motion";
 
 /**
  * Intro panel, played on every full page load (refresh included):
- * the mark settles, the name rises, the count runs to 100 and holds, then the
- * panel lifts slowly away while the hero rises beneath it.
+ * the mark settles, the name rises, the count runs to 100, then the
+ * panel lifts away (about 2 s in all) while the hero rises beneath it.
  * Client-side page changes keep it hidden (it lives in the layout, which stays mounted).
  * Sets html[data-ready] as the lift begins, which starts the hero entrance.
  */
@@ -35,27 +35,27 @@ export function Preloader({ name }: { name: string }) {
     const q = gsap.utils.selector(el);
     const n = { v: 0 };
     const tl = gsap.timeline();
-    tl.from(q(".loader__mark"), { scale: 0.5, rotation: -90, opacity: 0, duration: 1, ease: "expo.out" }, 0)
-      .from(q(".loader__word span"), { yPercent: 110, duration: 1.1, stagger: 0.05, ease: "expo.out" }, 0.2)
+    // ~2 s total: in (0.1–1.2 s), brief hold, out and lift (1.3–2.05 s).
+    tl.from(q(".loader__mark"), { scale: 0.5, rotation: -90, opacity: 0, duration: 0.5, ease: "expo.out" }, 0)
+      .from(q(".loader__word span"), { yPercent: 110, duration: 0.6, stagger: 0.03, ease: "expo.out" }, 0.1)
       .to(
         n,
         {
           v: 100,
-          duration: 2.4,
+          duration: 1.1,
           ease: "power2.inOut",
           onUpdate: () => {
             if (count.current) count.current.textContent = String(Math.round(n.v)).padStart(3, "0");
           },
         },
-        0.2,
+        0.1,
       )
-      .to(q(".loader__bar"), { scaleX: 1, duration: 2.4, ease: "power2.inOut" }, 0.2)
-      // hold on 100 for a beat
-      .to({}, { duration: 0.35 })
-      .to(q(".loader__word span"), { yPercent: -110, duration: 0.8, stagger: 0.03, ease: "power3.in" })
-      .to(q(".loader__mark, .loader__count, .loader__bar"), { opacity: 0, duration: 0.5, ease: "power2.out" }, "<0.1")
-      .add(ready, "-=0.15")
-      .to(el, { yPercent: -100, duration: 1.4, ease: "power4.inOut" }, "-=0.25")
+      .to(q(".loader__bar"), { scaleX: 1, duration: 1.1, ease: "power2.inOut" }, 0.1)
+      .to({}, { duration: 0.1 })
+      .to(q(".loader__word span"), { yPercent: -110, duration: 0.4, stagger: 0.015, ease: "power3.in" })
+      .to(q(".loader__mark, .loader__count, .loader__bar"), { opacity: 0, duration: 0.3, ease: "power2.out" }, "<")
+      .add(ready, "-=0.3")
+      .to(el, { yPercent: -100, duration: 0.6, ease: "power4.inOut" }, "-=0.3")
       .add(finish);
 
     // React dev mode runs effects twice: on cleanup, rewind instead of finishing,
