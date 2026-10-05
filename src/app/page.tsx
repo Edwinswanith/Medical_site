@@ -24,6 +24,7 @@ export default function Home() {
       <PageJsonLd path="/" name={SEO.home.title} description={SEO.home.description} />
       <Hero />
       <Services />
+      <Case />
       <Templates />
       <Collage />
       <Geo />
@@ -31,7 +32,6 @@ export default function Home() {
       <FilmGrid />
       <Presenter />
       <Social />
-      <Case />
       <Process />
       <Packages />
     </>

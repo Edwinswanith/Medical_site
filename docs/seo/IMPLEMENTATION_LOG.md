@@ -73,3 +73,22 @@ The design, motion and content are unchanged. No new claims, locations, reviews 
 | Mobile: "Book a call" wrapped to two lines next to the longer wordmark | `globals.css` | Fits at 360px and 390px |
 
 Validation after the pass: build PASS, typecheck PASS, `seo:check` 69/69 against `https://cogniversestudio.com`, JS off PASS, reduced motion PASS, keyboard PASS, mobile overflow PASS, existing regression PASS, no console errors.
+
+## UI/UX fixes (5 Oct 2026)
+
+| Change | Why |
+|---|---|
+| Contact details: +44 (0)7436 194150, info@cogniversestudio.com | Trust: replaced the +91 number and Gmail |
+| Prof. Sheth case study moved to straight after Services; Work first in the nav and chapter rail | The only real proof sat 80% down the page, below all the concept footage |
+| `/privacy` notice (UK GDPR), linked from the form consent and the footer; in the sitemap | The form collects personal data. Statements match the code: no cookies, no analytics, self-hosted fonts. **Confirm the retention wording and the delivery provider before launch.** |
+| Labels 11px to 12px; every small text style raised about 1px (nothing under 10px) | Legibility for an older clinician audience |
+| Muted text on the hover card tint back above 4.5:1 | Contrast |
+| Numbers scene 320vh to 240vh, collage 150vh to 120vh, presenter 200vh | About 2 screens shorter; same choreography |
+| Intro: full length on arrival, about 0.7 s on refresh or back/forward (read from the browser, nothing stored) | Returning visitors no longer wait 2 s every time |
+| Footer on `/contact` drops "Book a call" (keeps the email) | It linked to the page you were on |
+| Image reveal wipes in navy; the gradient kept for accents | Quieter scroll; the gradient stays special |
+| AI-search demo question from orthopaedics (knee replacement) | The example now matches the 12 specialties |
+| GEO "Open" pillar no longer claims llms.txt lets assistants in | Overclaim (see GEO_AI_SEARCH.md) |
+| `.ulink` styled (contact and privacy links were unstyled) | Links looked like plain text |
+
+Validation: build PASS, typecheck PASS, `seo:check` 99/99 (now with /privacy), JS off, reduced motion, keyboard, mobile overflow, existing regression, intro timing (2.2 s arrival, 0.77 s refresh), section order, footer per page, privacy render: all PASS. No console errors.

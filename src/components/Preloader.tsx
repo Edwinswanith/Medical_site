@@ -6,9 +6,10 @@ import { lockScroll, prefersReducedMotion } from "@/lib/motion";
 import { Mark } from "./Mark";
 
 /**
- * Intro panel, played on every full page load (refresh included):
- * the mark settles, the name rises, the count runs to 100, then the
- * panel lifts away (about 2 s in all) while the hero rises beneath it.
+ * Intro panel, played on every full page load: the mark settles, the name rises, the
+ * count runs to 100, then the panel lifts away (about 2 s) while the hero rises beneath it.
+ * A refresh or back/forward visit plays the same intro at about three times the speed,
+ * so returning visitors are not kept waiting. Read from the browser, nothing is stored.
  * Client-side page changes keep it hidden (it lives in the layout, which stays mounted).
  * Sets html[data-ready] as the lift begins, which starts the hero entrance.
  */
@@ -58,6 +59,8 @@ export function Preloader({ name }: { name: string }) {
       .add(ready, "-=0.3")
       .to(el, { yPercent: -100, duration: 0.6, ease: "power4.inOut" }, "-=0.3")
       .add(finish);
+    const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+    if (nav && nav.type !== "navigate") tl.timeScale(3);
 
     // React dev mode runs effects twice: on cleanup, rewind instead of finishing,
     // so the second run plays the whole intro again.

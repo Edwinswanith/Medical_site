@@ -9,7 +9,7 @@
 :root {
   --bg: #f5f8fc;
   --bg-2: #e8eff7;
-  --bg-3: #dce6f1;
+  --bg-3: #e1e9f3;
   --bone: #0b1830;
   --stone: #686c7a;
   --line-d: rgba(11, 24, 48, 0.12);
@@ -144,7 +144,7 @@ em {
 /* ───────── Type ───────── */
 .label {
   font-family: var(--fm);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -222,7 +222,7 @@ em {
   margin-left: 10px;
   font-style: normal;
   font-family: var(--fm);
-  font-size: 10.5px;
+  font-size: 11.5px;
   color: rgba(11, 24, 48, 0.62);
   padding: 3px 10px;
   border-radius: 99px;
@@ -231,7 +231,7 @@ em {
 .chip {
   display: inline-block;
   font-family: var(--fm);
-  font-size: 10.5px;
+  font-size: 11.5px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 6px 10px;
@@ -659,7 +659,7 @@ html.has-cursor .cursor[data-state="view"]::after,
 html.has-cursor .cursor[data-state="guide"]::after {
   content: attr(data-label);
   font-family: var(--fm);
-  font-size: 10.5px;
+  font-size: 11.5px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--on-dark);
@@ -778,7 +778,7 @@ html:not([data-js]) [data-reveal] {
   position: absolute;
   inset: 0;
   z-index: 3;
-  background: var(--grad);
+  background: var(--navy);
   transform-origin: right;
   transition: transform 1s cubic-bezier(0.77, 0, 0.18, 1);
   transition-delay: calc(var(--i, 0) * 90ms);
@@ -835,7 +835,7 @@ html:not([data-js]) .wipe img {
   left: 10px;
   bottom: 10px;
   font-family: var(--fm);
-  font-size: 9.5px;
+  font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--on-dark);
@@ -1034,7 +1034,7 @@ html[data-js]:not([data-ready]) .hero__stats li {
   padding: 4px 8px;
   background: rgba(6, 13, 28, 0.75);
   color: var(--on-dark);
-  font-size: 9.5px;
+  font-size: 11px;
 }
 .hs--film .hs__tag,
 .hs--phone .hs__tag {
@@ -1042,7 +1042,7 @@ html[data-js]:not([data-ready]) .hero__stats li {
 }
 .hs--phone .hs__tag {
   left: 6px;
-  font-size: 8.5px;
+  font-size: 10px;
 }
 .hs__play {
   position: absolute;
@@ -1050,7 +1050,7 @@ html[data-js]:not([data-ready]) .hero__stats li {
   left: 10px;
   bottom: 10px;
   font-family: var(--fm);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 6px 10px;
@@ -1061,7 +1061,7 @@ html[data-js]:not([data-ready]) .hero__stats li {
   position: absolute;
   right: 0;
   bottom: -26px;
-  font-size: 9.5px;
+  font-size: 11px;
 }
 /* entrance after the intro */
 html[data-js]:not([data-ready]) .hero__title .line > span,
@@ -1136,7 +1136,7 @@ html[data-ready] .hero__stack .hs--phone {
 .svc__n {
   margin-top: 14px;
   font-family: var(--fm);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--signal-ink);
 }
 .svc__name {
@@ -1157,7 +1157,7 @@ html[data-ready] .hero__stack .hs--phone {
 }
 .svc__more {
   font-family: var(--fm);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -1280,7 +1280,7 @@ html[data-ready] .hero__stack .hs--phone {
   left: 10px;
   bottom: 10px;
   font-family: var(--fm);
-  font-size: 10px;
+  font-size: 11px;
   padding: 4px 8px;
   background: rgba(6, 13, 28, 0.8);
   color: var(--on-dark);
@@ -1351,7 +1351,7 @@ html[data-ready] .hero__stack .hs--phone {
 .geo__cite {
   margin-top: 14px;
   font-family: var(--fm);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--signal-ink);
 }
 .geo__ill {
@@ -1436,7 +1436,7 @@ html[data-ready] .hero__stack .hs--phone {
   text-align: right;
 }
 .num[data-live] {
-  height: 320vh;
+  height: 240vh;
 }
 .num[data-live] .num__stage {
   position: sticky;
@@ -1471,7 +1471,7 @@ html[data-ready] .hero__stack .hs--phone {
 /* Interlude ─ drifting collage */
 .col {
   position: relative;
-  min-height: 150vh;
+  min-height: 120vh;
   display: grid;
   place-items: center;
   overflow: hidden;
@@ -1602,7 +1602,7 @@ html[data-ready] .hero__stack .hs--phone {
 }
 .pre__grow {
   position: relative;
-  height: 230vh;
+  height: 200vh;
 }
 .pre__stage {
   position: sticky;
@@ -1856,7 +1856,7 @@ html[data-ready] .hero__stack .hs--phone {
 }
 .case__facts dt {
   font-family: var(--fm);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--stone);
@@ -1911,7 +1911,7 @@ html[data-ready] .hero__stack .hs--phone {
 }
 .prc__safe li {
   font-family: var(--fm);
-  font-size: 10.5px;
+  font-size: 11.5px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   padding: 7px 11px;
@@ -2101,7 +2101,7 @@ html[data-ready] .hero__stack .hs--phone {
   display: flex;
   justify-content: space-between;
   font-family: var(--fm);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--stone);
@@ -2185,7 +2185,7 @@ html[data-ready] .hero__stack .hs--phone {
 }
 .field > span {
   font-family: var(--fm);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted-l);
@@ -2285,7 +2285,7 @@ html[data-ready] .hero__stack .hs--phone {
   gap: 0;
   padding: 4px 2px;
   font-family: var(--fm);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--stone);
@@ -2584,7 +2584,7 @@ html {
     display: inline-flex;
     height: 44px;
     padding: 0 14px;
-    font-size: 11px;
+    font-size: 12px;
   }
   .burger {
     width: 44px;
@@ -2598,7 +2598,7 @@ html {
   .hs__tag,
   .swap__ai,
   .hs__ai {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   /* Hero: headline, intro, one CTA row, then the product stack. Stat cards move out. */
@@ -2999,4 +2999,48 @@ html {
   .header .pill {
     padding: 0 12px;
   }
+}
+
+/* Inline text links (contact page, privacy notice, form consent) */
+.ulink {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color 0.3s;
+}
+.ulink:hover {
+  color: var(--signal-ink);
+}
+
+/* Privacy and other long-form text */
+.legal {
+  padding: 0 var(--gut) clamp(80px, 10vw, 140px);
+  background: var(--paper);
+}
+.legal > * {
+  max-width: 68ch;
+}
+.legal h2 {
+  margin: 44px 0 12px;
+  font-weight: 800;
+  font-stretch: 68%;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  line-height: 1;
+}
+.legal p,
+.legal li {
+  color: var(--bone);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+.legal p + p,
+.legal ul {
+  margin-top: 12px;
+}
+.legal ul {
+  display: grid;
+  gap: 6px;
+  padding-left: 1.2em;
+  list-style: disc;
 }

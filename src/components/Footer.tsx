@@ -1,6 +1,6 @@
 import { BRAND, LEGAL, NAV } from "@/content/site";
 import { TLink } from "./TLink";
-import { Magnetic } from "./Magnetic";
+import { FootCta } from "./FootCta";
 import { BackToTop } from "./BackToTop";
 
 /** The close: one invitation, a signal-coloured glow rising from the bottom edge, and the essentials. */
@@ -20,16 +20,7 @@ export function Footer() {
             </span>
           </span>
         </h2>
-        <div className="foot__cta">
-          <Magnetic>
-            <TLink href="/contact" className="btn btn--signal btn--lg" data-cursor="hide">
-              Book a call <span aria-hidden>→</span>
-            </TLink>
-          </Magnetic>
-          <a className="arrow-link" href={`mailto:${BRAND.email}`}>
-            {BRAND.email}
-          </a>
-        </div>
+        <FootCta />
 
         <div className="foot__cols">
           <div>
@@ -56,7 +47,7 @@ export function Footer() {
       <p className="foot__legal">{LEGAL}</p>
       <div className="foot__base">
         <span>
-          © {new Date().getFullYear()} {BRAND.name}
+          © {new Date().getFullYear()} {BRAND.name} · <TLink href="/privacy">Privacy</TLink>
         </span>
         <BackToTop />
       </div>

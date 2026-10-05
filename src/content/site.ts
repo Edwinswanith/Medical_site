@@ -32,6 +32,11 @@ export const SEO = {
     description:
       "Specialty websites built to be found on Google and by AI assistants, with patient films, an AI presenter in your own voice and social content for your practice.",
   },
+  privacy: {
+    title: "Privacy notice",
+    description:
+      "How CogniVerse Studio uses the details you send through the enquiry form: what we collect, why, who handles it, how long we keep it and your rights under UK GDPR.",
+  },
   contact: {
     title: "Book a call about your practice",
     description:
@@ -165,13 +170,13 @@ export const GEO = {
     { name: "Readable", body: "Every film ships with its full transcript, so what you say on screen exists as text an assistant can read." },
     { name: "Checkable", body: "Your GMC number, appointments and hospitals stated once, consistently, with the sources behind each page named." },
     { name: "Structured", body: "Markup that tells a machine this is a physician, this is a procedure, this is a film and how long it runs." },
-    { name: "Open", body: "Crawl rules and an llms.txt file that let AI assistants in, rather than blocking them by default." },
+    { name: "Open", body: "Crawl rules that let AI search assistants read your site, rather than blocking them by default." },
     { name: "Watched", body: "A regular check of what Google and the main assistants actually say when asked about you." },
   ],
   demo: {
-    ask: "Is it normal for my baby to bring up milk?",
-    answer: "Lots of babies bring up milk after a feed. For most babies it’s normal, and it gets better with time.",
-    cite: "yourname.co.uk · Reflux in babies: film and transcript",
+    ask: "Is it normal for my knee to feel stiff after a knee replacement?",
+    answer: "Yes. Stiffness and swelling are common in the first weeks after a knee replacement, and usually ease with your exercises.",
+    cite: "yourname.co.uk · Recovery after knee replacement: film and transcript",
   },
 };
 
@@ -320,22 +325,22 @@ export const PACKAGES = [
 export const CHAPTERS = [
   { id: "intro", label: "Intro" },
   { id: "services", label: "Services" },
+  { id: "work", label: "Work" },
   { id: "websites", label: "Websites" },
   { id: "geo", label: "Found" },
   { id: "films", label: "Films" },
   { id: "presenter", label: "Presenter" },
   { id: "social", label: "Social" },
-  { id: "work", label: "Work" },
   { id: "process", label: "Process" },
   { id: "begin", label: "Begin" },
 ];
 
 export const NAV = [
+  { href: "/#work", label: "Work" },
   { href: "/#websites", label: "Websites" },
   { href: "/#films", label: "Films" },
   { href: "/#presenter", label: "AI presenter" },
   { href: "/#social", label: "Social" },
-  { href: "/#work", label: "Work" },
 ];
 
 export const ENQUIRY = {

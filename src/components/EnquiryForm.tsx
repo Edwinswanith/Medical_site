@@ -63,7 +63,9 @@ export function EnquiryForm() {
       <input className="hp" name="company" tabIndex={-1} autoComplete="off" aria-hidden />
       <label className="check">
         <input type="checkbox" name="consent" required />
-        <span>I agree to be contacted about this enquiry.</span>
+        <span>
+          I agree to be contacted about this enquiry. <a className="ulink" href="/privacy">How we use your details</a>.
+        </span>
       </label>
       <div className="form__foot">
         <button className="blob blob--ink" disabled={state.kind === "sending"}>
