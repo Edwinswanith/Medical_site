@@ -16,9 +16,26 @@
 export const BRAND = {
   name: "Tech Cogniverse",
   short: "Cogniverse",
+  logo: "cogniverseStudio", // header wordmark (user, 5 Oct 2026). Confirm the one name to use everywhere.
   email: "edwinswanith006@gmail.com", // Tech Cogniverse /about. Plainsight lists a different inbox; confirm which to use.
   phone: { display: "+91 9003 020 030", tel: "+919003020030" }, // Tech Cogniverse /about
   responseTime: "Typically respond within 24 hours", // Tech Cogniverse /about
+};
+
+/* ───────────── Search and sharing ───────────── */
+
+// Titles and descriptions per page. Each one restates what is visible on that page, nothing more.
+export const SEO = {
+  home: {
+    title: "Websites and patient films for clinicians",
+    description:
+      "Specialty websites built to be found on Google and by AI assistants, with patient films, an AI presenter in your own voice and social content for your practice.",
+  },
+  contact: {
+    title: "Book a call about your practice",
+    description:
+      "Tell us about your practice: your specialty, what you have today and your timelines. We reply with questions or a short proposal, typically within 24 hours.",
+  },
 };
 
 /* ───────────── Media ───────────── */

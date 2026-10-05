@@ -71,6 +71,7 @@ export function Hero() {
           <span className="line">
             <span>{HERO.titleA}</span>
           </span>
+          {/* a real space, so crawlers that skip CSS don't read the lines as one word */}{" "}
           <span className="line">
             <span>
               {HERO.titleB}{" "}

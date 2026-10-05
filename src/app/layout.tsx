@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Instrument_Serif, JetBrains_Mono } from "next/font/google";
-import { BRAND, HERO } from "@/content/site";
+import { BRAND, SEO } from "@/content/site";
+import { SITE_URL } from "@/lib/site-url";
+import { SiteJsonLd } from "@/components/JsonLd";
 import { Motion } from "@/components/Motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -14,9 +16,12 @@ const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["nor
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--f-mono" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
-  title: { default: `${BRAND.name}: your practice’s media partner`, template: `%s · ${BRAND.name}` },
-  description: HERO.intro,
+  metadataBase: new URL(SITE_URL),
+  title: { default: `${SEO.home.title} | ${BRAND.name}`, template: `%s | ${BRAND.name}` },
+  description: SEO.home.description,
+  applicationName: BRAND.name,
+  openGraph: { type: "website", siteName: BRAND.name, locale: "en_GB" },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = { themeColor: "#f4f2ec" };
@@ -27,11 +32,12 @@ const boot = `(function(){var d=document.documentElement,o=function(){d.dataset.
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${serif.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en-GB" className={`${display.variable} ${serif.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: boot }} />
       </head>
       <body>
+        <SiteJsonLd description={SEO.home.description} />
         <a className="skip" href="#main">
           Skip to content
         </a>

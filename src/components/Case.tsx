@@ -12,6 +12,7 @@ export function Case() {
         <span className="line">
           <span>{CASE.name},</span>
         </span>
+        {" "}
         <span className="line">
           <span>
             <em>{CASE.em}</em>

@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
-import { BRAND } from "@/content/site";
+import { BRAND, SEO } from "@/content/site";
+import { PageJsonLd } from "@/components/JsonLd";
+import { pageMetadata } from "@/lib/seo";
 import { EnquiryForm } from "@/components/EnquiryForm";
 import { Split } from "@/components/Split";
 
-export const metadata: Metadata = { title: "Book a call" };
+export const metadata: Metadata = pageMetadata({ path: "/contact", ...SEO.contact });
 
 export default function ContactPage() {
   return (
     <>
+      <PageJsonLd path="/contact" type="ContactPage" name={SEO.contact.title} description={SEO.contact.description} />
       <section className="phero wrap">
         <p className="label">Book a call</p>
         <Split as="h1" className="display-xl" text="Tell us what your practice needs" em="your practice needs" />

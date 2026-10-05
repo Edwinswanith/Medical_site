@@ -7,8 +7,6 @@ import { BRAND, NAV } from "@/content/site";
 import { lockScroll, prefersReducedMotion } from "@/lib/motion";
 import { TLink } from "./TLink";
 
-const LOGO_NAME = "cogniverseStudio";
-
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -79,9 +77,9 @@ export function Header() {
   return (
     <>
       <header className="header" data-scrolled={scrolled} data-open={open}>
-        <TLink href="/" className="header__brand" aria-label={`${LOGO_NAME} home`}>
+        <TLink href="/" className="header__brand" aria-label={`${BRAND.logo} home`}>
           <Mark />
-          <span>{LOGO_NAME}</span>
+          <span>{BRAND.logo}</span>
         </TLink>
         <nav className="header__nav" aria-label="Primary">
           {NAV.map((n) => (

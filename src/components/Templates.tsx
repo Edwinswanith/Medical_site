@@ -48,6 +48,7 @@ export function Templates() {
           <span className="line">
             <span>Websites that</span>
           </span>
+          {" "}
           <span className="line">
             <span>
               get <em>found.</em>

@@ -14,6 +14,7 @@ export function Social() {
           <span className="line">
             <span>Not just your website.</span>
           </span>
+          {" "}
           <span className="line">
             <span>
               Every <em>platform.</em>

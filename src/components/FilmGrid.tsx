@@ -16,6 +16,7 @@ export function FilmGrid() {
           <span className="line">
             <span>{FILMS.title}</span>
           </span>
+          {" "}
           <span className="line">
             <span>
               <em>{FILMS.titleEm}</em>

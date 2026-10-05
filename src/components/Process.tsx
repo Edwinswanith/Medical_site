@@ -14,6 +14,7 @@ export function Process() {
           <span className="line">
             <span>{PROCESS.title}</span>
           </span>
+          {" "}
           <span className="line">
             <span>
               <em>{PROCESS.titleEm}</em>

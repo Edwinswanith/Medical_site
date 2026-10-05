@@ -13,6 +13,7 @@ export function Footer() {
           <span className="line">
             <span>Let&apos;s talk about</span>
           </span>
+          {" "}
           <span className="line">
             <span>
               <em>your practice.</em>
