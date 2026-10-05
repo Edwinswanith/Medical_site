@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Instrument_Serif, JetBrains_Mono } from "next/font/google";
-import { BRAND } from "@/content/site";
+import { BRAND, HERO } from "@/content/site";
 import { Motion } from "@/components/Motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -15,11 +15,11 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--f-mono" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
-  title: { default: `${BRAND.name}: ${BRAND.offer}`, template: `%s · ${BRAND.name}` },
-  description: BRAND.intro,
+  title: { default: `${BRAND.name}: your practice’s media partner`, template: `%s · ${BRAND.name}` },
+  description: HERO.intro,
 };
 
-export const viewport: Viewport = { themeColor: "#0b2422" };
+export const viewport: Viewport = { themeColor: "#0e0f0f" };
 
 // Runs before paint: marks JS as available and skips the intro for return visits.
 // Safety net: if the app bundle never runs, reveal everything after 5 s anyway.

@@ -1,76 +1,65 @@
-import { BRAND, NAV } from "@/content/site";
+import { BRAND, LEGAL, NAV } from "@/content/site";
 import { TLink } from "./TLink";
 import { Magnetic } from "./Magnetic";
 import { BackToTop } from "./BackToTop";
 
+/** The close: one invitation, a signal-coloured glow rising from the bottom edge, and the essentials. */
 export function Footer() {
   return (
-    <footer className="footer" data-tone="dark">
-      <div className="footer__cta">
-        <p className="label">Have a practice to explain?</p>
-        <h2 className="display-l" data-reveal>
+    <footer className="foot" data-tone="dark">
+      <div className="foot__panel notch">
+        <p className="label">A short call is where it starts</p>
+        <h2 className="foot__title" data-reveal>
           <span className="line">
-            <span>Let&apos;s make it</span>
+            <span>Let&apos;s talk about</span>
           </span>
           <span className="line">
             <span>
-              <em>easy to understand.</em>
+              <em>your practice.</em>
             </span>
           </span>
         </h2>
-        <div className="footer__cta-actions">
+        <div className="foot__cta">
           <Magnetic>
-            <TLink href="/contact" className="blob" data-cursor="hide">
-              Start a project
+            <TLink href="/contact" className="btn btn--signal btn--lg" data-cursor="hide">
+              Book a call <span aria-hidden>→</span>
             </TLink>
           </Magnetic>
-          <a className="footer__phone" href={`mailto:${BRAND.email}`}>
-            or email {BRAND.email}
+          <a className="arrow-link" href={`mailto:${BRAND.email}`}>
+            {BRAND.email}
           </a>
         </div>
-      </div>
 
-      <div className="footer__grid">
-        <div>
-          <p className="label">Contact</p>
-          <p>
-            <a className="ulink" href={`mailto:${BRAND.email}`}>{BRAND.email}</a>
-          </p>
-          <p>
-            <a className="ulink" href={`tel:${BRAND.phone.tel}`}>{BRAND.phone.display}</a>
-          </p>
-          <p className="muted">{BRAND.responseTime}</p>
-        </div>
-        <div>
-          <p className="label">Studio</p>
-          <p>{BRAND.founders}</p>
-        </div>
-        <div>
-          <p className="label">Site</p>
-          {[{ href: "/", label: "Home" }, ...NAV].map((n) => (
-            <p key={n.href}>
-              <TLink className="ulink" href={n.href}>
-                {n.label}
-              </TLink>
+        <div className="foot__cols">
+          <div>
+            <p className="label">What we do</p>
+            {NAV.map((n) => (
+              <p key={n.href}>
+                <TLink href={n.href}>{n.label}</TLink>
+              </p>
+            ))}
+          </div>
+          <div>
+            <p className="label">Contact</p>
+            <p>
+              <TLink href="/contact">Enquire</TLink>
             </p>
-          ))}
+            <p>
+              <a href={`tel:${BRAND.phone.tel}`}>{BRAND.phone.display}</a>
+            </p>
+            <p className="muted">{BRAND.responseTime}</p>
+          </div>
         </div>
       </div>
 
-      <p className="footer__note">
-        Films and imagery marked as AI-generated are concept work made to show a format. They are not
-        client footage or clinical diagrams.
-      </p>
-
-      <div className="footer__base">
+      <p className="foot__legal">{LEGAL}</p>
+      <div className="foot__base">
         <span>
           © {new Date().getFullYear()} {BRAND.name}
         </span>
         <BackToTop />
       </div>
-      <div className="footer__word" aria-hidden style={{ ["--n" as string]: BRAND.short.length }}>
-        {BRAND.short}
-      </div>
+      <div className="foot__glow" aria-hidden />
     </footer>
   );
 }

@@ -16,7 +16,7 @@ export function Header() {
   const button = useRef<HTMLButtonElement>(null);
   const tl = useRef<gsap.core.Timeline | null>(null);
 
-  // The header stays put so "Start a project" is always one click away; it gains a backdrop once scrolled.
+  // The header stays put so "Book a call" is always one click away; it gains a backdrop once scrolled.
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 40);
     on();
@@ -107,15 +107,15 @@ export function Header() {
           <span>{BRAND.name}</span>
         </TLink>
         <nav className="header__nav" aria-label="Primary">
-          {NAV.filter((n) => n.href !== "/contact").map((n) => (
+          {NAV.map((n) => (
             <TLink key={n.href} href={n.href} data-active={pathname === n.href}>
               {n.label}
             </TLink>
           ))}
         </nav>
         <div className="header__actions">
-          <TLink href="/contact" className="pill pill--mint">
-            Start a project
+          <TLink href="/contact" className="pill pill--signal">
+            Book a call
           </TLink>
           <button
             ref={button}
@@ -133,10 +133,10 @@ export function Header() {
 
       <div id="menu" ref={panel} className="menu" role="dialog" aria-modal="true" aria-label="Menu" inert={!open}>
         <nav className="menu__links">
-          {[{ href: "/", label: "Home" }, ...NAV].map((n, i) => (
+          {[{ href: "/", label: "Home" }, ...NAV, { href: "/contact", label: "Book a call" }].map((n, i) => (
             <TLink key={n.href} href={n.href} className="menu__link" data-active={pathname === n.href}>
               <span className="menu__link-inner">
-                <span className="menu__num">0{i + 1}</span>
+                <span className="menu__num">{String(i + 1).padStart(2, "0")}</span>
                 {n.label}
               </span>
             </TLink>

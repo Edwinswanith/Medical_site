@@ -7,7 +7,7 @@ export default function NotFound() {
       <h1 className="display-xl">
         Cut. <em>This page isn&apos;t here.</em>
       </h1>
-      <TLink href="/" className="blob blob--ink">Back to the studio</TLink>
+      <TLink href="/" className="btn btn--outline">Back to the studio</TLink>
     </section>
   );
 }

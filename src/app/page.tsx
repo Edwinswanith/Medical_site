@@ -1,26 +1,30 @@
-import { SERVICES } from "@/content/site";
-import { FilmHero } from "@/components/FilmHero";
-import { WorkReel } from "@/components/WorkReel";
-import { Formats } from "@/components/Formats";
-import { ServiceReel } from "@/components/ServiceReel";
-import { ConceptGallery } from "@/components/ConceptGallery";
-import { SearchList } from "@/components/SearchList";
+import { Hero } from "@/components/Hero";
+import { Services } from "@/components/Services";
+import { Templates } from "@/components/Templates";
+import { Geo } from "@/components/Geo";
+import { Numbers } from "@/components/Numbers";
+import { FilmReel } from "@/components/FilmReel";
+import { Presenter } from "@/components/Presenter";
+import { Social } from "@/components/Social";
+import { Case } from "@/components/Case";
 import { Process } from "@/components/Process";
-import { Voice } from "@/components/Voice";
-import { Marquee } from "@/components/Marquee";
+import { Packages } from "@/components/Packages";
 
+// Section order follows Plainsight; the visual language follows On Track.
 export default function Home() {
   return (
     <>
-      <FilmHero />
-      <WorkReel />
-      <Marquee items={SERVICES.map((s) => s.name)} />
-      <Formats />
-      <ServiceReel />
-      <ConceptGallery />
-      <SearchList />
+      <Hero />
+      <Services />
+      <Templates />
+      <Geo />
+      <Numbers />
+      <FilmReel />
+      <Presenter />
+      <Social />
+      <Case />
       <Process />
-      <Voice />
+      <Packages />
     </>
   );
 }

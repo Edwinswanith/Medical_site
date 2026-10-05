@@ -8,3 +8,5 @@ next-env.d.ts
 review
 .DS_Store
 assets-src/gen
+assets-src/templates
+assets-src/sheth-home.jpg

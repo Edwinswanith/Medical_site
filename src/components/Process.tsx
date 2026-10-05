@@ -1,38 +1,44 @@
 "use client";
 
 import { useRef } from "react";
-import { PROCESS, PROCESS_PROMISE } from "@/content/site";
+import { PROCESS } from "@/content/site";
 import { useHorizontal } from "@/lib/useHorizontal";
 
-/** Scene 7. How a project runs, slid sideways on wide screens. Source: /process. */
+/** Scene 9. How it works: five steps slid sideways on wide screens, then the safeguards. */
 export function Process() {
   const root = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
   useHorizontal(root, track);
 
   return (
-    <section ref={root} id="process" className="pr" data-tone="dark" data-chapter="Process" aria-labelledby="pr-h">
-      <div className="pr__stage" data-cursor="guide" data-cursor-label="Scroll">
-        <div className="pr__head">
-          <p className="label">How a project runs</p>
-          <h2 id="pr-h" className="display-m">
-            Four steps. <em>Demo every Friday.</em>
+    <section ref={root} id="process" className="prc" data-tone="dark" data-chapter="Process" aria-labelledby="prc-h">
+      <div className="prc__stage" data-cursor="guide" data-cursor-label="Scroll">
+        <div className="prc__head">
+          <p className="label">How it works</p>
+          <h2 id="prc-h" className="mid">
+            {PROCESS.title} <em>{PROCESS.titleEm}</em>
           </h2>
-          <div className="pr__progress" aria-hidden>
-            <div />
-          </div>
+          <p className="prc__intro">{PROCESS.intro}</p>
         </div>
-        <div ref={track} className="pr__track">
-          {PROCESS.map((p) => (
-            <article key={p.step} className="pr__card">
-              <span className="pr__n" aria-hidden>
-                {p.step}
+        <div ref={track} className="prc__track">
+          {PROCESS.steps.map((s) => (
+            <article key={s.n} className="prc__card notch">
+              <span className="prc__n" aria-hidden>
+                {s.n}
               </span>
-              <h3>{p.title}</h3>
-              <p>{p.body}</p>
+              <p className="label">Step {s.n}</p>
+              <h3>{s.name}</h3>
+              <p>{s.body}</p>
             </article>
           ))}
-          <p className="pr__promise">{PROCESS_PROMISE}</p>
+        </div>
+        <ul className="prc__safe">
+          {PROCESS.safeguards.map((s) => (
+            <li key={s}>{s}</li>
+          ))}
+        </ul>
+        <div className="prc__progress" aria-hidden>
+          <div />
         </div>
       </div>
     </section>

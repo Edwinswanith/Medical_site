@@ -3,13 +3,13 @@ import { BRAND } from "@/content/site";
 import { EnquiryForm } from "@/components/EnquiryForm";
 import { Split } from "@/components/Split";
 
-export const metadata: Metadata = { title: "Start a project" };
+export const metadata: Metadata = { title: "Book a call" };
 
 export default function ContactPage() {
   return (
     <>
       <section className="phero wrap">
-        <p className="label">Start a project</p>
+        <p className="label">Book a call</p>
         <Split as="h1" className="display-xl" text="Tell us what your practice needs" em="your practice needs" />
         <p className="phero__intro lede" data-reveal>
           A few details is enough. We reply with questions or a short proposal, never an automated sequence.

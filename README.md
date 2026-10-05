@@ -26,9 +26,10 @@ It is a business enquiry and asks for no patient information.
 ## Structure
 
 - `src/content/site.ts`: all content
-- `src/app/`: pages (`/`, `/contact`); the rest of the storyboard is still to be built
-- `src/components/FilmHero.tsx`: scene 1, a framed film that opens to full screen on scroll
-- `src/components/WorkCard.tsx`: scene 2, the lead case study card
+- `src/app/page.tsx`: the home page, in Plainsight's section order (hero, services, websites,
+  GEO, numbers, films, AI presenter, social, work, process, packages)
+- `src/components/`: one component per scene; `MediaSwap` turns a still into its film,
+  `ScrubText` lights a statement word by word, `useHorizontal` slides a row sideways on scroll
 - `src/components/Motion.tsx`: smooth scroll, curtain page transitions, scroll reveals
 - `src/components/Header.tsx`: header + full-screen circular-reveal menu
 - `src/app/globals.css`: tokens (bone, ink, mint), type, every component
