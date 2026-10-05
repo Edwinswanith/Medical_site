@@ -2479,3 +2479,472 @@ html[data-ready] .hero__stack .hs--phone {
     transition-delay: 0ms !important;
   }
 }
+
+/* ═════════════════════════ Phones (≤ 640px) and touch ═════════════════════════
+   One place for every mobile decision: no sideways panning, the main CTA always
+   in the header, 44px tap targets, readable labels, compact scenes, and video
+   that plays only when tapped (except the hero film and the presenter). */
+
+html {
+  overflow-x: clip;
+}
+.soc,
+.col,
+.foot {
+  overflow: clip;
+}
+
+/* Tap-to-play frames show a play badge until they are playing */
+.swap__play {
+  display: none;
+}
+.swap[data-tap] .swap__play {
+  display: grid;
+  place-items: center;
+  position: absolute;
+  z-index: 2;
+  right: 10px;
+  top: 10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(14, 15, 15, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  cursor: pointer;
+}
+.swap[data-tap] .swap__play::before {
+  content: "";
+  margin-left: 3px;
+  border-left: 12px solid var(--bone);
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+.swap[data-tap][data-playing] .swap__play::before {
+  margin: 0;
+  width: 12px;
+  height: 14px;
+  border: 0;
+  border-left: 4px solid var(--bone);
+  border-right: 4px solid var(--bone);
+}
+.tpl__swipe {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  /* Header: brand, Book a call and menu always visible, all ≥ 44px tall */
+  .header {
+    gap: 8px;
+    padding: 10px 16px;
+  }
+  .header__brand {
+    font-size: 17px;
+    gap: 8px;
+    min-height: 44px;
+  }
+  .mark {
+    width: 24px;
+    height: 24px;
+  }
+  .header .pill {
+    display: inline-flex;
+    height: 44px;
+    padding: 0 14px;
+    font-size: 11px;
+  }
+  .burger {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Readable small text */
+  .label {
+    font-size: 12px;
+  }
+  .hs__tag,
+  .swap__ai,
+  .hs__ai {
+    font-size: 10px;
+  }
+
+  /* Hero: headline, intro, one CTA row, then the product stack. Stat cards move out. */
+  .hero {
+    min-height: 0;
+    padding: 92px 16px 48px;
+  }
+  .hero__title {
+    font-size: clamp(3rem, 15vw, 4.4rem);
+  }
+  .hero__intro {
+    margin-top: 22px;
+    font-size: 1rem;
+  }
+  .hero__cta {
+    margin-top: 24px;
+  }
+  .hero__cta .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    height: 52px;
+  }
+  .hero__cta .magnetic {
+    flex: 1 1 100%;
+    display: flex;
+  }
+  .hero__cta .magnetic .btn {
+    width: 100%;
+  }
+  .hero__stats {
+    display: none;
+  }
+  .hero__stack {
+    margin-top: 40px;
+  }
+  .hs__ai {
+    bottom: -22px;
+  }
+
+  /* Section rhythm: shorter vertical padding everywhere */
+  .svc,
+  .tpl,
+  .geo,
+  .fg,
+  .soc,
+  .case,
+  .prc,
+  .pkg {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  .big,
+  .display-xl {
+    font-size: clamp(2.6rem, 12vw, 3.6rem);
+  }
+  .svc__statement {
+    font-size: clamp(2rem, 9.5vw, 2.8rem);
+  }
+
+  /* Services: 2 x 2 compact cards */
+  .svc__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 48px;
+  }
+  .svc__card > :not(.swap):not(.wipe) {
+    padding-inline: 14px;
+  }
+  .svc__name {
+    font-size: 1.35rem;
+  }
+  .svc__line {
+    font-size: 13.5px;
+  }
+
+  /* Specialty templates: a swipe row instead of 12 stacked screenshots */
+  .tpl__swipe {
+    display: flex;
+    gap: 8px;
+    margin: -20px 0 16px;
+    color: var(--signal);
+  }
+  .tpl__table {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin: 0 -16px;
+    padding: 0 16px 8px;
+    scrollbar-width: none;
+  }
+  .tpl__table::-webkit-scrollbar {
+    display: none;
+  }
+  .tpl__row {
+    flex: 0 0 78vw;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 0 14px;
+    border: 0;
+    scroll-snap-align: start;
+    background: var(--bg-2);
+  }
+  .tpl__row[data-dim="true"] {
+    opacity: 1;
+  }
+  .tpl__row::before {
+    display: none;
+  }
+  .tpl__thumb {
+    order: -1;
+    margin: 0 0 8px;
+    aspect-ratio: 4 / 3;
+  }
+  .tpl__n,
+  .tpl__name,
+  .tpl__line {
+    padding-inline: 14px;
+  }
+  .tpl__name {
+    font-size: 1.8rem;
+  }
+  .tpl__line {
+    font-size: 1.05rem;
+  }
+
+  /* Collage: four frames and the line, no tall empty field */
+  .col {
+    padding: 72px 16px;
+  }
+  .col__item:nth-child(n + 5) {
+    display: none;
+  }
+
+  /* GEO */
+  .geo__demo {
+    margin-top: 28px;
+  }
+  .geo__list li {
+    grid-template-columns: 40px 1fr;
+    padding: 22px 0;
+  }
+
+  /* Numbers: one compact row of three, no film cards */
+  .num__stage {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 72px 16px;
+  }
+  .num__layer {
+    display: block;
+    padding: 0;
+    text-align: left;
+  }
+  .num__value {
+    font-size: 17vw;
+    line-height: 0.85;
+  }
+  .num__card {
+    display: none;
+  }
+  .num__label {
+    position: static;
+    margin-top: 8px;
+    font-size: 0.95rem;
+    line-height: 1.05;
+    text-align: left !important;
+  }
+
+  /* Films: 2 columns of stills, tap to play */
+  .fg__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .fg__col,
+  .fg__col:nth-child(n) {
+    gap: 10px;
+    margin-top: 0;
+    transform: none !important;
+  }
+  .fg__tile {
+    padding: 6px;
+  }
+  .fg__media .swap img {
+    filter: none;
+  }
+  .fg__title {
+    font-size: 1.05rem;
+  }
+
+  /* Presenter: a 4:5 frame, title under it */
+  .pre__stage {
+    height: auto;
+    aspect-ratio: 4 / 5;
+  }
+  .pre__title {
+    font-size: clamp(2rem, 9vw, 2.8rem);
+  }
+  .pre__body {
+    padding: 56px 16px 72px;
+    gap: 28px;
+  }
+
+  /* Social: a tighter fan that stays inside the screen */
+  .soc__fan {
+    height: 340px;
+  }
+  .soc__card {
+    width: 120px;
+    margin-left: -60px;
+  }
+  .soc__table li {
+    grid-template-columns: 1fr auto;
+  }
+  .soc__what {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  /* Case */
+  .case__name {
+    font-size: clamp(2.4rem, 11vw, 3.4rem);
+  }
+  .case__viewport {
+    height: 92vw;
+  }
+  .case__facts {
+    gap: 22px;
+  }
+
+  /* Process */
+  .prc__row {
+    grid-template-columns: 64px 1fr;
+    gap: 16px;
+    padding: 22px 0;
+  }
+  .prc__n {
+    font-size: 3.4rem;
+  }
+
+  /* Packages: full-width buttons */
+  .pkg__card {
+    padding: 24px;
+  }
+  .pkg__card .btn {
+    align-self: stretch;
+    justify-content: center;
+  }
+
+  /* Footer: big tap targets */
+  .foot {
+    padding: 64px 16px 0;
+  }
+  .foot__panel {
+    padding: 40px 20px;
+  }
+  .foot__title {
+    font-size: clamp(2.4rem, 11vw, 3.4rem);
+  }
+  .foot__cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .foot__cta .magnetic,
+  .foot__cta .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .foot__cols p a,
+  .foot__base button,
+  .arrow-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .foot__base {
+    align-items: center;
+  }
+
+  /* Contact form: 16px inputs (no iOS zoom), full-width submit */
+  .field input,
+  .field select,
+  .field textarea {
+    font-size: 16px;
+    min-height: 44px;
+  }
+  .form__foot .blob {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Tablets (641–899px): the swipe row for templates too */
+@media (min-width: 641px) and (max-width: 899px) {
+  .tpl__swipe {
+    display: flex;
+    gap: 8px;
+    margin: -20px 0 16px;
+    color: var(--signal);
+  }
+  .tpl__table {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin: 0 calc(var(--gut) * -1);
+    padding: 0 var(--gut) 8px;
+    scrollbar-width: none;
+  }
+  .tpl__row {
+    flex: 0 0 44vw;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 0 14px;
+    border: 0;
+    scroll-snap-align: start;
+    background: var(--bg-2);
+  }
+  .tpl__row::before {
+    display: none;
+  }
+  .tpl__row[data-dim="true"] {
+    opacity: 1;
+  }
+  .tpl__thumb {
+    order: -1;
+    margin: 0 0 8px;
+    aspect-ratio: 4 / 3;
+  }
+  .tpl__n,
+  .tpl__name,
+  .tpl__line {
+    padding-inline: 16px;
+  }
+}
+
+/* Any touch screen: 44px tap targets on text links */
+@media (pointer: coarse) {
+  .foot__cols p a,
+  .foot__base button,
+  .arrow-link,
+  .header__nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+
+/* Tablets: numbers as one compact row too */
+@media (min-width: 641px) and (max-width: 899px) {
+  .num__stage {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 90px var(--gut);
+  }
+  .num__layer {
+    display: block;
+    padding: 0;
+  }
+  .num__value {
+    font-size: 16vw;
+    line-height: 0.85;
+  }
+  .num__card {
+    display: none;
+  }
+  .num__label {
+    position: static;
+    margin-top: 10px;
+    font-size: 1.3rem;
+    text-align: left !important;
+  }
+}
+@media (pointer: coarse) {
+  .header__brand {
+    min-height: 44px;
+  }
+}

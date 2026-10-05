@@ -42,6 +42,7 @@ export const HERO_FILM = {
   sources: {
     large: { mp4: "/media/film/hero-1080.mp4", webm: "/media/film/hero-1080.webm" },
     small: { mp4: "/media/film/hero-720.mp4", webm: "/media/film/hero-720.webm" },
+    phone: { mp4: "/media/film/hero-480.mp4", webm: "/media/film/hero-480.webm" }, // ~0.4 MB, for touch devices
   },
   vertical: gen("hero-vertical", 720, 1280, "The same scene framed vertically for social video."),
 };

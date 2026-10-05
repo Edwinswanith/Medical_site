@@ -32,7 +32,8 @@ export function Numbers() {
         end: "bottom bottom",
         scrub: 0.5,
         onUpdate: (s) => {
-          setActive(Math.min(n - 1, Math.floor(s.progress * n)));
+          const a = Math.min(n - 1, Math.floor(s.progress * n));
+          setActive((prev) => (prev === a ? prev : a));
           layers.forEach((l, k) => {
             const local = gsap.utils.clamp(0, 1, s.progress * n - k); // 0 → 1 across this layer's share
             const fadeIn = k === 0 ? 1 : gsap.utils.clamp(0, 1, local * 4);

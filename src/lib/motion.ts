@@ -19,3 +19,16 @@ export const lockScroll = (locked: boolean) => {
   if (lenis) (locked ? lenis.stop() : lenis.start());
   document.documentElement.classList.toggle("is-locked", locked);
 };
+
+/** Touch-first device (no hover). Phones and most tablets. */
+export const isTouch = () => typeof window !== "undefined" && !window.matchMedia("(pointer: fine)").matches;
+
+/**
+ * Whether decorative video may start by itself: not under reduced motion,
+ * not when the visitor asked to save data, not on a slow connection.
+ */
+export const canAutoplay = () => {
+  if (typeof window === "undefined" || prefersReducedMotion()) return false;
+  const c = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+  return !(c?.saveData || /(^|-)(2g|3g)$/.test(c?.effectiveType ?? ""));
+};

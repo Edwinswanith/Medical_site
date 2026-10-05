@@ -59,6 +59,9 @@ export function Templates() {
         </p>
       </div>
 
+      <p className="tpl__swipe label" aria-hidden>
+        Swipe to browse 12 specialties <span>→</span>
+      </p>
       <div className="tpl__cols label" aria-hidden>
         <span>No.</span>
         <span>Specialty</span>

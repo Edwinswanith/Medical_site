@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { Media } from "@/content/site";
-import { prefersReducedMotion } from "@/lib/motion";
+import { canAutoplay, isTouch, prefersReducedMotion } from "@/lib/motion";
 
 // At most one decorative preview plays at a time across the whole page.
 let current: HTMLVideoElement | null = null;
@@ -14,8 +14,9 @@ const pick = (v: HTMLVideoElement, m: NonNullable<Media["video"]>) =>
  * A still that becomes its film. The video opens through a circle that grows from
  * the pointer (or the centre on touch), and closes back to the still.
  *
- * trigger "hover": fine pointers play on hover; touch falls back to "view".
- * trigger "view":  plays while at least 60% of it is on screen.
+ * trigger "hover": fine pointers play on hover. On touch it becomes tap-to-play,
+ *                  or still-only when the frame sits inside a link (the tap navigates).
+ * trigger "view":  plays while at least 60% of it is on screen (not on save-data / slow connections).
  * trigger "manual": the parent decides through `active`.
  * Reduced motion: the still only. A failed video leaves the still in place.
  */
@@ -58,8 +59,10 @@ export function MediaSwap({
     const el = root.current;
     const v = video.current;
     if (!el || !v) return;
-    const fine = window.matchMedia("(pointer: fine)").matches;
-    const mode = trigger === "hover" && !fine ? "view" : trigger;
+    const inLink = !!el.closest("a");
+    const mode =
+      trigger === "hover" && isTouch() ? (inLink ? "none" : "tap") : trigger === "view" && !canAutoplay() ? "tap" : trigger;
+    if (mode === "tap" && !inLink) el.dataset.tap = "";
 
     const io = new IntersectionObserver(
       ([e]) => {
@@ -86,6 +89,12 @@ export function MediaSwap({
       el.addEventListener("pointerenter", enter);
       el.addEventListener("pointerleave", leave);
     }
+    const tap = () => {
+      wants.current = !wants.current;
+      el.toggleAttribute("data-playing", wants.current);
+      sync();
+    };
+    if (mode === "tap") el.addEventListener("click", tap);
     const playing = () => v.setAttribute("data-on", "");
     const failed = () => el.setAttribute("data-failed", "");
     const pause = () => v.removeAttribute("data-on");
@@ -97,6 +106,7 @@ export function MediaSwap({
       io.disconnect();
       el.removeEventListener("pointerenter", enter);
       el.removeEventListener("pointerleave", leave);
+      el.removeEventListener("click", tap);
       v.removeEventListener("playing", playing);
       v.removeEventListener("pause", pause);
       v.removeEventListener("error", failed);
@@ -128,6 +138,7 @@ export function MediaSwap({
         />
       </picture>
       {media.video && <video ref={video} muted loop playsInline preload="none" aria-hidden />}
+      {media.video && <span className="swap__play" aria-hidden />}
       {media.ai && showAiLabel && <span className="swap__ai">AI-generated</span>}
     </div>
   );

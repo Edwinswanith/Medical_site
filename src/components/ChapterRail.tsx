@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { CHAPTERS } from "@/content/site";
 import { getLenis } from "@/lib/motion";
@@ -12,10 +12,12 @@ import { getLenis } from "@/lib/motion";
 export function ChapterRail() {
   const pathname = usePathname();
   const [active, setActive] = useState(0);
-  const [progress, setProgress] = useState(0);
+  const bar = useRef<HTMLDivElement>(null);
 
+  // Wide screens only (the rail is hidden below 1180px). Progress is written straight
+  // to the bar; React state changes only when the active chapter changes.
   useEffect(() => {
-    if (pathname !== "/") return;
+    if (pathname !== "/" || !window.matchMedia("(min-width: 1180px)").matches) return;
     const els = CHAPTERS.map((c) => document.getElementById(c.id));
     const on = () => {
       const mid = window.innerHeight * 0.45;
@@ -23,9 +25,9 @@ export function ChapterRail() {
       els.forEach((el, i) => {
         if (el && el.getBoundingClientRect().top <= mid) a = i;
       });
-      setActive(a);
+      setActive((prev) => (prev === a ? prev : a));
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(max > 0 ? window.scrollY / max : 0);
+      if (bar.current) bar.current.style.transform = `scaleY(${max > 0 ? window.scrollY / max : 0})`;
     };
     on();
     window.addEventListener("scroll", on, { passive: true });
@@ -49,7 +51,7 @@ export function ChapterRail() {
   return (
     <nav className="rail" aria-label="Page chapters">
       <div className="rail__bar" aria-hidden>
-        <div style={{ transform: `scaleY(${progress})` }} />
+        <div ref={bar} style={{ transform: "scaleY(0)" }} />
       </div>
       <ol>
         {CHAPTERS.map((c, i) => (

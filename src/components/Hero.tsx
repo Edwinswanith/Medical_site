@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { HERO, HERO_FILM, HERO_STATS, TEMPLATES } from "@/content/site";
-import { prefersReducedMotion } from "@/lib/motion";
+import { canAutoplay, isTouch, prefersReducedMotion } from "@/lib/motion";
 import { TLink } from "./TLink";
 import { Magnetic } from "./Magnetic";
 
@@ -24,10 +24,11 @@ export function Hero() {
     const s = stack.current;
     if (!s || prefersReducedMotion()) return;
 
-    // Play both clips while the hero is on screen.
-    const vids = [film.current!, phone.current!];
-    vids[0].src = canMp4(vids[0]) ? HERO_FILM.sources.small.mp4 : HERO_FILM.sources.small.webm;
-    vids[1].src = canMp4(vids[1]) ? HERO_FILM.vertical.video!.mp4 : HERO_FILM.vertical.video!.webm;
+    // Play the clips while the hero is on screen. Phones play only the film; the short stays a still.
+    const vids = canAutoplay() ? (isTouch() ? [film.current!] : [film.current!, phone.current!]) : [];
+    const filmSrc = isTouch() ? HERO_FILM.sources.phone : HERO_FILM.sources.small;
+    if (vids[0]) vids[0].src = canMp4(vids[0]) ? filmSrc.mp4 : filmSrc.webm;
+    if (vids[1]) vids[1].src = canMp4(vids[1]) ? HERO_FILM.vertical.video!.mp4 : HERO_FILM.vertical.video!.webm;
     const io = new IntersectionObserver(([e]) =>
       vids.forEach((v) => (e.intersectionRatio > 0 && !document.hidden ? v.play().catch(() => {}) : v.pause())),
     );
