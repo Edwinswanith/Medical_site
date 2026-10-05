@@ -20,7 +20,7 @@ export function Case() {
       </h2>
 
       <div className="case__grid">
-        <a className="case__shot notch" href={CASE.live.href} target="_blank" rel="noreferrer" data-reveal data-cursor="view" data-cursor-label="Visit">
+        <a className="case__shot notch wipe" href={CASE.live.href} target="_blank" rel="noreferrer" data-reveal data-cursor="view" data-cursor-label="Visit">
           <div className="chrome" aria-hidden>
             <span />
             <span />
@@ -43,11 +43,18 @@ export function Case() {
           </p>
           <p className="case__client">{CASE.client}</p>
           <p className="case__summary">{CASE.summary}</p>
-          <dl className="case__facts">
-            {CASE.facts.map((f) => (
+          <dl className="case__facts" data-scrub="" data-scrub-start="top 85%" data-scrub-end="top 40%">
+            {CASE.facts.map((f, i) => (
               <div key={f.label}>
                 <dt>{f.label}</dt>
-                <dd>{f.value}</dd>
+                <dd>
+                  {f.value}
+                  {i === 0 && (
+                    <svg className="scribble scribble--ring" viewBox="0 0 200 160" preserveAspectRatio="none" aria-hidden>
+                      <path pathLength={1} d="M30 90 C 20 40, 110 10, 165 40 C 200 65, 185 130, 110 145 C 50 155, 15 120, 35 80 C 45 62, 70 50, 95 46" />
+                    </svg>
+                  )}
+                </dd>
               </div>
             ))}
           </dl>

@@ -23,7 +23,7 @@ export function Social() {
         <p className="soc__intro">{SOCIAL.intro}</p>
       </div>
 
-      <div className="soc__fan" data-reveal>
+      <div className="soc__fan" data-scrub="" data-scrub-start="top 90%" data-scrub-end="center 45%">
         {SOCIAL.stack.map((m, i) => (
           <div key={i} className="soc__card" style={{ ["--i" as string]: i, ["--c" as string]: i - (SOCIAL.stack.length - 1) / 2 }}>
             <MediaSwap media={m} trigger="hover" showAiLabel={i === SOCIAL.stack.length - 1} />

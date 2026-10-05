@@ -60,7 +60,34 @@ export const HERO = {
 
 /* ───────────── 2. What we do ───────────── */
 
-export const STATEMENT = { text: "One partner for everything your patients", em: "see." };
+// Words wrapped in *asterisks* are set in upright serif capitals, the way On Track mixes its type.
+export const STATEMENT = "One partner for *everything* your patients *see.* Websites, films *and* shorts, *made* to be *found* and *trusted.*";
+
+// Small cards under the hero title. Only approved facts.
+export const HERO_STATS = [
+  { label: "Made for", value: "Prof. Hemant Sheth" },
+  { label: "Specialty templates", value: "12" },
+  { label: "Films ready", value: "16" },
+  { label: "Topics", value: "75 · 14 specialties" },
+];
+
+// Interlude collage: real template screenshots plus labelled concept stills, drifting at different speeds.
+export const COLLAGE = {
+  quote: "Your time is one call, one recording session, and two reviews per film.",
+  quoteEm: "We do the rest.",
+  items: [
+    { src: "/media/templates/neurology.webp", alt: "", speed: -0.3, x: 2, y: 4, w: 26 },
+    { src: "/media/gen/svc-films.webp", alt: "", speed: 0.4, x: 31, y: 2, w: 17 },
+    { src: "/media/templates/orthopaedics.webp", alt: "", speed: -0.12, x: 66, y: 6, w: 30 },
+    { src: "/media/gen/concept-dental.webp", alt: "", speed: 0.55, x: 51, y: 22, w: 10 },
+    { src: "/media/templates/respiratory.webp", alt: "", speed: 0.22, x: 6, y: 36, w: 18 },
+    { src: "/media/gen/svc-presenter.webp", alt: "", speed: -0.45, x: 78, y: 40, w: 19 },
+    { src: "/media/templates/ophthalmology.webp", alt: "", speed: 0.3, x: 4, y: 66, w: 24 },
+    { src: "/media/gen/concept-cardiology.webp", alt: "", speed: -0.25, x: 33, y: 70, w: 11 },
+    { src: "/media/templates/private-gp.webp", alt: "", speed: 0.12, x: 50, y: 74, w: 22 },
+    { src: "/media/gen/svc-subtitles.webp", alt: "", speed: -0.35, x: 77, y: 72, w: 20 },
+  ],
+};
 
 export const SERVICES = [
   {
@@ -137,6 +164,17 @@ export const NUMBERS = [
   { value: "16", label: "films ready", media: gen("concept-cardiology", 720, 1280, "Concept still, AI-generated.") },
   { value: "75", label: "topics across 14 specialties", media: gen("concept-orthopaedics", 720, 1280, "Concept still, AI-generated.") },
   { value: "Any", label: "topic made to order", media: gen("concept-dental", 720, 1280, "Concept still, AI-generated.") },
+];
+
+export const TILES = [
+  { title: "Explaining a heart procedure", tag: "Cardiology", media: gen("concept-cardiology", 720, 1280, "Concept, AI-generated.") },
+  { title: "Recovery after knee surgery", tag: "Orthopaedics", media: gen("concept-orthopaedics", 720, 1280, "Concept, AI-generated.") },
+  { title: "An implant appointment", tag: "Dental", media: gen("concept-dental", 720, 1280, "Concept, AI-generated.") },
+  { title: "Aftercare at home", tag: "Dermatology", media: gen("concept-dermatology", 720, 1280, "Concept, AI-generated.") },
+  { title: "From the consultation room", tag: "Production", media: gen("hero-vertical", 720, 1280, "Concept, AI-generated.") },
+  { title: "On set with your team", tag: "Filming", media: gen("svc-films", 1280, 720, "Concept, AI-generated.") },
+  { title: "Cut for the feed", tag: "Shorts", media: gen("svc-social", 1280, 720, "Concept, AI-generated.") },
+  { title: "Subtitles and dubbing", tag: "Post", media: gen("svc-subtitles", 1280, 720, "Concept, AI-generated.") },
 ];
 
 export const FILMS = {

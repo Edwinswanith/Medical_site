@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { HERO, HERO_FILM, TEMPLATES } from "@/content/site";
+import { HERO, HERO_FILM, HERO_STATS, TEMPLATES } from "@/content/site";
 import { prefersReducedMotion } from "@/lib/motion";
 import { TLink } from "./TLink";
 import { Magnetic } from "./Magnetic";
@@ -66,13 +66,22 @@ export function Hero() {
             </span>
           ))}
         </p>
-        <h1 id="hero-h" className="hero__title">
+        <h1 id="hero-h" className="hero__title" data-speed="0.18">
           <span className="line">
             <span>{HERO.titleA}</span>
           </span>
           <span className="line">
             <span>
-              {HERO.titleB} <em>{HERO.titleEm}</em>
+              {HERO.titleB}{" "}
+              <em className="hero__script">
+                {HERO.titleEm}
+                <svg className="scribble" viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden>
+                  <path
+                    pathLength={1}
+                    d="M40 120 C 60 40, 380 10, 540 60 C 600 80, 590 150, 470 172 C 330 196, 90 190, 40 140 C 20 115, 70 85, 160 70"
+                  />
+                </svg>
+              </em>
             </span>
           </span>
         </h1>
@@ -92,7 +101,16 @@ export function Hero() {
         </p>
       </div>
 
-      <div ref={stack} className="hero__stack" aria-label="A specialty website with its patient film and a short for phones">
+      <ul className="hero__stats" aria-label="At a glance">
+        {HERO_STATS.map((x, i) => (
+          <li key={x.label} className="notch" style={{ ["--i" as string]: i }}>
+            <span className="label">{x.label}</span>
+            <strong>{x.value}</strong>
+          </li>
+        ))}
+      </ul>
+
+      <div ref={stack} data-speed="-0.12" className="hero__stack" aria-label="A specialty website with its patient film and a short for phones">
         <figure className="hs hs--site notch" data-depth="0.4">
           <div className="chrome" aria-hidden>
             <span />

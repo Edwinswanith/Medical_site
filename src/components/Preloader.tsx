@@ -38,7 +38,7 @@ export function Preloader({ name }: { name: string }) {
           if (count.current) count.current.textContent = String(Math.round(n.v)).padStart(3, "0");
         },
       }, 0.1)
-      .to(".loader__trace path", { strokeDashoffset: 0, duration: 1.6, ease: "power2.inOut" }, 0.1)
+      .from(".loader__mark", { scale: 0.4, rotation: -90, opacity: 0, duration: 0.9, ease: "expo.out" }, 0)
       .to(".loader__word span", { yPercent: -110, duration: 0.6, stagger: 0.02, ease: "expo.in" })
       .add(done, "-=0.2")
       .to(root.current, { yPercent: -100, duration: 0.9, ease: "expo.inOut" }, "-=0.35")
@@ -51,19 +51,15 @@ export function Preloader({ name }: { name: string }) {
 
   return (
     <div ref={root} className="loader" aria-hidden>
+      <svg className="loader__mark" viewBox="0 0 32 32" aria-hidden>
+        <rect x="1" y="1" width="30" height="30" rx="9" />
+        <path d="M13 10.5v11l9-5.5z" />
+      </svg>
       <div className="loader__word">
         {name.split("").map((c, i) => (
           <span key={i}>{c}</span>
         ))}
       </div>
-      <svg className="loader__trace" viewBox="0 0 400 80" preserveAspectRatio="none">
-        <path
-          d="M0 40 H150 L162 34 L172 40 L182 40 L190 8 L200 72 L208 40 L240 40 L252 30 L266 40 H400"
-          pathLength={1}
-          strokeDasharray="1"
-          strokeDashoffset="1"
-        />
-      </svg>
       <span ref={count} className="loader__count">000</span>
     </div>
   );

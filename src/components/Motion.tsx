@@ -98,8 +98,43 @@ export function Motion({ children }: { children: ReactNode }) {
       { rootMargin: "0px 0px -12% 0px" },
     );
     els.forEach((el) => io.observe(el));
+
+    // Parallax: [data-speed] drifts against the scroll (positive = slower than the page).
+    // Scrub: [data-scrub] gets --r from 0 to 1 while it crosses the screen; CSS decides what --r does.
+    // data-scrub-start / data-scrub-end override the default range ("top bottom" → "bottom top").
+    const triggers: ScrollTrigger[] = [];
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 900px)", () => {
+      document.querySelectorAll<HTMLElement>("[data-speed]").forEach((el) => {
+        const s = Number(el.dataset.speed) || 0;
+        const t = gsap.fromTo(
+          el,
+          { y: () => s * window.innerHeight * 0.35 },
+          { y: () => -s * window.innerHeight * 0.35, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: true, invalidateOnRefresh: true } },
+        );
+        triggers.push(t.scrollTrigger!);
+      });
+    });
+    document.querySelectorAll<HTMLElement>("[data-scrub]").forEach((el) => {
+      el.style.setProperty("--r", "0");
+      triggers.push(
+        ScrollTrigger.create({
+          trigger: el,
+          start: el.dataset.scrubStart || "top bottom",
+          end: el.dataset.scrubEnd || "bottom top",
+          scrub: 0.4,
+          onUpdate: (st) => el.style.setProperty("--r", st.progress.toFixed(4)),
+        }),
+      );
+    });
+
     requestAnimationFrame(() => ScrollTrigger.refresh());
-    return () => io.disconnect();
+    return () => {
+      io.disconnect();
+      triggers.forEach((t) => t.kill());
+      mm.revert();
+      document.querySelectorAll<HTMLElement>("[data-scrub]").forEach((el) => el.style.removeProperty("--r"));
+    };
   }, [pathname]);
 
   return (

@@ -7,14 +7,16 @@ export function Services() {
   return (
     <section id="services" className="svc" data-tone="dark" data-chapter="Services" aria-labelledby="svc-h">
       <p className="label svc__label">What we do</p>
-      <ScrubText className="svc__statement" text={STATEMENT.text} em={STATEMENT.em} />
+      <ScrubText className="svc__statement" text={STATEMENT} />
       <span id="svc-h" className="sr-only">
         What we do
       </span>
       <div className="svc__grid">
         {SERVICES.map((s, i) => (
           <a key={s.id} href={s.href} className="svc__card notch" data-reveal data-cursor="view" data-cursor-label="Play" style={{ ["--i" as string]: i }}>
-            <MediaSwap media={s.media} trigger="hover" />
+            <div className="wipe" data-reveal style={{ ["--i" as string]: i }}>
+              <MediaSwap media={s.media} trigger="hover" />
+            </div>
             <span className="svc__n">0{i + 1}</span>
             <h3 className="svc__name">{s.name}</h3>
             <p className="svc__line">{s.line}</p>
