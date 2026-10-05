@@ -360,16 +360,8 @@ em {
   line-height: 0.9;
 }
 .mark {
-  width: 28px;
-  height: 28px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linejoin: round;
-}
-.mark path {
-  fill: var(--signal);
-  stroke: var(--signal);
+  width: 30px;
+  height: 30px;
 }
 .header__nav {
   justify-self: center;
@@ -581,14 +573,8 @@ html:not([data-js]) .loader {
   display: block;
 }
 .loader__mark {
-  width: 56px;
-  height: 56px;
-  fill: none;
-  stroke: var(--on-dark);
-  stroke-width: 1.6;
-}
-.loader__mark path {
-  fill: var(--on-dark);
+  width: 64px;
+  height: 64px;
 }
 .loader__bar {
   position: fixed;

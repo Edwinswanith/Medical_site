@@ -57,7 +57,7 @@ for (const loc of locs) {
 }
 const nf = await get('/this-does-not-exist'); ok('unknown URL returns 404', nf.status === 404, String(nf.status));
 ok('404 page is noindex', /<meta name="robots" content="[^"]*noindex/.test(nf.body));
-for (const p of ['/favicon.ico', '/icon.svg', '/apple-icon.png', '/opengraph-image', '/logo.png']) { const r = await fetch(base + p); ok(`${p} 200`, r.status === 200, r.headers.get('content-type')); }
+for (const p of ['/favicon.ico', '/icon.png', '/apple-icon.png', '/opengraph-image', '/logo.png']) { const r = await fetch(base + p); ok(`${p} 200`, r.status === 200, r.headers.get('content-type')); }
 ok('Organization @id identical across pages', Object.entries(ids).filter(([k]) => k.endsWith('#organization')).every(([, v]) => v.length === locs.length));
 for (const [s, n, d] of res) console.log(s.padEnd(5), n, d ? `(${String(d).slice(0, 110)})` : '');
 console.log(`\n${res.filter((r) => r[0] === 'PASS').length} pass, ${res.filter((r) => r[0] === 'FAIL').length} fail`);

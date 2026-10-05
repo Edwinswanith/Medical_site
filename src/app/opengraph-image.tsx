@@ -10,14 +10,12 @@ export const contentType = "image/png";
 // The share card for LinkedIn, WhatsApp, Slack and search previews, set in the site's display face.
 export default async function OpenGraphImage() {
   const display = await readFile(join(process.cwd(), "assets/fonts/archivo-800-extra-condensed.ttf"));
+  const icon = `data:image/png;base64,${(await readFile(join(process.cwd(), "public/brand/studio-icon.png"))).toString("base64")}`;
   return new ImageResponse(
     (
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 72, background: "#f4f2ec", color: "#15181a", fontFamily: "Archivo", textTransform: "uppercase" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 18, fontSize: 34 }}>
-          <svg width="52" height="52" viewBox="0 0 32 32">
-            <rect width="32" height="32" rx="9" fill="#15181a" />
-            <path d="M13 10.5v11l9-5.5z" fill="#f2461e" />
-          </svg>
+          <img src={icon} width={60} height={60} alt="" />
           {BRAND.name}
         </div>
         <div style={{ display: "flex", flexDirection: "column", fontSize: 96, lineHeight: 0.92 }}>

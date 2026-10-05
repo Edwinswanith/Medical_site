@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { lockScroll, prefersReducedMotion } from "@/lib/motion";
+import { Mark } from "./Mark";
 
 /**
  * Intro panel, played on every full page load (refresh included):
@@ -36,7 +37,7 @@ export function Preloader({ name }: { name: string }) {
     const n = { v: 0 };
     const tl = gsap.timeline();
     // ~2 s total: in (0.1–1.2 s), brief hold, out and lift (1.3–2.05 s).
-    tl.from(q(".loader__mark"), { scale: 0.5, rotation: -90, opacity: 0, duration: 0.5, ease: "expo.out" }, 0)
+    tl.from(q(".loader__mark"), { scale: 0.5, rotation: -12, opacity: 0, duration: 0.5, ease: "expo.out" }, 0)
       .from(q(".loader__word span"), { yPercent: 110, duration: 0.6, stagger: 0.03, ease: "expo.out" }, 0.1)
       .to(
         n,
@@ -69,10 +70,7 @@ export function Preloader({ name }: { name: string }) {
 
   return (
     <div ref={root} className="loader" aria-hidden>
-      <svg className="loader__mark" viewBox="0 0 32 32" aria-hidden>
-        <rect x="1" y="1" width="30" height="30" rx="9" />
-        <path d="M13 10.5v11l9-5.5z" />
-      </svg>
+      <Mark className="loader__mark" />
       <div className="loader__word">
         {name.split("").map((c, i) => (
           <span key={i}>{c}</span>

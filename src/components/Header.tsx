@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { BRAND, NAV } from "@/content/site";
 import { lockScroll, prefersReducedMotion } from "@/lib/motion";
 import { TLink } from "./TLink";
+import { Mark } from "./Mark";
 
 export function Header() {
   const pathname = usePathname();
@@ -132,14 +133,5 @@ export function Header() {
         </aside>
       </div>
     </>
-  );
-}
-
-export function Mark() {
-  return (
-    <svg className="mark" viewBox="0 0 32 32" aria-hidden>
-      <rect x="1" y="1" width="30" height="30" rx="9" />
-      <path d="M13 10.5v11l9-5.5z" />
-    </svg>
   );
 }
