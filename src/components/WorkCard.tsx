@@ -3,7 +3,6 @@ import type { Work } from "@/content/site";
 const KIND_LABEL: Record<Work["kind"], string> = {
   client: "Client work",
   product: "Our product",
-  concept: "Concept",
 };
 
 /**

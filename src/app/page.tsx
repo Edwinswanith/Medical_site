@@ -1,29 +1,26 @@
-import { WORK } from "@/content/site";
+import { SERVICES } from "@/content/site";
 import { FilmHero } from "@/components/FilmHero";
-import { WorkCard } from "@/components/WorkCard";
+import { WorkReel } from "@/components/WorkReel";
+import { Formats } from "@/components/Formats";
+import { ServiceReel } from "@/components/ServiceReel";
+import { ConceptGallery } from "@/components/ConceptGallery";
+import { SearchList } from "@/components/SearchList";
+import { Process } from "@/components/Process";
+import { Voice } from "@/components/Voice";
+import { Marquee } from "@/components/Marquee";
 
 export default function Home() {
-  const [lead] = WORK;
   return (
     <>
       <FilmHero />
-
-      <section id="work" className="wrap section work" aria-labelledby="work-h">
-        <div className="section__head">
-          <p className="label">Selected work</p>
-          <h2 id="work-h" className="display-l" data-reveal>
-            <span className="line">
-              <span>Proof first.</span>
-            </span>
-            <span className="line">
-              <span>
-                <em>Then the pitch.</em>
-              </span>
-            </span>
-          </h2>
-        </div>
-        <WorkCard work={lead} />
-      </section>
+      <WorkReel />
+      <Marquee items={SERVICES.map((s) => s.name)} />
+      <Formats />
+      <ServiceReel />
+      <ConceptGallery />
+      <SearchList />
+      <Process />
+      <Voice />
     </>
   );
 }

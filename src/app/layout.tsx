@@ -6,6 +6,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Cursor } from "@/components/Cursor";
 import { Preloader } from "@/components/Preloader";
+import { ChapterRail } from "@/components/ChapterRail";
 import "./globals.css";
 
 const display = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--f-display" });
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Header />
           <main id="main">{children}</main>
           <Footer />
+          <ChapterRail />
         </Motion>
         <Cursor />
       </body>

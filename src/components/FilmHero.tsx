@@ -80,8 +80,8 @@ export function FilmHero() {
   }, []);
 
   return (
-    <section ref={root} className="fh" aria-labelledby="fh-h">
-      <div className="fh__stage">
+    <section ref={root} id="intro" className="fh" data-tone="dark" data-chapter="Intro" aria-labelledby="fh-h">
+      <div className="fh__stage" data-cursor="guide" data-cursor-label="Scroll">
         <div className="fh__copy">
           <p className="label fh__label">{BRAND.name} · Healthcare media studio</p>
           <h1 id="fh-h" className="fh__title">

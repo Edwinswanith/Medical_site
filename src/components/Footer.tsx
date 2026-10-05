@@ -5,7 +5,7 @@ import { BackToTop } from "./BackToTop";
 
 export function Footer() {
   return (
-    <footer className="footer">
+    <footer className="footer" data-tone="dark">
       <div className="footer__cta">
         <p className="label">Have a practice to explain?</p>
         <h2 className="display-l" data-reveal>
