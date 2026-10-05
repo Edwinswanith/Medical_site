@@ -2,11 +2,14 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { prefersReducedMotion } from "@/lib/motion";
+import { lockScroll, prefersReducedMotion } from "@/lib/motion";
 
 /**
- * First-visit intro: a count to 100 beside a heartbeat, then the panel lifts.
- * Shown once per session. Sets html[data-ready], which starts the hero entrance.
+ * Intro panel, played on every full page load (refresh included):
+ * the mark settles, the name rises, the count runs to 100 and holds, then the
+ * panel lifts slowly away while the hero rises beneath it.
+ * Client-side page changes keep it hidden (it lives in the layout, which stays mounted).
+ * Sets html[data-ready] as the lift begins, which starts the hero entrance.
  */
 export function Preloader({ name }: { name: string }) {
   const root = useRef<HTMLDivElement>(null);
@@ -14,38 +17,53 @@ export function Preloader({ name }: { name: string }) {
 
   useEffect(() => {
     const html = document.documentElement;
-    const done = () => {
-      html.dataset.ready = "";
-      try {
-        sessionStorage.setItem("seen-intro", "1");
-      } catch {}
-    };
+    const el = root.current;
+    const ready = () => (html.dataset.ready = "");
     const finish = () => {
-      done();
+      ready();
       html.dataset.introDone = "";
+      lockScroll(false);
     };
-    if (html.dataset.introDone !== undefined || !root.current) return;
+    if (html.dataset.introDone !== undefined || !el) return;
     if (prefersReducedMotion()) return finish();
 
+    // Always open at the top: the intro hands over to the hero.
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
+    lockScroll(true);
+
+    const q = gsap.utils.selector(el);
     const n = { v: 0 };
     const tl = gsap.timeline();
-    tl.from(".loader__word span", { yPercent: 110, duration: 0.9, stagger: 0.04, ease: "expo.out" })
-      .to(n, {
-        v: 100,
-        duration: 1.6,
-        ease: "power2.inOut",
-        onUpdate: () => {
-          if (count.current) count.current.textContent = String(Math.round(n.v)).padStart(3, "0");
+    tl.from(q(".loader__mark"), { scale: 0.5, rotation: -90, opacity: 0, duration: 1, ease: "expo.out" }, 0)
+      .from(q(".loader__word span"), { yPercent: 110, duration: 1.1, stagger: 0.05, ease: "expo.out" }, 0.2)
+      .to(
+        n,
+        {
+          v: 100,
+          duration: 2.4,
+          ease: "power2.inOut",
+          onUpdate: () => {
+            if (count.current) count.current.textContent = String(Math.round(n.v)).padStart(3, "0");
+          },
         },
-      }, 0.1)
-      .from(".loader__mark", { scale: 0.4, rotation: -90, opacity: 0, duration: 0.9, ease: "expo.out" }, 0)
-      .to(".loader__word span", { yPercent: -110, duration: 0.6, stagger: 0.02, ease: "expo.in" })
-      .add(done, "-=0.2")
-      .to(root.current, { yPercent: -100, duration: 0.9, ease: "expo.inOut" }, "-=0.35")
+        0.2,
+      )
+      .to(q(".loader__bar"), { scaleX: 1, duration: 2.4, ease: "power2.inOut" }, 0.2)
+      // hold on 100 for a beat
+      .to({}, { duration: 0.35 })
+      .to(q(".loader__word span"), { yPercent: -110, duration: 0.8, stagger: 0.03, ease: "power3.in" })
+      .to(q(".loader__mark, .loader__count, .loader__bar"), { opacity: 0, duration: 0.5, ease: "power2.out" }, "<0.1")
+      .add(ready, "-=0.15")
+      .to(el, { yPercent: -100, duration: 1.4, ease: "power4.inOut" }, "-=0.25")
       .add(finish);
+
+    // React dev mode runs effects twice: on cleanup, rewind instead of finishing,
+    // so the second run plays the whole intro again.
     return () => {
       tl.kill();
-      finish();
+      gsap.set([el, ...q(".loader__mark, .loader__word span, .loader__count, .loader__bar")], { clearProps: "all" });
+      lockScroll(false);
     };
   }, []);
 
@@ -60,7 +78,10 @@ export function Preloader({ name }: { name: string }) {
           <span key={i}>{c}</span>
         ))}
       </div>
-      <span ref={count} className="loader__count">000</span>
+      <span className="loader__bar" />
+      <span ref={count} className="loader__count">
+        000
+      </span>
     </div>
   );
 }

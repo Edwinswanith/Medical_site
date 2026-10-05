@@ -598,6 +598,16 @@ html:not([data-js]) .loader {
 .loader__mark path {
   fill: var(--bone);
 }
+.loader__bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--bone);
+  transform: scaleX(0);
+  transform-origin: left;
+}
 .loader__count {
   position: fixed;
   right: var(--gut);

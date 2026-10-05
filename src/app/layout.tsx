@@ -21,9 +21,9 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#0e0f0f" };
 
-// Runs before paint: marks JS as available and skips the intro for return visits.
-// Safety net: if the app bundle never runs, reveal everything after 5 s anyway.
-const boot = `(function(){var d=document.documentElement,o=function(){d.dataset.ready="";d.dataset.introDone=""};d.dataset.js="";try{if(sessionStorage.getItem("seen-intro")||matchMedia("(prefers-reduced-motion: reduce)").matches)o()}catch(e){}setTimeout(o,5000)})()`;
+// Runs before paint: marks JS as available; reduced motion skips the intro.
+// Safety net: if the app bundle never runs, reveal everything after 10 s anyway.
+const boot = `(function(){var d=document.documentElement,o=function(){d.dataset.ready="";d.dataset.introDone=""};d.dataset.js="";try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)o()}catch(e){}setTimeout(o,10000)})()`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
