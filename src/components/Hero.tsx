@@ -97,9 +97,6 @@ export function Hero() {
             See what we make
           </a>
         </div>
-        <p className="hero__made label">
-          Made for <strong>{HERO.madeFor}</strong>
-        </p>
       </div>
 
       <ul className="hero__stats" aria-label="At a glance">

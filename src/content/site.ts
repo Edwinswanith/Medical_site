@@ -56,7 +56,6 @@ export const HERO = {
   titleEm: "partner.",
   intro:
     "We build the website patients and AI assistants find, put patient films inside it, present them in your own voice, and run your content on Instagram, TikTok, YouTube and Facebook.",
-  madeFor: "Prof. Hemant Sheth",
 };
 
 /* ───────────── 2. What we do ───────────── */
@@ -66,7 +65,6 @@ export const STATEMENT = "One partner for *everything* your patients *see.* Webs
 
 // Small cards under the hero title. Only approved facts.
 export const HERO_STATS = [
-  { label: "Made for", value: "Prof. Hemant Sheth" },
   { label: "Specialty templates", value: "12" },
   { label: "Films ready", value: "16" },
   { label: "Topics", value: "75 · 14 specialties" },

@@ -872,12 +872,8 @@ html:not([data-js]) .wipe img {
   font-size: 1.04em;
 }
 .hero__intro,
-.hero__cta,
-.hero__made {
+.hero__cta {
   grid-column: 1;
-}
-.hero__made {
-  display: none;
 }
 .hero__intro {
   margin-top: clamp(28px, 4vw, 48px);
@@ -890,13 +886,6 @@ html:not([data-js]) .wipe img {
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 30px;
-}
-.hero__made {
-  margin-top: 28px;
-}
-.hero__made strong {
-  color: var(--bone);
-  font-weight: 600;
 }
 .hero__script {
   position: relative;
@@ -924,7 +913,7 @@ html[data-ready] .hero__script .scribble path {
 .hero__stats {
   grid-column: 1;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
   margin-top: 30px;
   max-width: 520px;
@@ -932,6 +921,7 @@ html[data-ready] .hero__script .scribble path {
 .hero__stats li {
   --cut: 10px;
   display: grid;
+  align-content: space-between;
   gap: 6px;
   padding: 14px 16px;
   background: var(--bg-2);
