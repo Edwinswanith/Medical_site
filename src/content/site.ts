@@ -347,6 +347,3 @@ export const ENQUIRY = {
   needs: ["Films for my site", "Website with films", "Full media partner", "AI presenter", "Not sure yet"],
   budgets: ["Under £5k", "£5k–£15k", "£15k–£35k", "£35k+", "Not sure yet"], // Tech Cogniverse contact form
 };
-
-export const LEGAL =
-  "Films are patient education, not medical advice. People shown in concept footage are AI-generated; clinician clones are made only with signed consent. Template screenshots include 3D anatomy derived from Z-Anatomy and BodyParts3D, CC BY-SA 4.0.";

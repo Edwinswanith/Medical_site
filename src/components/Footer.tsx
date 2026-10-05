@@ -1,4 +1,4 @@
-import { BRAND, LEGAL, NAV } from "@/content/site";
+import { BRAND, NAV } from "@/content/site";
 import { TLink } from "./TLink";
 import { FootCta } from "./FootCta";
 import { BackToTop } from "./BackToTop";
@@ -47,7 +47,6 @@ export function Footer() {
         </div>
       </div>
 
-      <p className="foot__legal">{LEGAL}</p>
       <div className="foot__base">
         <span>
           © {new Date().getFullYear()} {BRAND.name} · <TLink href="/privacy">Privacy</TLink>
