@@ -16,6 +16,7 @@
 export const BRAND = {
   name: "CogniVerse Studio", // brand kit tokens v1.1 (user, 5 Oct 2026)
   short: "CogniVerse",
+  legalName: "CogniVerse Ltd", // footer copyright (user, 5 Oct 2026)
   logo: "CogniVerse Studio",
   domain: "cogniversestudio.com", // user, 5 Oct 2026
   email: "info@cogniversestudio.com", // user, 5 Oct 2026

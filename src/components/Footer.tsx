@@ -49,7 +49,7 @@ export function Footer() {
 
       <div className="foot__base">
         <span>
-          © {new Date().getFullYear()} {BRAND.name} · <TLink href="/privacy">Privacy</TLink>
+          © {new Date().getFullYear()} {BRAND.legalName} · <TLink href="/privacy">Privacy</TLink>
         </span>
         <BackToTop />
       </div>
