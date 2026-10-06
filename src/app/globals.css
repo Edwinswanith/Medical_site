@@ -400,17 +400,17 @@ em {
   width: 30px;
   height: 30px;
 }
+.logo {
+  --cut: 10px;
+  display: block;
+  padding: 7px 14px;
+  background: var(--navy);
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+}
 .logo img {
   display: block;
   width: auto;
-  height: 36px;
-}
-.logo--light,
-.header[data-tone="dark"]:not([data-open="true"]) .logo--ink {
-  display: none;
-}
-.header[data-tone="dark"]:not([data-open="true"]) .logo--light {
-  display: block;
+  height: 38px;
 }
 .header__nav {
   justify-self: center;
@@ -2577,8 +2577,12 @@ html {
     width: 24px;
     height: 24px;
   }
+  .logo {
+    --cut: 8px;
+    padding: 6px 10px;
+  }
   .logo img {
-    height: 30px;
+    height: 32px;
   }
   .header .pill {
     display: inline-flex;
