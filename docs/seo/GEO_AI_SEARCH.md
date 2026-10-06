@@ -1,6 +1,6 @@
 # GEO and AI-search discoverability
 
-5 October 2026. Objective: improve eligibility, understanding and verification of CogniVerse Studio. No ranking, citation or recommendation outcome is guaranteed.
+Updated 6 October 2026. Objective: improve eligibility, understanding and verification of CogniVerse Studio. No ranking, citation or recommendation outcome is guaranteed. See the current root `SEO-GEO-AUDIT.md` for implementation and validation.
 
 ## Implemented
 
@@ -18,9 +18,9 @@ OAI-SearchBot is used for search discovery; GPTBot concerns model-training acces
 
 ## llms.txt and IndexNow decisions
 
-No llms.txt exists on this studio site, and none was added. The approved Sheth case mentions its project's llms.txt as a factual deliverable; this is not evidence of SEO benefit. [Google's AI optimisation guidance](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) does not require special AI text files and prioritises ordinary search quality and technical clarity.
+The studio now has an optional `/llms.txt` directory, generated from the same eleven-page inventory as the sitemap. It states the services, UK audience, approval process, contact details and distinction between real website work and concept footage. It is available to tools that choose to use it. [Google's AI optimisation guidance](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) says Google Search does not use llms.txt for visibility or rankings; this file supplements readable public pages and has no claimed ranking benefit.
 
-IndexNow is not implemented. The current ten-page site changes through deployments rather than a publishing feed; sitemap submission and webmaster monitoring are the first operational steps. Reconsider for frequent additions/updates. A future implementation must follow the [official protocol](https://www.indexnow.org/documentation), use a real verification key file on the canonical host and submit only added, materially updated or removed URLs. Do not ping unchanged pages, and do not claim faster notification guarantees indexing.
+IndexNow is not implemented. The current eleven-page site changes through deployments rather than a publishing feed; sitemap submission and webmaster monitoring are the first operational steps. Reconsider for frequent additions/updates. A future implementation must follow the [official protocol](https://www.indexnow.org/documentation), use a real verification key file on the canonical host and submit only added, materially updated or removed URLs. Do not ping unchanged pages, and do not claim faster notification guarantees indexing.
 
 ## Next authority work
 

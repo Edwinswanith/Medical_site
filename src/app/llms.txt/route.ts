@@ -1,43 +1,48 @@
-import { BRAND, CASE, HERO, PROCESS, SEO } from "@/content/site";
-import { SERVICE_PAGES } from "@/content/services";
+import { BRAND, PROCESS } from "@/content/site";
+import { PUBLIC_PAGES } from "@/content/pages";
 import { absolute } from "@/lib/site-url";
 
 /**
- * /llms.txt (llmstxt.org): a plain-text map of the site for AI assistants, the same file the
- * studio builds for clients. Generated from the site's own content so it never drifts from the pages.
+ * Optional public directory for tools that choose to read it. It is not an indexing requirement
+ * or a promise of AI citations. Generated from the same published-page inventory as the sitemap.
  */
 export const dynamic = "force-static";
 
 const link = (label: string, path: string, note: string) => `- [${label}](${absolute(path)}): ${note}`;
+const section = (name: string) => PUBLIC_PAGES.filter(page => page.section === name)
+  .map(page => link(page.label, page.path, page.description));
 
 function llms(): string {
   return [
     `# ${BRAND.name}`,
     "",
-    `> ${HERO.intro}`,
+    `> ${BRAND.name} makes medical websites, patient education films, consent-based AI presenters and social content for clinicians and private practices across the United Kingdom.`,
     "",
-    `How we work: ${PROCESS.safeguards.join(". ")}.`,
+    "This is a healthcare media studio, not a healthcare provider. Its website describes business services, not personal medical advice. Film and presenter previews are labelled AI-generated concepts; the Prof. Hemant Sheth website is approved client work.",
+    "",
+    `How we work: ${PROCESS.safeguards.join(". ")}. Scope, price and timing are agreed in a project proposal.`,
     "",
     `Contact: ${BRAND.email} · ${BRAND.phone.display} · ${BRAND.responseTime}.`,
     "",
+    "## Overview",
+    "",
+    ...section("overview"),
+    "",
     "## Services",
     "",
-    link("All services", "/services", "Websites, patient education films, AI presenters and social content, and three ways to begin."),
-    ...SERVICE_PAGES.map((s) => link(s.label, `/services/${s.slug}`, s.description)),
+    ...section("services"),
     "",
     "## Work",
     "",
-    link("Client work and specialty templates", "/work", SEO.work.description),
-    link(`${CASE.name} website project`, "/work/prof-hemant-sheth", `${CASE.client}. ${CASE.summary}`),
+    ...section("work"),
     "",
     "## About and contact",
     "",
-    link("About the studio", "/about", SEO.about.description),
-    link("Book a call", "/contact", SEO.contact.description),
+    ...section("about"),
     "",
     "## Optional",
     "",
-    link("Privacy notice", "/privacy", SEO.privacy.description),
+    ...section("optional"),
     "",
   ].join("\n");
 }

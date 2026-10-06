@@ -29,6 +29,10 @@ export const metadata: Metadata = {
   applicationName: BRAND.name,
   openGraph: { type: "website", siteName: BRAND.name, locale: "en_GB" },
   twitter: { card: "summary_large_image" },
+  verification: {
+    ...(process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : {}),
+    ...(process.env.BING_SITE_VERIFICATION ? { other: { "msvalidate.01": process.env.BING_SITE_VERIFICATION } } : {}),
+  },
 };
 
 export const viewport: Viewport = { themeColor: "#f5f8fc" };

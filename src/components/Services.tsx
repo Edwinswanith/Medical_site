@@ -16,7 +16,7 @@ export function Services() {
         {SERVICES.map((s, i) => (
           <TLink key={s.id} href={s.href} className="svc__card notch" data-reveal data-cursor="view" data-cursor-label="Explore" style={{ ["--i" as string]: i }}>
             <div className="wipe" data-reveal style={{ ["--i" as string]: i }}>
-              <MediaSwap media={s.media} trigger="hover" />
+              <MediaSwap media={s.media} trigger="hover" sizes="(max-width: 899px) 45vw, 23vw" />
             </div>
             <span className="svc__n">0{i + 1}</span>
             <h3 className="svc__name">{s.name}</h3>

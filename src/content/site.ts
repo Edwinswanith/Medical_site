@@ -39,7 +39,7 @@ export const SEO = {
   privacy: {
     title: "Privacy notice",
     description:
-      "How CogniVerse Studio uses the details you send through the enquiry form: what we collect, why, who handles it, how long we keep it and your rights under UK GDPR.",
+      "How CogniVerse Studio uses business enquiry details, what this website collects, its cookie policy and how to contact us about your privacy rights.",
   },
   about: {
     title: "About our healthcare media studio",
@@ -47,9 +47,19 @@ export const SEO = {
       "CogniVerse Studio works with clinicians across the UK on websites, patient films and social content. See our approval process and the Prof. Hemant Sheth project.",
   },
   work: {
-    title: "Client work and specialty templates",
+    title: "Consultant website work and specialty templates",
     description:
       "See the consultant website we built for Prof. Hemant Sheth, and the 12 specialty templates we use as starting points for UK clinicians and practices.",
+  },
+  services: {
+    title: "Healthcare websites, films and social content UK",
+    description:
+      "Explore CogniVerse Studio's medical websites, patient education films, consent-based AI presenters and social content for UK consultants and private practices.",
+  },
+  project: {
+    title: "Prof. Hemant Sheth consultant website project",
+    description:
+      "Explore the consultant website built for Prof. Hemant Sheth: 22 pages, 10 procedure guides, four treatment groups and a clear route through his surgical services.",
   },
   contact: {
     title: "Book a call about your practice",
@@ -92,7 +102,7 @@ export const HERO = {
   titleB: "media",
   titleEm: "partner.",
   intro:
-    "For clinicians and practices across the UK: websites built for search, patient education films, an AI presenter in your own voice, and content for Instagram, TikTok, YouTube and Facebook.",
+    "CogniVerse Studio makes websites, patient education films, consent-based AI presenters and social content for clinicians and practices across the UK. One partner for your website and content for Instagram, TikTok, YouTube and Facebook.",
 };
 
 /* ───────────── 2. What we do ───────────── */

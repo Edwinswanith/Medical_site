@@ -28,6 +28,7 @@ export function MediaSwap({
   className = "",
   priority = false,
   showAiLabel = true,
+  sizes = "(max-width: 640px) 90vw, (max-width: 899px) 45vw, 35vw",
 }: {
   media: Media;
   trigger?: "hover" | "view" | "manual";
@@ -35,6 +36,7 @@ export function MediaSwap({
   className?: string;
   priority?: boolean;
   showAiLabel?: boolean;
+  sizes?: string;
 }) {
   const root = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
@@ -138,8 +140,9 @@ export function MediaSwap({
           alt={media.alt}
           width={media.still.w}
           height={media.still.h}
-          sizes="(max-width: 640px) 90vw, (max-width: 899px) 45vw, 35vw"
+          sizes={sizes}
           loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : undefined}
           decoding="async"
         />
       </picture>

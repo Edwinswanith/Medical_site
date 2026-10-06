@@ -1,5 +1,7 @@
 # Keyword and search-intent map
 
+The current eleven-page intent map, including the work directory, is in the root `SEO-GEO-AUDIT.md`. This file preserves the earlier qualitative query research.
+
 5 October 2026. These are qualitative query themes inferred from the actual offer, not keyword-volume or ranking measurements. UK-wide coverage is user-confirmed. The homepage remains a broad introduction; each commercial service has one primary destination.
 
 | Priority / intent | Primary query theme | Secondary themes | Destination / action | Useful next step |
@@ -23,7 +25,7 @@
 
 ## Architecture and linking
 
-Implemented: /, /services, four service URLs, /work/prof-hemant-sheth, /about, /contact, /privacy. These ten pages are listed in the sitemap. Header and footer link to the services and project; footer links to the hub and About. Homepage service cards link to service pages. Service pages link to related services and contact; the website service links to the real project. Breadcrumbs return to Home and Services. The project links back to the website service.
+Implemented: /, /services, four service URLs, /work, /work/prof-hemant-sheth, /about, /contact, /privacy. These eleven pages are listed in the sitemap and optional llms.txt directory. Header and footer link to the services and work directory; footer links to the hub and About. Homepage service cards link to service pages. Service pages link to related services and contact; the website service links to the real project. Breadcrumbs return to Home, Services and Work. The project links back to the website service.
 
 No /industries or /locations directories are justified yet. Twelve template screenshots do not establish twelve delivered client case studies. London and Hertfordshire describe the case client's practice, not a studio office. A local page needs unique, approved local projects or operational facts; changing a city name is insufficient.
 

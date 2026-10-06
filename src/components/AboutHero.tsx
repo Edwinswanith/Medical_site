@@ -14,7 +14,7 @@ export function AboutHero() {
       <div className="pg-about__hero editorial-hero">
         <Breadcrumbs items={[{ label: "Home", path: "/" }, { label: "About", path: "/about" }]} />
         <h1 className="display-xl">
-          A media partner for <em>your practice.</em>
+          A healthcare media studio for <em>your practice.</em>
         </h1>
         <p className="phero__intro lede">
           {BRAND.name} makes websites, patient education films, AI presenters and social content for consultants and private practices. We work with clients across the United Kingdom.

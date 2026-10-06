@@ -4,6 +4,7 @@ import { PageJsonLd } from "@/components/JsonLd";
 import { pageMetadata } from "@/lib/seo";
 import { EnquiryForm } from "@/components/EnquiryForm";
 import { Split } from "@/components/Split";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = pageMetadata({ path: "/contact", ...SEO.contact });
 
@@ -11,9 +12,10 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
   const { enquiry } = await searchParams;
   return (
     <>
-      <PageJsonLd path="/contact" type="ContactPage" name={SEO.contact.title} description={SEO.contact.description} />
+      <PageJsonLd path="/contact" type="ContactPage" name={SEO.contact.title} description={SEO.contact.description} breadcrumbs />
       <section className="contact-hero wrap">
         <div className="contact-hero__left">
+          <Breadcrumbs items={[{ label: "Home", path: "/" }, { label: "Contact", path: "/contact" }]} />
           <p className="label">Book a call</p>
           <Split as="h1" className="display-xl" text="Tell us what your practice needs" em="your practice needs" />
           <p className="contact-hero__intro lede">

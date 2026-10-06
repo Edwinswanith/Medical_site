@@ -14,7 +14,7 @@ export const metadata = pageMetadata({ path: "/about", title, description });
 export default function AboutPage() {
   return (
     <>
-      <PageJsonLd path="/about" type="AboutPage" name={title} description={description} />
+      <PageJsonLd path="/about" type="AboutPage" name={title} description={description} breadcrumbs />
       <AboutHero />
       {/* A founder/team section goes here once real names, photos and bios are supplied. */}
       <AboutTogether />

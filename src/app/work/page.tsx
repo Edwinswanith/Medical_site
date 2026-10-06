@@ -1,9 +1,10 @@
-import { PageJsonLd } from "@/components/JsonLd";
+import { ItemListJsonLd, PageJsonLd } from "@/components/JsonLd";
+import { absolute } from "@/lib/site-url";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { TLink } from "@/components/TLink";
 import { WorkCaseCard } from "@/components/WorkCaseCard";
 import { WorkTemplates } from "@/components/WorkTemplates";
-import { SEO } from "@/content/site";
+import { CASE, SEO } from "@/content/site";
 import { pageMetadata } from "@/lib/seo";
 
 const path = "/work";
@@ -13,13 +14,14 @@ export const metadata = pageMetadata({ path, title, description });
 export default function WorkIndexPage() {
   return (
     <>
-      <PageJsonLd path={path} type="CollectionPage" name={title} description={description} />
+      <PageJsonLd path={path} type="CollectionPage" name={title} description={description} mainEntity={`${absolute(path)}#projects`} breadcrumbs />
+      <ItemListJsonLd path={path} fragment="projects" name="Client website work" items={[{ name: CASE.name, path: "/work/prof-hemant-sheth" }]} />
       <section className="phero wrap editorial-hero">
         <Breadcrumbs items={[{ label: "Home", path: "/" }, { label: "Work", path }]} />
         <h1 className="display-xl">
-          Built, launched, <em>in use.</em>
+          Consultant website work and <em>specialty templates.</em>
         </h1>
-        <p className="phero__intro lede">Real client work, and the 12 specialty templates we use as starting points.</p>
+        <p className="phero__intro lede">Explore the website CogniVerse Studio built for Prof. Hemant Sheth, and 12 specialty website templates for UK consultants and private practices. The templates are starting points, rather than completed client projects.</p>
       </section>
       <WorkCaseCard />
       <WorkTemplates />

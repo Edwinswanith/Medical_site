@@ -38,7 +38,7 @@ export function WorkScreenshot() {
           <i>{CASE.live.label}</i>
         </div>
         <a className="pg-work__viewport" href={CASE.live.href} target="_blank" rel="noreferrer">
-          <Image src={CASE.shot.webp} alt={CASE.shot.alt} width={CASE.shot.w} height={CASE.shot.h} sizes="(max-width: 899px) 90vw, 48vw" priority />
+          <Image src={CASE.shot.webp} alt={CASE.shot.alt} width={CASE.shot.w} height={CASE.shot.h} sizes="(max-width: 899px) 90vw, 48vw" loading="eager" fetchPriority="high" />
           <span className="sr-only"> Visit the live website (opens in a new tab)</span>
         </a>
       </div>

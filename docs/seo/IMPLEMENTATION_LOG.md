@@ -1,5 +1,7 @@
 # Implementation log
 
+This records the 5 October 2026 implementation and its measurements. See the root `SEO-GEO-AUDIT.md` and `docs/seo/validation-2026-10-06.json` for the current eleven-page implementation and optional studio llms.txt directory.
+
 5 October 2026. Latest main pulled to `8655bbc` before implementation. The user's “incorporate all the feedbacks” authorised the structural/content changes; “all area in UK” confirmed national coverage. Implementation was validated locally before the user's subsequent instruction to commit and push it to main. This log records local checks; deployment, external account configuration and real enquiry delivery are not verified.
 
 ## What changed

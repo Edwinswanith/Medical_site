@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { BRAND, SEO } from "@/content/site";
 import { PageJsonLd } from "@/components/JsonLd";
 import { pageMetadata } from "@/lib/seo";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = pageMetadata({ path: "/privacy", ...SEO.privacy });
 
@@ -13,8 +14,9 @@ export default function PrivacyPage() {
   const mail = <a className="ulink" href={`mailto:${BRAND.email}`}>{BRAND.email}</a>;
   return (
     <>
-      <PageJsonLd path="/privacy" name={SEO.privacy.title} description={SEO.privacy.description} />
+      <PageJsonLd path="/privacy" name={SEO.privacy.title} description={SEO.privacy.description} breadcrumbs />
       <section className="phero wrap">
+        <Breadcrumbs items={[{ label: "Home", path: "/" }, { label: "Privacy", path: "/privacy" }]} />
         <p className="label">Privacy</p>
         <h1 className="display-xl">
           Privacy <em>notice</em>

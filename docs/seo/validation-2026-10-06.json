@@ -1,0 +1,232 @@
+{
+  "auditDate": "2026-10-06",
+  "baselineCommit": "a6577c1",
+  "scope": "Local production implementation. No deployment, external account change, indexing or ranking outcome claimed.",
+  "framework": "Next.js 16.3.8 App Router",
+  "canonicalOrigin": "https://www.cogniversestudio.com",
+  "publicPages": [
+    "/",
+    "/services",
+    "/services/medical-websites",
+    "/services/patient-films",
+    "/services/ai-presenter",
+    "/services/social-content",
+    "/work",
+    "/work/prof-hemant-sheth",
+    "/about",
+    "/contact",
+    "/privacy"
+  ],
+  "checks": {
+    "productionBuild": "PASS",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "regressionTests": {
+      "status": "PASS",
+      "passed": 15,
+      "failed": 0
+    },
+    "httpAudit": {
+      "status": "PASS",
+      "passed": 1544,
+      "failed": 0
+    },
+    "browser": {
+      "passed": 21,
+      "failed": 0,
+      "scenarios": [
+        {
+          "name": "home-mobile",
+          "status": "PASS"
+        },
+        {
+          "name": "home-small-mobile",
+          "status": "PASS"
+        },
+        {
+          "name": "home-desktop",
+          "status": "PASS"
+        },
+        {
+          "name": "service-mobile",
+          "status": "PASS"
+        },
+        {
+          "name": "service-desktop",
+          "status": "PASS"
+        },
+        {
+          "name": "contact-mobile",
+          "status": "PASS"
+        },
+        {
+          "name": "about-mobile",
+          "status": "PASS"
+        },
+        {
+          "name": "work-mobile",
+          "status": "PASS"
+        },
+        {
+          "name": "services-hub-small-mobile",
+          "status": "PASS"
+        },
+        {
+          "name": "work-index-small-mobile",
+          "status": "PASS"
+        },
+        {
+          "name": "ai-presenter-small-mobile",
+          "status": "PASS"
+        },
+        {
+          "name": "social-content-small-mobile",
+          "status": "PASS"
+        },
+        {
+          "name": "privacy-small-mobile",
+          "status": "PASS"
+        },
+        {
+          "name": "keyboard menu: open, trap, Escape, focus return",
+          "status": "PASS"
+        },
+        {
+          "name": "service questions: keyboard disclosure exposes the answer",
+          "status": "PASS"
+        },
+        {
+          "name": "normal motion: intro and curtain navigation finish and unlock scrolling",
+          "status": "PASS"
+        },
+        {
+          "name": "delayed JavaScript: content revealed after watchdog",
+          "status": "PASS"
+        },
+        {
+          "name": "delayed JavaScript: homepage sections and headline readable",
+          "status": "PASS"
+        },
+        {
+          "name": "no JavaScript: content and native form available",
+          "status": "PASS"
+        },
+        {
+          "name": "no JavaScript: homepage content readable",
+          "status": "PASS"
+        },
+        {
+          "name": "no uncaught JavaScript errors",
+          "status": "PASS"
+        }
+      ]
+    },
+    "enquiryIntegration": {
+      "configuredLocalMock": "PASS",
+      "unconfiguredProvider": "PASS",
+      "externalMessagesSent": 0
+    }
+  },
+  "performance": {
+    "baselineMobile": {
+      "fetchedAt": "2026-10-06T09:19:52.863Z",
+      "metrics": {
+        "largest-contentful-paint": 4276.1844,
+        "cumulative-layout-shift": 0,
+        "total-blocking-time": 4.5,
+        "total-byte-weight": 1162651
+      },
+      "estimatedImageWasteBytes": 59051,
+      "automatedAccessibilityScore": 1,
+      "automatedSeoScore": 1,
+      "formFactor": "mobile",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "screen": {
+        "mobile": true,
+        "width": 412,
+        "height": 823,
+        "deviceScaleFactor": 1.75,
+        "disabled": false
+      }
+    },
+    "optimisedMobile": {
+      "fetchedAt": "2026-10-06T09:22:20.971Z",
+      "metrics": {
+        "largest-contentful-paint": 4072.353649999999,
+        "cumulative-layout-shift": 0,
+        "total-blocking-time": 9.5,
+        "total-byte-weight": 1117793
+      },
+      "estimatedImageWasteBytes": 12782,
+      "automatedAccessibilityScore": 1,
+      "automatedSeoScore": 1,
+      "formFactor": "mobile",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "screen": {
+        "mobile": true,
+        "width": 412,
+        "height": 823,
+        "deviceScaleFactor": 1.75,
+        "disabled": false
+      }
+    },
+    "finalDesktop": {
+      "fetchedAt": "2026-10-06T09:28:44.059Z",
+      "metrics": {
+        "largest-contentful-paint": 1124.04225,
+        "cumulative-layout-shift": 0.002698240873304735,
+        "total-blocking-time": 0,
+        "total-byte-weight": 3659670
+      },
+      "estimatedImageWasteBytes": 16776,
+      "automatedAccessibilityScore": 1,
+      "automatedSeoScore": 1,
+      "formFactor": "desktop",
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 10240,
+        "requestLatencyMs": 0,
+        "downloadThroughputKbps": 0,
+        "uploadThroughputKbps": 0,
+        "cpuSlowdownMultiplier": 1
+      },
+      "screen": {
+        "mobile": false,
+        "width": 1350,
+        "height": 940,
+        "deviceScaleFactor": 1,
+        "disabled": false
+      }
+    },
+    "limits": "Individual simulated lab runs; not field CWV or statistically established improvement. Mobile LCP remains above the good threshold. TBT is not INP. Original font preload retained after a worse trial."
+  },
+  "liveObservations": {
+    "date": "2026-10-06",
+    "wwwHomepage": 200,
+    "wwwRobots": 200,
+    "wwwSitemap": 200,
+    "httpApexRedirect": "308 to HTTPS apex, then 308 to HTTPS www",
+    "limit": "Existing live deployment only; local changes have not been deployed."
+  },
+  "accountsAndFieldData": "Search Console, Bing, real crawler-IP firewall access, field INP and AI citations were not accessed or changed.",
+  "evidence": {
+    "http": ".tmp/seo-production-results.json",
+    "browser": ".tmp/seo-final-production/browser-results.json",
+    "mobile": ".tmp/lighthouse-after-mobile.json",
+    "desktop": ".tmp/lighthouse-final-desktop.json"
+  }
+}

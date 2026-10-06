@@ -12,7 +12,7 @@ export function BrowserFrame({ url, src, alt, w, h, sizes = "(max-width: 899px) 
         <span />
         <i>{url}</i>
       </div>
-      <Image src={src} alt={alt} width={w} height={h} sizes={sizes} priority={priority} />
+      <Image src={src} alt={alt} width={w} height={h} sizes={sizes} loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : undefined} />
     </figure>
   );
 }

@@ -26,11 +26,12 @@ export function Footer() {
             <p>
               <TLink href="/contact">Enquire</TLink>
             </p>
+            <p><a href={`mailto:${BRAND.email}`}>{BRAND.email}</a></p>
             <p>
               <a href={`tel:${BRAND.phone.tel}`}>{BRAND.phone.display}</a>
             </p>
             <p className="muted">{BRAND.responseTime}</p>
-            <p>Working with clinicians and practices across the UK.</p>
+            <p>{BRAND.name} works with clinicians and practices across the UK.</p>
           </div>
         </div>
       </div>

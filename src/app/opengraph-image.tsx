@@ -2,8 +2,9 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { BRAND } from "@/content/site";
+import { SOCIAL_IMAGE } from "@/lib/social-image";
 
-export const alt = `${BRAND.name}: websites, patient films and AI presenters for clinicians`;
+export const alt = SOCIAL_IMAGE.alt;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

@@ -27,9 +27,11 @@ TypeScript 7 remains the compiler through the `@typescript/native` alias. The `t
 
 Approved facts, contacts, packages and homepage scenes live in `src/content/site.ts`; expanded service copy lives in `src/content/services.ts`. Asset approval status is recorded in `assets-src/ASSETS.md`. Do not add clients, outcomes, testimonials, team members, offices or credentials without verified source material. Public generated concept media is labelled as such.
 
-Ten public pages: home, service hub, four service pages, About, contact, privacy and the approved Prof. Hemant Sheth website project. The sitemap follows the service registry. Existing homepage chapter anchors remain available.
+Eleven public pages: home, service hub, four service pages, work directory, About, contact, privacy and the approved Prof. Hemant Sheth website project. The sitemap and optional `/llms.txt` directory share `src/content/pages.ts`. Existing homepage chapter anchors remain available.
 
-The canonical host is `https://www.cogniversestudio.com`, matching the live apex redirect. `.env.example` documents the override. Vercel aliases/previews receive `X-Robots-Tag: noindex, follow`; the primary custom domain remains indexable. No existing public path was removed or renamed.
+The canonical host is `https://www.cogniversestudio.com`. `.env.example` documents the override; localhost and Vercel preview overrides fall back to the public host. Vercel aliases/previews receive `X-Robots-Tag: noindex, follow`; the primary custom domain remains indexable. No existing public path was removed or renamed.
+
+Real Google Search Console and Bing Webmaster verification values can be supplied through `GOOGLE_SITE_VERIFICATION` and `BING_SITE_VERIFICATION`. Blank values emit no verification tags. These are public ownership-verification values, not API credentials. No analytics tag is installed.
 
 ## Enquiries
 
@@ -45,4 +47,6 @@ Normal intro, curtain navigation, pointer effects and scroll scenes remain. The 
 
 Responsive images reserve dimensions. Decorative video uses the existing responsive still before playback, then sets a poster without eagerly downloading full-size posters for every scene.
 
-The complete audit, keyword map, content roadmap, local/GEO guidance, implementation evidence and launch checklist are in `docs/seo/`. No search account setup, deployment or ranking result is implied by passing local checks.
+The current implementation is documented in `SEO-GEO-AUDIT.md`, `SEO-CHECKLIST.md` and `SEO-CONTENT-OPPORTUNITIES.md`. Earlier audit evidence and local/GEO guidance are in `docs/seo/`. The current audit supersedes historical page counts and measurements. No search account setup, deployment or ranking result is implied by passing local checks.
+
+Set `SEO_REPORT_PATH=.tmp/seo-results.json` before `npm run seo:check` to save the complete HTTP audit. The checker includes canonical/query/slash variants, public page inventory, social images, schema relationships, crawler user-agent probes and private-file 404 checks. User-agent probes do not prove access from real crawler IPs at the hosting firewall.

@@ -20,7 +20,7 @@ function HeroVisual({ slug }: { slug: string }) {
   if (slug === "social-content") {
     return (
       <div className="sp-phone">
-        <MediaSwap media={HERO_FILM.vertical} trigger="view" priority />
+        <MediaSwap media={HERO_FILM.vertical} trigger="view" priority sizes="(max-width: 899px) 56vw, 28vw" />
       </div>
     );
   }
@@ -28,7 +28,7 @@ function HeroVisual({ slug }: { slug: string }) {
   if (!card) return null;
   return (
     <figure className="sp-film notch">
-      <MediaSwap media={card.media} trigger="view" priority showAiLabel={slug !== "ai-presenter"} />
+      <MediaSwap media={card.media} trigger="view" priority sizes="(max-width: 899px) 90vw, 48vw" showAiLabel={slug !== "ai-presenter"} />
       {slug === "ai-presenter" && <figcaption className="sp-film__ai label">AI-generated person. Not a client or a clinician.</figcaption>}
     </figure>
   );
@@ -80,7 +80,7 @@ export function ServicePage({ service }: { service: ServicePageContent }) {
   const serviceId = `${absolute(path)}#service`;
   return (
     <>
-      <PageJsonLd path={path} name={service.title} description={service.description} mainEntity={serviceId} />
+      <PageJsonLd path={path} name={service.title} description={service.description} mainEntity={serviceId} breadcrumbs />
       <JsonLd data={{ "@context": "https://schema.org", "@type": "Service", "@id": serviceId, name: service.label, serviceType: service.heading, description: service.intro, url: absolute(path), provider: { "@id": ORG_ID }, areaServed: { "@type": "Country", name: "United Kingdom" }, mainEntityOfPage: { "@id": `${absolute(path)}#webpage` } }} />
 
       <section className="sp-hero editorial-hero" data-service={service.slug}>

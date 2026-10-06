@@ -60,6 +60,9 @@ try {
     ['home-mobile', '/', 390, 844], ['home-small-mobile', '/', 320, 844], ['home-desktop', '/', 1440, 1000],
     ['service-mobile', '/services/medical-websites', 390, 844], ['service-desktop', '/services/patient-films', 1440, 1000],
     ['contact-mobile', '/contact', 390, 1000], ['about-mobile', '/about', 390, 844], ['work-mobile', '/work/prof-hemant-sheth', 390, 844],
+    ['services-hub-small-mobile', '/services', 320, 844], ['work-index-small-mobile', '/work', 320, 844],
+    ['ai-presenter-small-mobile', '/services/ai-presenter', 320, 844], ['social-content-small-mobile', '/services/social-content', 320, 844],
+    ['privacy-small-mobile', '/privacy', 320, 844],
   ]) {
     await send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: width < 900 });
     await navigate(path); await waitFor('document.documentElement.hasAttribute("data-motion-ready")');
@@ -89,6 +92,12 @@ try {
   assert.equal(await evaluate('document.querySelector("main").inert'), false);
   assert.equal(await evaluate('document.activeElement.classList.contains("burger")'), true);
   results.push({ name: 'keyboard menu: open, trap, Escape, focus return', status: 'PASS' });
+
+  await navigate('/services/medical-websites'); await waitFor('document.documentElement.hasAttribute("data-motion-ready")');
+  await evaluate('document.querySelector("details summary").focus()'); await key('Enter', 'Enter', 13);
+  assert.equal(await evaluate('document.querySelector("details").open'), true, 'service question opens by keyboard');
+  assert.ok(await evaluate('document.querySelector("details").innerText.includes("Films for your site")'));
+  results.push({ name: 'service questions: keyboard disclosure exposes the answer', status: 'PASS' });
 
   await send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
   await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'no-preference' }] });

@@ -1,5 +1,7 @@
 # SEO and GEO audit
 
+Historical audit from 5 October 2026. The current eleven-page implementation, llms.txt policy and validation are documented in the root `SEO-GEO-AUDIT.md` and `docs/seo/validation-2026-10-06.json`.
+
 Audited 5 October 2026. Repository baseline: main at `8655bbc`, pulled from Edwinswanith/Medical_site. Implementation authorised by the user's “incorporate all the feedbacks”. UK-wide coverage was subsequently confirmed by the user.
 
 Production addresses inspected: https://medicalsite-two.vercel.app/ and https://www.cogniversestudio.com/. The apex HTTPS and HTTP addresses redirect to the www host. New code has been validated locally; this is not a deployment report.
