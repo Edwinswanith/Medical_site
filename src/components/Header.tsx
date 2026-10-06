@@ -12,6 +12,8 @@ export function Header() {
   const pathname = usePathname();
   const [menuPath, setMenuPath] = useState<string | null>(null);
   const open = menuPath === pathname;
+  // a section link stays lit on its child pages (Work on a case study)
+  const isActive = (href: string) => pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
   const [scrolled, setScrolled] = useState(false);
   const [tone, setTone] = useState<"dark" | "light">("light");
   const panel = useRef<HTMLDivElement>(null);
@@ -122,7 +124,7 @@ export function Header() {
         </TLink>
         <nav className="header__nav" aria-label="Primary">
           {NAV.map((n) => (
-            <TLink key={n.href} href={n.href} data-active={pathname === n.href}>
+            <TLink key={n.href} href={n.href} data-active={isActive(n.href)}>
               {n.label}
             </TLink>
           ))}
@@ -148,7 +150,7 @@ export function Header() {
       <div id="menu" ref={panel} className="menu" role="dialog" aria-modal="true" aria-label="Menu" inert={!open}>
         <nav className="menu__links">
           {[{ href: "/", label: "Home" }, ...NAV, { href: "/about", label: "About" }, { href: "/contact", label: "Book a call" }].map((n, i) => (
-            <TLink key={n.href} href={n.href} onClick={() => setMenuPath(null)} className="menu__link" data-active={pathname === n.href}>
+            <TLink key={n.href} href={n.href} onClick={() => setMenuPath(null)} className="menu__link" data-active={isActive(n.href)}>
               <span className="menu__link-inner">
                 <span className="menu__num">{String(i + 1).padStart(2, "0")}</span>
                 {n.label}

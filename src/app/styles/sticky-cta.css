@@ -1,0 +1,33 @@
+/* Phones: the "Book a call" bar that rises after the hero (StickyCta.tsx). */
+.sticky-cta {
+  display: none;
+}
+@media (max-width: 899px) {
+  .sticky-cta {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 80;
+    display: flex;
+    padding: 10px var(--gut) calc(10px + env(safe-area-inset-bottom));
+    background: color-mix(in srgb, var(--navy-950) 88%, transparent);
+    backdrop-filter: blur(14px);
+    translate: 0 105%;
+    transition: translate 0.45s var(--ease);
+  }
+  .sticky-cta[data-show] {
+    translate: 0 0;
+  }
+  .sticky-cta .btn {
+    flex: 1;
+    justify-content: center;
+  }
+  /* keep the footer's last line clear of the bar */
+  .foot__base {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom));
+  }
+}
+@media (max-width: 899px) and (prefers-reduced-motion: reduce) {
+  .sticky-cta {
+    transition: none;
+  }
+}

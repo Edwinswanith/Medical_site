@@ -1,9 +1,9 @@
-/** The CogniVerse Studio icon (header, intro). Decorative: the brand name sits beside it as text. */
+/** The CogniVerse Studio mark: icon-only symbol from the logo. */
 export function Mark({ className = "mark" }: { className?: string }) {
   return (
     <picture>
-      <source srcSet="/brand/studio-icon.webp" type="image/webp" />
-      <img className={className} src="/brand/studio-icon.png" alt="" width={168} height={168} aria-hidden />
+      <source srcSet="/brand/mark.webp" type="image/webp" />
+      <img className={className} src="/brand/mark.png" alt="" width={256} height={256} aria-hidden />
     </picture>
   );
 }

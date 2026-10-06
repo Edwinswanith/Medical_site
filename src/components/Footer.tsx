@@ -1,6 +1,6 @@
 import { BRAND, NAV } from "@/content/site";
 import { TLink } from "./TLink";
-import { FootCta } from "./FootCta";
+import { FootInvite } from "./FootInvite";
 import { BackToTop } from "./BackToTop";
 
 /** The close: one invitation, a signal-coloured glow rising from the bottom edge, and the essentials. */
@@ -8,19 +8,7 @@ export function Footer() {
   return (
     <footer className="foot" data-tone="dark" data-scrub="" data-scrub-start="top bottom" data-scrub-end="bottom bottom">
       <div className="foot__panel notch">
-        <p className="label">A short call is where it starts</p>
-        <h2 className="foot__title" data-reveal>
-          <span className="line">
-            <span>Let&apos;s talk about</span>
-          </span>
-          {" "}
-          <span className="line">
-            <span>
-              <em>your practice.</em>
-            </span>
-          </span>
-        </h2>
-        <FootCta />
+        <FootInvite />
 
         <div className="foot__cols">
           <div>
@@ -50,6 +38,11 @@ export function Footer() {
       <div className="foot__base">
         <span>
           © {new Date().getFullYear()} {BRAND.legalName} · <TLink href="/privacy">Privacy</TLink>
+          {BRAND.registration && (
+            <small className="foot__reg">
+              Registered in {BRAND.registration.place}, company no. {BRAND.registration.number}. Registered office: {BRAND.registration.office}.
+            </small>
+          )}
         </span>
         <BackToTop />
       </div>

@@ -1,0 +1,22 @@
+/* Site chrome variants. */
+
+/* /contact: the footer panel carries only the links (FootInvite renders nothing there) */
+.foot__panel:not(:has(.foot__title)) {
+  padding-block: clamp(32px, 4vw, 48px);
+}
+.foot__panel:not(:has(.foot__title)) .foot__cols {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+/* Companies Act trading disclosure, set in sentence case under the copyright line */
+.foot__reg {
+  display: block;
+  margin-top: 8px;
+  max-width: 70ch;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  line-height: 1.5;
+}

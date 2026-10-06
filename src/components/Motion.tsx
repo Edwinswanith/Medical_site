@@ -21,7 +21,6 @@ export function Motion({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const curtain = useRef<HTMLDivElement>(null);
-  const label = useRef<HTMLSpanElement>(null);
   const busy = useRef(false);
   const first = useRef(true);
 
@@ -51,14 +50,11 @@ export function Motion({ children }: { children: ReactNode }) {
       }
       busy.current = true;
       router.prefetch(href);
-      const name = href === "/" ? "Home" : href.split("/").filter(Boolean).pop()!.replace(/-/g, " ");
-      if (label.current) label.current.textContent = name;
       lockScroll(true);
       gsap
         .timeline({ onComplete: () => router.push(href) })
         .set(curtain.current, { yPercent: 100, visibility: "visible" })
-        .to(curtain.current, { yPercent: 0, duration: 0.65, ease: "expo.inOut" })
-        .fromTo(label.current, { yPercent: 120 }, { yPercent: 0, duration: 0.5, ease: "expo.out" }, "-=0.25");
+        .to(curtain.current, { yPercent: 0, duration: 0.28, ease: "expo.inOut" });
     },
     [pathname, router],
   );
@@ -79,8 +75,7 @@ export function Motion({ children }: { children: ReactNode }) {
             delete document.documentElement.dataset.entering;
           },
         })
-        .to(label.current, { yPercent: -120, duration: 0.4, ease: "expo.in" })
-        .to(curtain.current, { yPercent: -100, duration: 0.75, ease: "expo.inOut" }, "-=0.1");
+        .to(curtain.current, { yPercent: -100, duration: 0.28, ease: "expo.inOut" });
     }
 
     const els = document.querySelectorAll<HTMLElement>("[data-reveal]");
@@ -142,11 +137,7 @@ export function Motion({ children }: { children: ReactNode }) {
   return (
     <TransitionCtx.Provider value={{ navigate }}>
       {children}
-      <div ref={curtain} className="curtain" aria-hidden>
-        <span className="curtain__mask">
-          <span ref={label} className="curtain__label" />
-        </span>
-      </div>
+      <div ref={curtain} className="curtain" aria-hidden />
     </TransitionCtx.Provider>
   );
 }

@@ -10,6 +10,7 @@ const PAGES = [
   { path: "/about", priority: 0.5 },
   { path: "/services", priority: 0.8 },
   ...SERVICE_PAGES.map(service => ({ path: `/services/${service.slug}`, priority: 0.8 })),
+  { path: "/work", priority: 0.7 },
   { path: "/work/prof-hemant-sheth", priority: 0.7 },
 ];
 

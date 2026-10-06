@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 import { HERO, HERO_FILM, HERO_STATS, TEMPLATES } from "@/content/site";
@@ -19,7 +19,20 @@ export function Hero() {
   const stack = useRef<HTMLDivElement>(null);
   const film = useRef<HTMLVideoElement>(null);
   const phone = useRef<HTMLVideoElement>(null);
-  const cardio = TEMPLATES[0];
+  const [current, setCurrent] = useState(0);
+  const [previous, setPrevious] = useState<number | null>(null);
+  const [picked, setPicked] = useState(false);
+  const site = TEMPLATES[current];
+
+  // Swap the site to the chosen specialty. The old screenshot stays underneath
+  // until the new one has loaded and wiped in, so the frame never flashes empty.
+  const pick = (e: ChangeEvent<HTMLSelectElement>) => {
+    const next = TEMPLATES.findIndex((t) => t.slug === e.target.value);
+    if (next < 0 || next === current) return;
+    setPrevious(current);
+    setCurrent(next);
+    setPicked(true);
+  };
 
   useEffect(() => {
     const s = stack.current;
@@ -124,14 +137,45 @@ export function Hero() {
 
       <div ref={stack} data-speed="-0.12" className="hero__stack" aria-label="A specialty website with its patient film and a short for phones">
         <figure className="hs hs--site notch" data-depth="0.4">
-          <div className="chrome" aria-hidden>
-            <span />
-            <span />
-            <span />
-            <i>yourname.co.uk</i>
+          <div className="chrome hm-chrome">
+            <span aria-hidden />
+            <span aria-hidden />
+            <span aria-hidden />
+            <i aria-hidden>yourname.co.uk</i>
+            <label className="hm-pick">
+              <small className="sr-only">Preview the website for your specialty</small>
+              <select value={site.slug} onChange={pick}>
+                {TEMPLATES.map((t) => (
+                  <option key={t.slug} value={t.slug}>
+                    {t.name}
+                  </option>
+                ))}
+              </select>
+              <svg viewBox="0 0 10 6" aria-hidden>
+                <path d="M1 1l4 4 4-4" />
+              </svg>
+            </label>
+            <small className="hm-hint" data-hidden={picked || undefined} aria-hidden>
+              ← Try your specialty
+            </small>
           </div>
-          <picture>
-            <Image src={cardio.img.webp} alt="Cardiology website template" width={1200} height={750} sizes="(max-width: 899px) 90vw, 50vw" loading="eager" fetchPriority="high" />
+          <picture className="hm-site">
+            {previous !== null && (
+              <Image key={TEMPLATES[previous].slug} src={TEMPLATES[previous].img.webp} alt="" width={1200} height={750} sizes="(max-width: 899px) 90vw, 50vw" aria-hidden />
+            )}
+            <Image
+              key={site.slug}
+              src={site.img.webp}
+              alt={`${site.name} website template`}
+              width={1200}
+              height={750}
+              sizes="(max-width: 899px) 90vw, 50vw"
+              loading="eager"
+              fetchPriority={previous === null ? "high" : "auto"}
+              className={previous === null ? undefined : "hm-site__in"}
+              onLoad={(e) => e.currentTarget.setAttribute("data-loaded", "")}
+              onAnimationEnd={() => setPrevious(null)}
+            />
           </picture>
           <figcaption className="hs__tag label">Your website</figcaption>
         </figure>

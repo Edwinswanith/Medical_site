@@ -1,0 +1,635 @@
+/* Services index and the four service pages (ServicePage.tsx). Prefix: .sp- */
+
+/* ───────── Hero: copy left, the service's own product right ───────── */
+.sp-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+  padding-inline: var(--gut);
+  padding-bottom: var(--section-y);
+}
+.sp-hero__copy {
+  display: grid;
+  justify-items: start;
+  gap: 24px;
+}
+.sp-hero .display-xl {
+  font-size: clamp(2.6rem, 5.6vw, 5.8rem);
+}
+.sp-hero__intro {
+  max-width: 46ch;
+  color: var(--stone);
+  font-size: clamp(1rem, 1.15vw, 1.12rem);
+  line-height: 1.65;
+}
+.sp-hero .btn {
+  margin-top: 6px;
+}
+
+/* shared frames: a screenshot in browser chrome, a 16:9 film, a phone */
+.sp-frame,
+.sp-film {
+  --cut: 18px;
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg-2);
+  box-shadow: 0 40px 80px -30px rgba(11, 24, 48, 0.28);
+}
+.sp-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top;
+}
+.sp-film {
+  aspect-ratio: 16 / 9;
+}
+.sp-film__ai {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 3;
+  padding: 5px 9px;
+  font-size: 11px;
+  color: var(--on-dark);
+  background: rgba(6, 13, 28, 0.75);
+}
+.sp-phone {
+  position: relative;
+  width: min(300px, 62%);
+  margin-inline: auto;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border: 4px solid var(--navy-950);
+  border-radius: 28px;
+  background: var(--navy-950);
+  box-shadow: 0 40px 80px -30px rgba(11, 24, 48, 0.4);
+}
+
+/* ───────── Narrative: display heading left, copy right, hairline between ───────── */
+.sp-narrative {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(24px, 6vw, 96px);
+  padding: clamp(48px, 6vw, 80px) var(--gut);
+  border-top: 1px solid var(--line-l);
+}
+.sp-narrative-body {
+  max-width: 60ch;
+  color: var(--stone);
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+/* ───────── What is included ───────── */
+.sp-section {
+  padding: var(--section-y) var(--gut);
+}
+.sp-section > h2,
+.sp-accordion > h2,
+.sp-related-section > h2 {
+  margin-bottom: clamp(32px, 5vw, 64px);
+}
+.sp-deliverables {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+}
+.sp-deliverable {
+  --cut: 12px;
+  display: grid;
+  align-content: start;
+  gap: 28px;
+  padding: 24px 22px 28px;
+  background: var(--bg-2);
+}
+.sp-deliverable-num {
+  font-family: var(--fm);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--signal-ink);
+}
+.sp-deliverable-text {
+  font-size: 1.02rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+/* ───────── Proof ───────── */
+.sp-proof {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+  padding: var(--section-y) var(--gut);
+  background: var(--bg-2);
+}
+.sp-proof-copy {
+  display: grid;
+  justify-items: start;
+  gap: 22px;
+}
+.sp-proof-desc {
+  max-width: 52ch;
+  color: var(--stone);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+.sp-proof-facts {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: clamp(24px, 4vw, 56px);
+  margin: 6px 0 4px;
+}
+/* value above label; packed to the top so the numbers share a line when a label wraps */
+.sp-proof-fact {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.sp-proof-fact-value {
+  margin: 0;
+  font-weight: 800;
+  font-stretch: 68%;
+  font-size: clamp(2.6rem, 4.4vw, 4rem);
+  line-height: 0.85;
+  color: var(--signal-ink);
+}
+.sp-proof-fact-label {
+  font-family: var(--fm);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+.sp-proof .sp-frame img {
+  aspect-ratio: 16 / 12;
+}
+.sp-proof--statement {
+  align-items: end;
+}
+
+/* ───────── Questions: heading left, accordion right ───────── */
+.sp-accordion {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(24px, 6vw, 96px);
+  align-items: start;
+  padding: var(--section-y) var(--gut);
+}
+.sp-accordion-list {
+  border-bottom: 1px solid var(--line-l);
+}
+.sp-accordion-item {
+  border-top: 1px solid var(--line-l);
+}
+.sp-accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 64px;
+  padding: 16px 0;
+  cursor: pointer;
+  list-style: none;
+}
+.sp-accordion-trigger::-webkit-details-marker {
+  display: none;
+}
+.sp-accordion-trigger h3 {
+  font-size: 1.12rem;
+  font-weight: 600;
+  line-height: 1.4;
+  transition: color 0.25s;
+}
+.sp-accordion-trigger:hover h3 {
+  color: var(--signal-ink);
+}
+.sp-accordion-trigger:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 4px;
+}
+/* a plus drawn with two bars; the vertical one folds away when open */
+.sp-accordion-icon {
+  position: relative;
+  flex: none;
+  width: 14px;
+  height: 14px;
+}
+.sp-accordion-icon::before,
+.sp-accordion-icon::after {
+  content: "";
+  position: absolute;
+  inset: 6px 0;
+  background: var(--signal-ink);
+  transition: rotate 0.35s var(--ease);
+}
+.sp-accordion-icon::after {
+  rotate: 90deg;
+}
+.sp-accordion-item[open] .sp-accordion-icon::after {
+  rotate: 0deg;
+}
+.sp-accordion-answer {
+  max-width: 60ch;
+  padding: 0 0 22px;
+  color: var(--stone);
+  line-height: 1.7;
+}
+
+/* ───────── Other services ───────── */
+.sp-related-section {
+  padding: 0 var(--gut) var(--section-y);
+}
+.sp-related-cards {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+.sp-related-card {
+  --cut: 14px;
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 14px 14px 22px;
+  background: var(--bg-2);
+  transition: background 0.3s;
+}
+.sp-related-card:hover,
+.sp-related-card:focus-within {
+  background: var(--bg-3);
+}
+.sp-related-card__img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  margin-bottom: 6px;
+}
+.sp-related-card .label,
+.sp-related-card h3,
+.sp-related-card .arrow-link {
+  margin-inline: 6px;
+}
+.sp-related-card h3 {
+  font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+  font-weight: 800;
+  font-stretch: 68%;
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+/* the heading link covers the whole card */
+.sp-related-card h3 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.sp-related-card .arrow-link {
+  justify-self: start;
+}
+
+/* ───────── Services index ───────── */
+.sp-index {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 0 var(--gut);
+}
+.sp-index-card {
+  --cut: 16px;
+  position: relative;
+  display: grid;
+  align-content: start;
+  background: var(--bg-2);
+  transition: background 0.3s;
+}
+.sp-index-card:hover,
+.sp-index-card:focus-within {
+  background: var(--bg-3);
+}
+.sp-index-media {
+  position: relative;
+  overflow: hidden;
+}
+.sp-index-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: scale 1.2s var(--ease);
+}
+.sp-index-card:hover .sp-index-media img {
+  scale: 1.04;
+}
+.sp-index-ai {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  padding: 4px 8px;
+  font-size: 10.5px;
+  color: var(--on-dark);
+  background: rgba(6, 13, 28, 0.75);
+}
+.sp-index-body {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+  padding: 26px 26px 30px;
+}
+.sp-index-title {
+  font-size: clamp(1.5rem, 2.4vw, 2.2rem);
+  font-weight: 800;
+  font-stretch: 68%;
+  text-transform: uppercase;
+  line-height: 0.95;
+}
+.sp-index-title a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.sp-index-intro {
+  max-width: 56ch;
+  color: var(--stone);
+  line-height: 1.65;
+}
+.sp-index-close {
+  display: grid;
+  justify-items: center;
+  gap: 22px;
+  padding: 0 var(--gut) var(--section-y);
+  text-align: center;
+  color: var(--stone);
+}
+
+/* ───────── AI presenter: consent as a statement band ───────── */
+.sp-statement {
+  background: var(--navy-950);
+  color: var(--on-dark);
+}
+.sp-statement__in {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 24px clamp(24px, 6vw, 96px);
+  align-items: start;
+  padding: calc(var(--section-y) * 1.25) var(--gut);
+}
+.sp-statement .label {
+  grid-row: span 2;
+  padding-top: 0.9em;
+  color: var(--mist);
+}
+.sp-statement__lead {
+  max-width: 18ch;
+  font-family: var(--fs);
+  font-size: clamp(2.2rem, 4.6vw, 4.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+.sp-statement__rest {
+  max-width: 46ch;
+  color: rgba(253, 253, 253, 0.72);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* ───────── AI presenter: the path from recording to film ───────── */
+.sp-path__head {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 16px clamp(24px, 6vw, 96px);
+  align-items: end;
+  margin-bottom: clamp(40px, 5vw, 72px);
+}
+.sp-path__head h2 {
+  margin: 0;
+}
+.sp-path__note {
+  max-width: 46ch;
+  color: var(--stone);
+  line-height: 1.65;
+}
+.sp-path {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.sp-path__step {
+  --node: 15px;
+  position: relative;
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 12px;
+  padding: calc(var(--node) + 28px) 24px 0 0;
+}
+/* the node, then the line to the next node; a run of sign-offs is joined in the signal colour */
+.sp-path__step::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: var(--node);
+  height: var(--node);
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+.sp-path__step::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--node) / 2);
+  left: var(--node);
+  right: 0;
+  height: 1px;
+  background: var(--line-l);
+}
+.sp-path__step:last-child::after {
+  display: none;
+}
+.sp-path__step[data-signoff]::before {
+  background: var(--signal-ink);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--signal) 16%, transparent);
+}
+.sp-path__step[data-signoff]:has(+ [data-signoff])::after {
+  height: 2px;
+  margin-top: -0.5px;
+  background: var(--signal-ink);
+}
+.sp-path__num {
+  font-family: var(--fm);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--signal-ink);
+}
+.sp-path__text {
+  max-width: 24ch;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.sp-path__gate {
+  padding: 5px 9px;
+  font-size: 11px;
+  color: var(--signal-ink);
+  background: color-mix(in srgb, var(--signal) 10%, transparent);
+}
+
+/* ───────── Social content: one film, every format ───────── */
+.sp-formats {
+  display: grid;
+  gap: clamp(40px, 5vw, 72px);
+  padding: clamp(48px, 6vw, 80px) var(--gut) var(--section-y);
+  border-top: 1px solid var(--line-l);
+}
+.sp-formats__copy {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(24px, 6vw, 96px);
+}
+/* (16/9) / (9/16) = 3.16: at this width ratio the 16:9 film and the 9:16 phones stand the same height */
+.sp-formats__stage {
+  display: grid;
+  grid-template-columns: minmax(0, 3.16fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(16px, 2.4vw, 32px);
+  align-items: start;
+}
+.sp-formats__item {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+.sp-formats .sp-phone {
+  width: 100%;
+  margin: 0;
+  border-width: 3px;
+  border-radius: 22px;
+}
+.sp-formats__item figcaption {
+  max-width: 34ch;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--stone);
+}
+.sp-formats__item figcaption b {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--fm);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--signal-ink);
+}
+.sp-formats__channels {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--line-l);
+}
+.sp-formats__channels li {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 22px 20px 0 0;
+  color: var(--stone);
+  line-height: 1.45;
+}
+.sp-formats__channels li + li {
+  padding-left: 20px;
+  border-left: 1px solid var(--line-l);
+}
+.sp-formats__name {
+  font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+  font-weight: 800;
+  font-stretch: 68%;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--ink);
+}
+.sp-formats__channels .label {
+  margin-top: 4px;
+  color: var(--signal-ink);
+}
+
+/* ───────── Small screens ───────── */
+@media (max-width: 899px) {
+  .sp-hero,
+  .sp-narrative,
+  .sp-proof,
+  .sp-accordion {
+    grid-template-columns: 1fr;
+  }
+  .sp-hero__visual {
+    order: 2;
+  }
+  .sp-index {
+    grid-template-columns: 1fr;
+  }
+  .sp-proof-facts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .sp-statement__in,
+  .sp-path__head,
+  .sp-formats__copy {
+    grid-template-columns: 1fr;
+  }
+  .sp-statement .label {
+    grid-row: auto;
+    padding-top: 0;
+  }
+  /* the path turns vertical: nodes down the left edge, the line running between them */
+  .sp-path {
+    grid-template-columns: 1fr;
+  }
+  .sp-path__step {
+    padding: 0 0 32px calc(var(--node) + 24px);
+  }
+  .sp-path__step:last-child {
+    padding-bottom: 0;
+  }
+  .sp-path__step::after {
+    top: var(--node);
+    bottom: 0;
+    left: calc(var(--node) / 2);
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+  .sp-path__step[data-signoff]:has(+ [data-signoff])::after {
+    width: 2px;
+    height: auto;
+    margin: 0 0 0 -0.5px;
+  }
+  .sp-formats__stage {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .sp-formats__stage .sp-formats__item:first-child {
+    grid-column: 1 / -1;
+  }
+  .sp-formats__channels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .sp-formats__channels li:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .sp-formats__channels li:nth-child(n + 3) {
+    margin-top: 22px;
+    border-top: 1px solid var(--line-l);
+  }
+}

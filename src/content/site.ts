@@ -22,6 +22,9 @@ export const BRAND = {
   email: "info@cogniversestudio.com", // user, 5 Oct 2026
   phone: { display: "+44 (0)7436 194150", tel: "+447436194150" }, // user, 5 Oct 2026
   responseTime: "Typically respond within 24 hours", // Tech Cogniverse /about
+  // UK company websites must show these (Companies Act trading disclosures). Awaiting the
+  // details from the user; the footer shows them once they are filled in.
+  registration: null as null | { number: string; place: string; office: string },
 };
 
 /* ───────────── Search and sharing ───────────── */
@@ -37,6 +40,16 @@ export const SEO = {
     title: "Privacy notice",
     description:
       "How CogniVerse Studio uses the details you send through the enquiry form: what we collect, why, who handles it, how long we keep it and your rights under UK GDPR.",
+  },
+  about: {
+    title: "About our healthcare media studio",
+    description:
+      "CogniVerse Studio works with clinicians across the UK on websites, patient films and social content. See our approval process and the Prof. Hemant Sheth project.",
+  },
+  work: {
+    title: "Client work and specialty templates",
+    description:
+      "See the consultant website we built for Prof. Hemant Sheth, and the 12 specialty templates we use as starting points for UK clinicians and practices.",
   },
   contact: {
     title: "Book a call about your practice",
@@ -179,6 +192,20 @@ export const GEO = {
     answer: "Yes. Stiffness and swelling are common in the first weeks after a knee replacement, and usually ease with your exercises.",
     cite: "yourname.co.uk · Recovery after knee replacement: film and transcript",
   },
+  // Further patient questions for the picker. Illustrations of the format, not
+  // medical advice: general wording, to be approved like any patient copy.
+  more: [
+    {
+      ask: "What happens at a first cardiology appointment?",
+      answer: "Usually a conversation about your symptoms and history, an examination, and sometimes a test such as an ECG. Your consultant then explains the next steps.",
+      cite: "yourname.co.uk · Your first appointment: film and transcript",
+    },
+    {
+      ask: "Will I be awake during cataract surgery?",
+      answer: "Usually, yes. Most cataract operations use local anaesthetic, so you stay awake but should not feel pain. Your surgeon talks you through it beforehand.",
+      cite: "yourname.co.uk · Cataract surgery, step by step: film and transcript",
+    },
+  ],
 };
 
 /* ───────────── 5. Films: approved numbers + concept footage ───────────── */
@@ -244,6 +271,13 @@ export const SOCIAL = {
     { name: "TikTok", what: "Shorts with an opening hook", format: "9:16" },
     { name: "YouTube", what: "The full film, plus Shorts", format: "16:9 · 9:16" },
     { name: "Facebook", what: "The full film, plus Reels", format: "16:9 · 9:16" },
+  ],
+  // The social-content page's formats section: each version and where it goes, restating the
+  // approved copy in services.ts (social-content sections).
+  formats: [
+    { format: "16:9", use: "The full film, for your website or YouTube channel" },
+    { format: "9:16", use: "Reframed for Reels, Stories and Shorts" },
+    { format: "30–60 s", use: "Shorts that introduce the topic" },
   ],
   promises: [
     "Every film reframed for vertical viewing and cut into shorts of 30 to 60 seconds.",
@@ -337,7 +371,7 @@ export const CHAPTERS = [
 ];
 
 export const NAV = [
-  { href: "/work/prof-hemant-sheth", label: "Work" },
+  { href: "/work", label: "Work" },
   { href: "/services/medical-websites", label: "Websites" },
   { href: "/services/patient-films", label: "Films" },
   { href: "/services/ai-presenter", label: "AI presenter" },

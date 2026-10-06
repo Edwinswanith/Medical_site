@@ -35,6 +35,9 @@
   --grad: linear-gradient(160deg, #03f5d3 0%, #02e3e4 38%, #0299fa 100%);
 
   --gut: clamp(16px, 4vw, 56px);
+  /* vertical rhythm: one section's padding, so two light sections meet at about 200px on a laptop
+     and 120px on a phone. Use it for every section's top and bottom instead of a one-off clamp. */
+  --section-y: clamp(60px, 6.8vw, 104px);
   --max: 1440px;
   --cut: 18px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -352,16 +355,20 @@ em {
   color: var(--ink);
   transition: background 0.4s, color 0.4s;
 }
+/* near-opaque, so large headings scrolling underneath never show through the logo.
+   Write backdrop-filter unprefixed only: the build adds -webkit-backdrop-filter for Safari, and
+   writing both makes it keep just the prefixed one, which Chrome ignores. */
 .header[data-scrolled="true"] {
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  background: color-mix(in srgb, var(--bg) 95%, transparent);
   backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 var(--line-l);
 }
 .header[data-tone="dark"]:not([data-open="true"]) {
   color: var(--on-dark);
 }
 .header[data-tone="dark"][data-scrolled="true"]:not([data-open="true"]) {
-  background: color-mix(in srgb, var(--navy-950) 80%, transparent);
+  background: color-mix(in srgb, var(--navy-950) 94%, transparent);
+  box-shadow: 0 1px 0 rgba(253, 253, 253, 0.08);
 }
 .header[data-tone="dark"]:not([data-open="true"]) .burger {
   background: var(--on-dark);
@@ -376,6 +383,7 @@ em {
 .header[data-open="true"] {
   background: transparent;
   backdrop-filter: none;
+  box-shadow: none;
 }
 .header__brand {
   display: inline-flex;
@@ -574,19 +582,6 @@ em {
   place-items: center;
   pointer-events: none;
 }
-.curtain__mask {
-  overflow: hidden;
-  display: block;
-}
-.curtain__label {
-  display: block;
-  font-weight: 800;
-  font-stretch: 68%;
-  text-transform: uppercase;
-  font-size: clamp(3rem, 12vw, 11rem);
-  line-height: 0.9;
-  color: var(--on-dark);
-}
 .loader {
   position: fixed;
   inset: 0;
@@ -615,8 +610,8 @@ html:not([data-js]) .loader {
   display: block;
 }
 .loader__mark {
-  width: 64px;
-  height: 64px;
+  width: clamp(64px, 6vw, 92px);
+  height: clamp(64px, 6vw, 92px);
 }
 .loader__bar {
   position: fixed;
@@ -1112,7 +1107,7 @@ html[data-ready] .hero__stack .hs--phone {
 
 /* 2 ─ Services */
 .svc {
-  padding: clamp(110px, 14vw, 200px) var(--gut);
+  padding: var(--section-y) var(--gut);
   text-align: center;
 }
 .svc__label {
@@ -1176,7 +1171,7 @@ html[data-ready] .hero__stack .hs--phone {
 
 /* 3 ─ Templates table */
 .tpl {
-  padding: clamp(90px, 12vw, 170px) var(--gut);
+  padding: var(--section-y) var(--gut);
 }
 .tpl__head {
   display: grid;
@@ -1304,7 +1299,7 @@ html[data-ready] .hero__stack .hs--phone {
   grid-template-columns: 1fr 1.05fr;
   gap: clamp(40px, 6vw, 100px);
   align-items: start;
-  padding: clamp(100px, 13vw, 180px) var(--gut);
+  padding: var(--section-y) var(--gut);
   background: var(--paper);
   color: var(--ink);
 }
@@ -1448,7 +1443,7 @@ html[data-ready] .hero__stack .hs--phone {
   text-align: right;
 }
 .num[data-live] {
-  height: 240vh;
+  height: 180vh; /* ~0.8 screen of scroll for three numerals */
 }
 .num[data-live] .num__stage {
   position: sticky;
@@ -1530,7 +1525,7 @@ html[data-ready] .hero__stack .hs--phone {
 
 /* 5b ─ Film hall: columns drift at different speeds */
 .fg {
-  padding: clamp(100px, 13vw, 180px) var(--gut) clamp(140px, 16vw, 240px);
+  padding: var(--section-y) var(--gut);
   overflow: hidden;
 }
 .fg__head {
@@ -1719,7 +1714,7 @@ html[data-ready] .hero__stack .hs--phone {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(32px, 5vw, 80px) clamp(40px, 6vw, 100px);
-  padding: clamp(100px, 13vw, 180px) var(--gut);
+  padding: var(--section-y) var(--gut);
 }
 .soc__head {
   grid-column: 1 / -1;
@@ -1803,7 +1798,7 @@ html[data-ready] .hero__stack .hs--phone {
 
 /* 8 ─ Case */
 .case {
-  padding: clamp(100px, 13vw, 180px) var(--gut);
+  padding: var(--section-y) var(--gut);
   background: var(--bg);
 }
 .case__name {
@@ -1900,7 +1895,7 @@ html[data-ready] .hero__stack .hs--phone {
   grid-template-columns: 1fr 1.25fr;
   gap: clamp(40px, 6vw, 100px);
   align-items: start;
-  padding: clamp(100px, 13vw, 180px) var(--gut);
+  padding: var(--section-y) var(--gut);
   background: var(--bg-2);
 }
 .prc__head {
@@ -1963,7 +1958,7 @@ html[data-ready] .hero__stack .hs--phone {
 
 /* 10 ─ Packages (paper) */
 .pkg {
-  padding: clamp(100px, 13vw, 180px) var(--gut);
+  padding: var(--section-y) var(--gut);
   background: var(--paper);
   color: var(--ink);
 }
@@ -2051,7 +2046,7 @@ html[data-ready] .hero__stack .hs--phone {
 .foot {
   position: relative;
   overflow: hidden;
-  padding: clamp(80px, 10vw, 140px) var(--gut) 0;
+  padding: var(--section-y) var(--gut) 0;
   background: var(--bg);
 }
 .foot__panel {
@@ -2276,7 +2271,6 @@ html[data-ready] .hero__stack .hs--phone {
   padding: 10px 8px;
   background: color-mix(in srgb, var(--bg) 78%, transparent);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   color: var(--bone);
 }
 .rail ol {
@@ -2547,7 +2541,6 @@ html {
   border-radius: 50%;
   background: rgba(6, 13, 28, 0.6);
   backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
   cursor: pointer;
 }
 .swap[data-tap] .swap__play::before {
@@ -2645,18 +2638,6 @@ html {
     bottom: -22px;
   }
 
-  /* Section rhythm: shorter vertical padding everywhere */
-  .svc,
-  .tpl,
-  .geo,
-  .fg,
-  .soc,
-  .case,
-  .prc,
-  .pkg {
-    padding-top: 80px;
-    padding-bottom: 80px;
-  }
   .big,
   .display-xl {
     font-size: clamp(2.6rem, 12vw, 3.6rem);
@@ -3021,7 +3002,7 @@ html {
 
 /* Privacy and other long-form text */
 .legal {
-  padding: 0 var(--gut) clamp(80px, 10vw, 140px);
+  padding: 0 var(--gut) var(--section-y);
   background: var(--paper);
 }
 .legal > * {

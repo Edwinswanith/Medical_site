@@ -9,7 +9,14 @@ import { Footer } from "@/components/Footer";
 import { Cursor } from "@/components/Cursor";
 import { Preloader } from "@/components/Preloader";
 import { ChapterRail } from "@/components/ChapterRail";
+import { StickyCta } from "@/components/StickyCta";
 import "./globals.css";
+import "./styles/chrome.css";
+import "./styles/form.css";
+import "./styles/home.css";
+import "./styles/service.css";
+import "./styles/pages.css";
+import "./styles/sticky-cta.css";
 
 const display = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--f-display" });
 const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--f-serif" });
@@ -47,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main id="main">{children}</main>
           <Footer />
           <ChapterRail />
+          <StickyCta />
         </Motion>
         <Cursor />
       </body>

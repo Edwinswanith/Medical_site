@@ -19,3 +19,23 @@ test('trims valid details and accepts UK phone formatting', () => {
   assert.equal(result.enquiry.name, 'Test clinician');
   assert.equal(result.enquiry.message, '');
 });
+test('field checks for the form match the server rules', async () => {
+  const { fieldError } = await import('../src/lib/enquiry.ts');
+  assert.equal(fieldError('name', '  '), 'Please add your name.');
+  assert.equal(fieldError('email', ''), 'Please add your email address.');
+  assert.equal(fieldError('email', 'not-an-email'), 'Please check the email address.');
+  assert.equal(fieldError('email', ' test@example.invalid '), '');
+  assert.equal(fieldError('phone', ''), '');
+  assert.equal(fieldError('phone', 'wrong'), 'Please check the phone number.');
+  assert.equal(fieldError('phone', '+44 (0)7436 194150'), '');
+  assert.equal(fieldError('message', 'x'.repeat(2001)), 'Please keep this under 2000 characters.');
+  assert.equal(fieldError('org', 'Clinic'), '');
+});
+test('every field error agrees with validateEnquiry', async () => {
+  const { fieldError } = await import('../src/lib/enquiry.ts');
+  const valid = { name: 'Test clinician', email: 'test@example.invalid', consent: true };
+  for (const [name, value] of [['name', ''], ['email', 'x@'], ['phone', 'abc'], ['message', 'x'.repeat(2001)]]) {
+    assert.notEqual(fieldError(name, value), '');
+    assert.equal(validateEnquiry({ ...valid, [name]: value }).ok, false);
+  }
+});
