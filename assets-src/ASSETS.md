@@ -16,3 +16,5 @@ Not approved and not used: Plainsight's patient films, the HeartLink case, Dr Ha
 
 Stills shown before each video are the clip's own first frame, so the swap has no jump.
 Prompts: `assets-src/gen/gen_images.py`, `assets-src/gen/gen_videos.py` (gitignored with the masters).
+
+| W2 | `public/media/work/arogya-page-{1200,640}.webp`, `arogya-page.jpg`, `arogya-phone.*`, `arogya-rail.*`, `arogya-dosha.*` | Case study (Arogya Studio): desktop page strip, phone strip, two UI details | Captured by us from https://arogya-studio-preview.vercel.app/ on 7 Oct 2026 (Chromium, 1440x900 and 390x844 at 2x), floating widgets hidden; sources in `assets-src/work/arogya/` | No (screenshots of the real site) | Client site, our build (client relationship and scope confirmed by user, 7 Oct 2026) | **Yes**: user, 7 Oct 2026 | The strips are stacked section captures, not one full-page shot: the site's pinned sections leave blank gaps when flattened. Shows Dr Priyanka's public photo from the client's own site. |

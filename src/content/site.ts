@@ -280,6 +280,41 @@ export const CASE = {
   source: "Plainsight /work/prof-hemant-sheth; Tech Cogniverse projects.ts",
 };
 
+// Second case. Site facts observed on the live site, 7 Oct 2026 (docs/work/AROGYA_AUDIT.md).
+// Client relationship and scope (design, build, copy, imagery, SEO) confirmed by the user, 7 Oct 2026.
+// A wellness practice, not a medical provider: its own footer says its treatments are not medical treatment.
+export const AROGYA = {
+  name: "Arogya Studio,",
+  em: "Ayurveda, skin, soul.",
+  client: "Ayurvedic wellness studio run by Dr Priyanka Balachandar, Colindale, North West London",
+  summary:
+    "A calm, practitioner-led site that explains Ayurveda in plain English, sets out every treatment with its price, and leads to a booking on WhatsApp.",
+  live: { label: "arogya-studio-preview.vercel.app", href: "https://arogya-studio-preview.vercel.app/" },
+  page: {
+    webp: "/media/work/arogya-page-1200.webp",
+    webpSmall: "/media/work/arogya-page-640.webp",
+    jpg: "/media/work/arogya-page.jpg",
+    w: 1200,
+    h: 5092,
+    alt: "Arogya Studio home page, top to bottom: the hero, What is Ayurveda, the treatment cards, the three doshas, Dr Priyanka and membership",
+  },
+  phone: { webp: "/media/work/arogya-phone.webp", jpg: "/media/work/arogya-phone.jpg", w: 480, h: 5195, alt: "Arogya Studio on a phone: hero, Ayurveda, treatments, doshas and practitioner" },
+  details: [
+    { key: "rail", webp: "/media/work/arogya-rail.webp", jpg: "/media/work/arogya-rail.jpg", w: 1000, h: 399, alt: "Treatment cards from the Arogya Studio site: head spa, Shiroabhyanga head massage and Shirodhara, each with its starting price" },
+    { key: "dosha", webp: "/media/work/arogya-dosha.webp", jpg: "/media/work/arogya-dosha.jpg", w: 900, h: 330, alt: "The three dosha cards on the Arogya Studio site: Vata, Pitta and Kapha" },
+  ],
+  facts: [
+    { value: "18", label: "pages" },
+    { value: "10", label: "treatment pages" },
+    { value: "7", label: "dosha quiz questions" },
+  ],
+  built: [
+    "Design, build and copy for an 18-page site: ten treatment pages, a treatments and prices menu, membership, gift vouchers and a dosha quiz.",
+    "Imagery throughout: warm still lifes and treatment scenes, set under the arched frames that run through the site.",
+    "Local search for Colindale: day spa and FAQ structured data, an XML sitemap, open crawl rules, and WhatsApp booking kept in reach.",
+  ],
+};
+
 /* ───────────── 9. How it works ───────────── */
 
 export const PROCESS = {

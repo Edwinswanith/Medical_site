@@ -92,3 +92,18 @@ Validation after the pass: build PASS, typecheck PASS, `seo:check` 69/69 against
 | `.ulink` styled (contact and privacy links were unstyled) | Links looked like plain text |
 
 Validation: build PASS, typecheck PASS, `seo:check` 99/99 (now with /privacy), JS off, reduced motion, keyboard, mobile overflow, existing regression, intro timing (2.2 s arrival, 0.77 s refresh), section order, footer per page, privacy render: all PASS. No console errors.
+
+## Work: Arogya Studio added as a second featured case (7 Oct 2026)
+
+| Change | Notes |
+|---|---|
+| Live-site audit | `docs/work/AROGYA_AUDIT.md`; captures in `review/arogya/` (gitignored). One host still blocked by this environment: `cdn1.treatwell.net` (a single Treatwell image). |
+| Facts | Observed on the site: 18 pages (sitemap), 10 treatment pages, 7-question dosha quiz, structured data, WhatsApp booking. Confirmed by the user: client project; scope design, build, copy, imagery, SEO; described as a wellness practice (its own footer: not medical treatment). No results, traffic or testimonials claimed. |
+| Hemant | Same wording, facts and image. The home page now scrolls inside its frame as you read (was hover-only); the case settles back as Arogya arrives; "01 / 02" index. |
+| Hand-off | Arogya rises over Hemant through an arch (the shape that runs through Arogya's own site) that opens to full width. |
+| Arogya | Its own palette (forest, cream, gold) via scoped tokens. Pinned stage: real desktop page panning inside a browser frame, phone view, treatment-card and dosha details, layered with depth. Facts, built list, "View live website" (new tab, labelled) and an internal link to the websites section. |
+| Exit | The Arogya panel's corners round off into "Websites that get found". |
+| Motion | No new controller: everything reads the existing `[data-scrub]` --r and CSS sticky. Reduced motion and no-JS: finished, still composition, no pin. Mobile: no pin, deliberate crops. |
+| Assets | About 440 KB on desktop, about 290 KB on mobile (640px page strip served below 900px), all lazy-loaded. |
+
+QA (local production build, Chromium): desktop 1440 and 1180 sequences, mobile 390 and 360 sequences; fast, slow and reverse wheel scrolling; resize mid-pin (re-pins, re-measures); reduced motion; image decoding; external link opens the live site. Build, typecheck, `seo:check` 99/99, existing regression: PASS. Lint: NOT TESTED (no ESLint in this repo).

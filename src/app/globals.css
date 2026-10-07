@@ -3044,3 +3044,287 @@ html {
   padding-left: 1.2em;
   list-style: disc;
 }
+
+/* ═══════════ Work: two client sites, one chapter ═══════════
+   Every value below reads the shared --r scrub (Motion.tsx). Fallbacks are the
+   finished state, so reduced motion and no-JS show a complete, still composition. */
+.proj__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* 01 Hemant: the real page scrolls inside its frame as you read (was hover-only) */
+.case__shot {
+  --vp: min(36vw, 560px);
+}
+.case__viewport {
+  height: var(--vp);
+}
+.case__viewport img {
+  transform: translateY(calc(var(--r, 0) * -1 * (100% - var(--vp))));
+  transition: none;
+}
+.case__shot:hover .case__viewport img,
+.case__shot:focus-visible .case__viewport img {
+  transform: translateY(calc(var(--r, 0) * -1 * (100% - var(--vp))));
+}
+/* …and settles back as Arogya rises over it */
+.case--hemant {
+  position: relative;
+  padding-bottom: calc(clamp(100px, 13vw, 180px) + 28vh);
+}
+.case--hemant .case__grid,
+.case--hemant .case__name {
+  transform-origin: 50% 0;
+  transform: scale(calc(1 - var(--r, 0) * 0.07));
+  filter: brightness(calc(1 - var(--r, 0) * 0.18));
+}
+
+/* 02 Arogya: its own palette (cream, forest, gold), our system */
+.case--arogya {
+  --bg: #141a12;
+  --bg-2: #1f2c1d;
+  --bg-3: #283a26;
+  --bone: #f0ebe0;
+  --ink: #f0ebe0;
+  --stone: rgba(240, 235, 224, 0.74);
+  --line-d: rgba(240, 235, 224, 0.14);
+  --signal: #e6c98c;
+  --signal-ink: #e6c98c;
+  --gold: #e6c98c;
+  position: relative;
+  z-index: 2;
+  margin-top: -28vh;
+  padding: 0;
+  background: none;
+  /* the hand-off: an arch (Arogya's own shape) that opens to the full width */
+  clip-path: inset(0 round calc((1 - var(--r, 1)) * 50vw) calc((1 - var(--r, 1)) * 50vw) 0 0);
+}
+.arg__inner {
+  padding: clamp(120px, 15vw, 220px) var(--gut) clamp(100px, 12vw, 170px);
+  background: radial-gradient(60% 40% at 80% 18%, rgba(192, 138, 60, 0.16), transparent 70%), var(--bg);
+  color: var(--bone);
+  /* the exit: corners round off and the panel settles into the next section */
+  clip-path: inset(0 round 0 0 calc(var(--r, 0) * 7vw) calc(var(--r, 0) * 7vw));
+  transform: scale(calc(1 - var(--r, 0) * 0.035));
+  transform-origin: 50% 100%;
+}
+.arg__name em,
+.case--arogya .case__name em {
+  font-family: var(--fs);
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: -0.02em;
+  color: var(--gold);
+}
+.case--arogya .chip--signal {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #141a12;
+}
+.case--arogya .btn--signal {
+  background: var(--gold);
+  color: #141a12;
+}
+.case--arogya .btn--signal::before {
+  background: #f0ebe0;
+}
+.case--arogya .case__built li::before {
+  background: var(--gold);
+}
+
+/* The stage: pinned while the real page scrolls in its frame and the phone and details layer in */
+.arg__pin {
+  height: 230vh;
+  margin-top: clamp(32px, 4vw, 64px);
+}
+.arg__stage {
+  --e: var(--r, 1);
+  --q: var(--r, 0.5);
+  --s: var(--r, 0);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  perspective: 1600px;
+}
+.arg__desk {
+  --cut: 22px;
+  --sh: min(62vh, 39vw);
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 52%;
+  width: 60%;
+  background: var(--bg-2);
+  box-shadow: 0 50px 90px -40px rgba(0, 0, 0, 0.7);
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+  transform-origin: 50% 100%;
+  transform: translateY(-50%) rotateX(calc((1 - min(var(--e) * 4, 1)) * 16deg)) scale(calc(0.9 + min(var(--e) * 4, 1) * 0.1));
+}
+.arg__desk .chrome {
+  background: #1f2c1d;
+}
+.arg__desk .chrome span {
+  background: rgba(240, 235, 224, 0.25);
+}
+.arg__desk .chrome i {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgba(240, 235, 224, 0.7);
+  background: rgba(0, 0, 0, 0.3);
+}
+.arg__screen {
+  height: var(--sh);
+  overflow: hidden;
+}
+.arg__screen img {
+  width: 100%;
+  height: auto;
+  transform: translateY(calc(var(--s) * -1 * (100% - var(--sh))));
+}
+.arg__detail {
+  position: absolute;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.75);
+}
+.arg__detail img {
+  width: 100%;
+  height: auto;
+}
+.arg__detail--rail {
+  right: 0;
+  top: 17%;
+  width: 37%;
+  transform: translateY(calc((0.5 - var(--q)) * 12vh)) translateX(calc((1 - min(var(--e) * 3, 1)) * 30%)) rotate(1.5deg);
+  opacity: min(calc(var(--e) * 5), 1);
+}
+.arg__detail--dosha {
+  right: 0;
+  bottom: 12%;
+  width: 27%;
+  transform: translateY(calc((0.5 - var(--q)) * -10vh)) rotate(-2deg);
+  opacity: clamp(0, calc((var(--e) - 0.15) * 5), 1);
+}
+.arg__phone {
+  --pw: min(14vw, 220px);
+  --ph: calc(var(--pw) * 2.1667);
+  position: absolute;
+  left: 53%;
+  bottom: 5%;
+  width: var(--pw);
+  margin: 0;
+  border: 6px solid #0e150d;
+  border-radius: 32px;
+  overflow: hidden;
+  background: #0e150d;
+  box-shadow: 0 40px 80px -28px rgba(0, 0, 0, 0.8);
+  transform: translateY(calc((1 - min(var(--e) * 2.5, 1)) * 45vh));
+}
+.arg__phone-screen {
+  height: var(--ph);
+  overflow: hidden;
+  border-radius: 26px;
+}
+.arg__phone-screen img {
+  width: 100%;
+  height: auto;
+  transform: translateY(calc(var(--s) * -1 * (100% - var(--ph))));
+}
+.arg__body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 80px);
+  margin-top: clamp(40px, 5vw, 72px);
+  align-items: start;
+}
+.arg__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 28px;
+  margin-top: 30px;
+}
+.arg__body .case__facts {
+  margin-top: 0;
+}
+
+/* Phones and tablets: no pin. A deliberate crop of the page, the phone overlapping it, one detail */
+@media (max-width: 899px) {
+  .case__shot {
+    --vp: 70vw;
+  }
+  .case--hemant {
+    padding-bottom: calc(80px + 14vh);
+  }
+  .case--arogya {
+    margin-top: -14vh;
+  }
+  .arg__inner {
+    padding: 110px var(--gut) 80px;
+  }
+  .arg__pin {
+    height: auto;
+  }
+  .arg__stage {
+    --e: 1;
+    --q: 0.5;
+    --s: 0;
+    position: relative;
+    height: auto;
+    perspective: none;
+    padding-bottom: 30vw;
+  }
+  .arg__desk {
+    --sh: 64vw;
+    position: relative;
+    top: auto;
+    width: 100%;
+    transform: none;
+  }
+  .arg__phone {
+    --pw: 34vw;
+    left: auto;
+    right: 3%;
+    bottom: 0;
+    border-width: 4px;
+    border-radius: 22px;
+  }
+  .arg__phone-screen {
+    border-radius: 18px;
+  }
+  .arg__detail--rail {
+    position: relative;
+    right: auto;
+    top: auto;
+    width: 62%;
+    margin-top: 14px;
+    transform: rotate(-1deg);
+  }
+  .arg__detail--dosha {
+    display: none;
+  }
+  .arg__body {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .case__shot {
+    --vp: 92vw;
+  }
+}
+
+/* Reduced motion: the same composition, still, and no pinned scroll to wait through */
+@media (prefers-reduced-motion: reduce) {
+  .arg__pin {
+    height: auto;
+  }
+  .arg__stage {
+    position: relative;
+  }
+}
