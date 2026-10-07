@@ -6,11 +6,14 @@ import gsap from "gsap";
 import { BRAND, NAV } from "@/content/site";
 import { lockScroll, prefersReducedMotion } from "@/lib/motion";
 import { TLink } from "./TLink";
-import { Mark } from "./Mark";
+import { Logo } from "./Logo";
 
 export function Header() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
+  const [menuPath, setMenuPath] = useState<string | null>(null);
+  const open = menuPath === pathname;
+  // a section link stays lit on its child pages (Work on a case study)
+  const isActive = (href: string) => pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
   const [scrolled, setScrolled] = useState(false);
   const [tone, setTone] = useState<"dark" | "light">("light");
   const panel = useRef<HTMLDivElement>(null);
@@ -93,24 +96,35 @@ export function Header() {
     }
   }, [open]);
 
-  useEffect(() => setOpen(false), [pathname]);
-
   useEffect(() => {
-    const esc = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    if (!open) return;
+    const background = document.querySelectorAll<HTMLElement>("main, footer, .rail, .header__brand, .header__nav, .header__actions > a");
+    background.forEach(el => el.inert = true);
+    const esc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuPath(null);
+      if (e.key !== "Tab") return;
+      const targets = [...(panel.current?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") ?? []), button.current].filter((el): el is HTMLElement => !!el);
+      const current = targets.indexOf(document.activeElement as HTMLElement);
+      const next = e.shiftKey ? (current <= 0 ? targets.length - 1 : current - 1) : (current + 1) % targets.length;
+      e.preventDefault();
+      targets[next]?.focus();
+    };
     window.addEventListener("keydown", esc);
-    return () => window.removeEventListener("keydown", esc);
-  }, []);
+    return () => {
+      window.removeEventListener("keydown", esc);
+      background.forEach(el => el.inert = false);
+    };
+  }, [open]);
 
   return (
     <>
       <header className="header" data-scrolled={scrolled} data-tone={tone} data-open={open}>
         <TLink href="/" className="header__brand" aria-label={`${BRAND.logo} home`}>
-          <Mark />
-          <span>{BRAND.logo}</span>
+          <Logo />
         </TLink>
         <nav className="header__nav" aria-label="Primary">
           {NAV.map((n) => (
-            <TLink key={n.href} href={n.href} data-active={pathname === n.href}>
+            <TLink key={n.href} href={n.href} data-active={isActive(n.href)}>
               {n.label}
             </TLink>
           ))}
@@ -125,7 +139,7 @@ export function Header() {
             aria-expanded={open}
             aria-controls="menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((o) => !o)}
+            onClick={() => setMenuPath(open ? null : pathname)}
           >
             <span />
             <span />
@@ -135,8 +149,8 @@ export function Header() {
 
       <div id="menu" ref={panel} className="menu" role="dialog" aria-modal="true" aria-label="Menu" inert={!open}>
         <nav className="menu__links">
-          {[{ href: "/", label: "Home" }, ...NAV, { href: "/contact", label: "Book a call" }].map((n, i) => (
-            <TLink key={n.href} href={n.href} className="menu__link" data-active={pathname === n.href}>
+          {[{ href: "/", label: "Home" }, ...NAV, { href: "/about", label: "About" }, { href: "/contact", label: "Book a call" }].map((n, i) => (
+            <TLink key={n.href} href={n.href} onClick={() => setMenuPath(null)} className="menu__link" data-active={isActive(n.href)}>
               <span className="menu__link-inner">
                 <span className="menu__num">{String(i + 1).padStart(2, "0")}</span>
                 {n.label}

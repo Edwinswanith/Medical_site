@@ -16,11 +16,15 @@
 export const BRAND = {
   name: "CogniVerse Studio", // brand kit tokens v1.1 (user, 5 Oct 2026)
   short: "CogniVerse",
+  legalName: "CogniVerse Ltd", // footer copyright (user, 5 Oct 2026)
   logo: "CogniVerse Studio",
   domain: "cogniversestudio.com", // user, 5 Oct 2026
   email: "info@cogniversestudio.com", // user, 5 Oct 2026
   phone: { display: "+44 (0)7436 194150", tel: "+447436194150" }, // user, 5 Oct 2026
   responseTime: "Typically respond within 24 hours", // Tech Cogniverse /about
+  // UK company websites must show these (Companies Act trading disclosures). Awaiting the
+  // details from the user; the footer shows them once they are filled in.
+  registration: null as null | { number: string; place: string; office: string },
 };
 
 /* ───────────── Search and sharing ───────────── */
@@ -28,14 +32,34 @@ export const BRAND = {
 // Titles and descriptions per page. Each one restates what is visible on that page, nothing more.
 export const SEO = {
   home: {
-    title: "Websites and patient films for clinicians",
+    title: "Websites and patient films for UK clinicians",
     description:
-      "Specialty websites built to be found on Google and by AI assistants, with patient films, an AI presenter in your own voice and social content for your practice.",
+      "Websites, patient education films, AI presenters and social content for clinicians and practices across the UK. Explore our services and real website work.",
   },
   privacy: {
     title: "Privacy notice",
     description:
-      "How CogniVerse Studio uses the details you send through the enquiry form: what we collect, why, who handles it, how long we keep it and your rights under UK GDPR.",
+      "How CogniVerse Studio uses business enquiry details, what this website collects, its cookie policy and how to contact us about your privacy rights.",
+  },
+  about: {
+    title: "About our healthcare media studio",
+    description:
+      "CogniVerse Studio works with clinicians across the UK on websites, patient films and social content. See our approval process and the Prof. Hemant Sheth project.",
+  },
+  work: {
+    title: "Consultant website work and specialty templates",
+    description:
+      "See the consultant website we built for Prof. Hemant Sheth, and the 12 specialty templates we use as starting points for UK clinicians and practices.",
+  },
+  services: {
+    title: "Healthcare websites, films and social content UK",
+    description:
+      "Explore CogniVerse Studio's medical websites, patient education films, consent-based AI presenters and social content for UK consultants and private practices.",
+  },
+  project: {
+    title: "Prof. Hemant Sheth consultant website project",
+    description:
+      "Explore the consultant website built for Prof. Hemant Sheth: 22 pages, 10 procedure guides, four treatment groups and a clear route through his surgical services.",
   },
   contact: {
     title: "Book a call about your practice",
@@ -78,7 +102,7 @@ export const HERO = {
   titleB: "media",
   titleEm: "partner.",
   intro:
-    "We build the website patients and AI assistants find, put patient films inside it, present them in your own voice, and run your content on Instagram, TikTok, YouTube and Facebook.",
+    "CogniVerse Studio makes websites, patient education films, consent-based AI presenters and social content for clinicians and practices across the UK. One partner for your website and content for Instagram, TikTok, YouTube and Facebook.",
 };
 
 /* ───────────── 2. What we do ───────────── */
@@ -117,28 +141,28 @@ export const SERVICES = [
     name: "Websites",
     line: "Built for your specialty, and built to be found: on Google, and by the AI assistants patients now ask.",
     media: gen("svc-websites", 1280, 720, "A laptop on a clinic reception desk showing an abstract website."),
-    href: "#websites",
+    href: "/services/medical-websites",
   },
   {
     id: "films",
     name: "Patient films",
     line: "Two to three minutes in plain English, embedded on the page where the patient needs them.",
     media: gen("svc-films", 1280, 720, "A cinema camera set up in a consultation room."),
-    href: "#films",
+    href: "/services/patient-films",
   },
   {
     id: "presenter",
     name: "Your AI presenter",
     line: "An AI clone of you presents each film with your own face and voice, from one recording session.",
     media: gen("svc-presenter", 1280, 720, "An AI-generated presenter on a monitor. Not a real person."),
-    href: "#presenter",
+    href: "/services/ai-presenter",
   },
   {
     id: "social",
     name: "Social content",
     line: "Every film cut into shorts, and your channels managed across Instagram, TikTok, YouTube and Facebook.",
     media: gen("svc-social", 1280, 720, "A phone in a waiting room playing a vertical clip."),
-    href: "#social",
+    href: "/services/social-content",
   },
 ];
 
@@ -162,10 +186,10 @@ export const TEMPLATES = [
 /* ───────────── 4. Found by AI assistants ───────────── */
 
 export const GEO = {
-  title: "When a patient asks an assistant, it names the consultant it can",
+  title: "Help search engines and AI assistants",
   titleEm: "read, check and quote.",
   intro:
-    "GEO means generative engine optimisation: being the consultant that ChatGPT, Gemini or Perplexity names. Every site we build is made for that, as well as for Google.",
+    "GEO means generative engine optimisation: making your practice easier for search and answer systems to understand, retrieve and verify. Readable pages and clear facts support discovery; they cannot guarantee rankings or recommendations from Google, ChatGPT, Gemini or Perplexity.",
   pillars: [
     { name: "Readable", body: "Every film ships with its full transcript, so what you say on screen exists as text an assistant can read." },
     { name: "Checkable", body: "Your GMC number, appointments and hospitals stated once, consistently, with the sources behind each page named." },
@@ -178,6 +202,20 @@ export const GEO = {
     answer: "Yes. Stiffness and swelling are common in the first weeks after a knee replacement, and usually ease with your exercises.",
     cite: "yourname.co.uk · Recovery after knee replacement: film and transcript",
   },
+  // Further patient questions for the picker. Illustrations of the format, not
+  // medical advice: general wording, to be approved like any patient copy.
+  more: [
+    {
+      ask: "What happens at a first cardiology appointment?",
+      answer: "Usually a conversation about your symptoms and history, an examination, and sometimes a test such as an ECG. Your consultant then explains the next steps.",
+      cite: "yourname.co.uk · Your first appointment: film and transcript",
+    },
+    {
+      ask: "Will I be awake during cataract surgery?",
+      answer: "Usually, yes. Most cataract operations use local anaesthetic, so you stay awake but should not feel pain. Your surgeon talks you through it beforehand.",
+      cite: "yourname.co.uk · Cataract surgery, step by step: film and transcript",
+    },
+  ],
 };
 
 /* ───────────── 5. Films: approved numbers + concept footage ───────────── */
@@ -243,6 +281,13 @@ export const SOCIAL = {
     { name: "TikTok", what: "Shorts with an opening hook", format: "9:16" },
     { name: "YouTube", what: "The full film, plus Shorts", format: "16:9 · 9:16" },
     { name: "Facebook", what: "The full film, plus Reels", format: "16:9 · 9:16" },
+  ],
+  // The social-content page's formats section: each version and where it goes, restating the
+  // approved copy in services.ts (social-content sections).
+  formats: [
+    { format: "16:9", use: "The full film, for your website or YouTube channel" },
+    { format: "9:16", use: "Reframed for Reels, Stories and Shorts" },
+    { format: "30–60 s", use: "Shorts that introduce the topic" },
   ],
   promises: [
     "Every film reframed for vertical viewing and cut into shorts of 30 to 60 seconds.",
@@ -344,7 +389,7 @@ export const PACKAGES = [
     n: "Most complete start",
     name: "Website with films",
     fit: "You want a site that patients and AI assistants can find.",
-    items: ["A GEO-friendly website for your specialty", "A film embedded on each procedure page", "Structured data, transcripts and llms.txt built in"],
+    items: ["A website built for search and your specialty", "A film embedded on each agreed procedure page", "Structured data, transcripts and an XML sitemap built in"],
     featured: true,
   },
   {
@@ -371,17 +416,14 @@ export const CHAPTERS = [
 ];
 
 export const NAV = [
-  { href: "/#work", label: "Work" },
-  { href: "/#websites", label: "Websites" },
-  { href: "/#films", label: "Films" },
-  { href: "/#presenter", label: "AI presenter" },
-  { href: "/#social", label: "Social" },
+  { href: "/work", label: "Work" },
+  { href: "/services/medical-websites", label: "Websites" },
+  { href: "/services/patient-films", label: "Films" },
+  { href: "/services/ai-presenter", label: "AI presenter" },
+  { href: "/services/social-content", label: "Social" },
 ];
 
 export const ENQUIRY = {
   needs: ["Films for my site", "Website with films", "Full media partner", "AI presenter", "Not sure yet"],
   budgets: ["Under £5k", "£5k–£15k", "£15k–£35k", "£35k+", "Not sure yet"], // Tech Cogniverse contact form
 };
-
-export const LEGAL =
-  "Films are patient education, not medical advice. People shown in concept footage are AI-generated; clinician clones are made only with signed consent. Template screenshots include 3D anatomy derived from Z-Anatomy and BodyParts3D, CC BY-SA 4.0.";

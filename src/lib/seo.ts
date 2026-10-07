@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { BRAND } from "@/content/site";
-import { alt as ogAlt, size as ogSize } from "@/app/opengraph-image";
+import { SOCIAL_IMAGE } from "./social-image";
+import { absolute } from "./site-url";
 
 /**
  * Per-page metadata: canonical, Open Graph and Twitter in one place. Next merges metadata
@@ -12,7 +13,7 @@ export function pageMetadata({ path, title, description, absoluteTitle = false }
     title: absoluteTitle ? { absolute: full } : title,
     description,
     alternates: { canonical: path },
-    openGraph: { type: "website", siteName: BRAND.name, locale: "en_GB", url: path, title: full, description, images: [{ url: "/opengraph-image", ...ogSize, alt: ogAlt }] },
-    twitter: { card: "summary_large_image", title: full, description },
+    openGraph: { type: "website", siteName: BRAND.name, locale: "en_GB", url: path, title: full, description, images: [SOCIAL_IMAGE] },
+    twitter: { card: "summary_large_image", title: full, description, images: [{ url: absolute(SOCIAL_IMAGE.url), alt: SOCIAL_IMAGE.alt }] },
   };
 }

@@ -1,0 +1,305 @@
+/* Enquiry form and contact page enhancements. */
+
+/* ───────── Contact page two-column layout ───────── */
+.contact-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: clamp(40px, 7vw, 110px);
+  padding: clamp(100px, 13vw, 160px) var(--gut) var(--section-y);
+  align-items: start;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.contact-hero__left {
+  display: grid;
+  gap: 32px;
+  align-content: start;
+}
+
+.contact-hero__left .display-xl {
+  max-width: 12em;
+  margin-top: 8px;
+}
+
+.contact-hero__intro {
+  margin: 0;
+  max-width: 38ch;
+  font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+  line-height: 1.5;
+}
+
+.contact-details {
+  display: grid;
+  gap: 28px;
+  padding-top: 8px;
+}
+
+.contact-details a:hover {
+  color: var(--signal-ink);
+}
+
+.contact-hero__right {
+  display: grid;
+  gap: 0;
+  align-items: start;
+}
+
+/* Form card styling */
+.contact-hero__right .form,
+.contact-hero__right .form__done {
+  --cut: 16px;
+  background: var(--bg);
+  padding: clamp(32px, 5vw, 56px) clamp(28px, 5vw, 48px);
+  clip-path: polygon(
+    0 var(--cut),
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%
+  );
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.contact-hero__right .form__done {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* ───────── Form structure ───────── */
+.form {
+  gap: 28px;
+}
+
+/* ───────── Field focus states ───────── */
+.field input,
+.field select,
+.field textarea {
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+  border-bottom-color: var(--signal);
+  border-bottom-width: 2px;
+}
+
+.field:has(input:focus-visible) > span,
+.field:has(select:focus-visible) > span,
+.field:has(textarea:focus-visible) > span {
+  color: var(--signal);
+}
+
+/* ───────── Validation states ───────── */
+.field input[aria-invalid="true"],
+.field select[aria-invalid="true"],
+.field textarea[aria-invalid="true"] {
+  border-bottom-color: #d32f2f;
+}
+
+.field__opt {
+  font-style: normal;
+  opacity: 0.7;
+}
+/* outranks the ".field > span" label style: errors read as sentences, not labels */
+.field > .field__error,
+.check__error {
+  display: block;
+  font: 500 14px/1.4 var(--fd);
+  letter-spacing: 0;
+  text-transform: none;
+  color: #c62828;
+}
+
+/* ───────── Checkbox improvements ───────── */
+.check {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 15px;
+  color: var(--muted-l);
+  min-height: 44px;
+  padding: 6px 0;
+}
+
+.check input {
+  width: 20px;
+  height: 20px;
+  margin-top: 12px;
+  accent-color: var(--signal-ink);
+  cursor: pointer;
+}
+
+.check input:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+}
+
+.check span {
+  flex: 1;
+  line-height: 1.5;
+  padding-top: 6px;
+}
+
+.check__error {
+  margin: -4px 0 0 32px;
+}
+
+/* ───────── Button wrapper and spinner ───────── */
+.form__button-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.form__spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(253, 253, 253, 0.3);
+  border-top-color: #fdfdfd;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-right: 4px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form__spinner {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+
+/* ───────── Error and status messages ───────── */
+.form__error-box {
+  background: rgba(211, 47, 47, 0.08);
+  border-left: 3px solid #d32f2f;
+  padding: 14px 16px;
+  border-radius: 2px;
+  font-size: 15px;
+  color: #d32f2f;
+  animation: slideIn 0.3s ease-out;
+}
+
+.form__error-box p {
+  margin: 0;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form__error-box {
+    animation: none;
+  }
+}
+
+.form__done {
+  animation: slideIn 0.3s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form__done {
+    animation: none;
+  }
+}
+
+/* ───────── Responsive ───────── */
+@media (max-width: 900px) {
+  .contact-hero {
+    grid-template-columns: 1fr;
+    gap: clamp(48px, 8vw, 72px);
+    padding: 112px var(--gut) var(--section-y); /* clears the fixed header */
+  }
+
+  .contact-hero__left {
+    gap: 24px;
+  }
+
+  .contact-hero__intro {
+    font-size: 1.1rem;
+  }
+
+  .contact-details {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 834px) {
+  .check {
+    padding: 8px 0;
+  }
+
+  .check input {
+    margin-top: 10px;
+  }
+
+  .form__row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact-hero {
+    gap: 32px;
+    padding: 104px var(--gut) 64px;
+  }
+
+  .contact-hero__left {
+    gap: 16px;
+  }
+
+  .contact-hero__left .display-xl {
+    font-size: clamp(2.6rem, 11vw, 3.4rem);
+  }
+
+  .contact-hero__intro {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .contact-details {
+    gap: 20px;
+  }
+
+  .contact-hero__right .form,
+  .contact-hero__right .form__done {
+    padding: clamp(24px, 6vw, 32px);
+  }
+
+  .form__button-wrapper {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .form__button-wrapper .blob {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .form__error-box {
+    margin-top: 8px;
+  }
+}

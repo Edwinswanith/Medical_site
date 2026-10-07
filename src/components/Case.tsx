@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { AROGYA, CASE } from "@/content/site";
+import { TLink } from "./TLink";
 
 /**
  * Scene 8. Two client sites, one continuous chapter, all driven by the shared --r scrub.
@@ -52,8 +54,7 @@ export function Case() {
             </div>
             <div className="case__viewport">
               <picture>
-                <source srcSet={CASE.shot.webp} type="image/webp" />
-                <img src={CASE.shot.jpg} alt={CASE.shot.alt} width={CASE.shot.w} height={CASE.shot.h} loading="lazy" />
+                <Image src={CASE.shot.webp} alt={CASE.shot.alt} width={CASE.shot.w} height={CASE.shot.h} sizes="(max-width: 899px) 90vw, 55vw" />
               </picture>
             </div>
             <span className="sr-only">Visit {CASE.live.label} (opens in a new tab)</span>
@@ -89,6 +90,11 @@ export function Case() {
             <a className="arrow-link" href={CASE.live.href} target="_blank" rel="noreferrer">
               {CASE.live.label} <span aria-hidden>↗</span>
             </a>
+            <p>
+              <TLink className="arrow-link" href="/work/prof-hemant-sheth">
+                Read about the project <span aria-hidden>→</span>
+              </TLink>
+            </p>
           </div>
         </div>
       </article>

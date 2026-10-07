@@ -1,36 +1,19 @@
-# 3-month content roadmap
+# Three-month UK content roadmap
 
-Roadmap only. No articles get written until this is approved and the "evidence needed" for each exists. Quality over volume: 10 pieces in 3 months, each one something a UK clinician would bookmark or a journalist could cite.
+5 October 2026. Quality and evidence precede publication. Only the service, About and approved website-project pages have been implemented. No articles have been automatically generated.
 
-Prerequisite for all of it: the brand name, the About page and the service pages. Articles that link to pages that do not exist waste their links.
+| Window / funnel | Working title / possible URL | Intent and audience | Service / reason to exist | Evidence required | CTA |
+|---|---|---|---|---|---|
+| Month 1, weeks 1–2 / BOFU | Websites for consultants and private clinics /services/medical-websites | UK practices choosing a website supplier | Websites; explain deliverables and show real work | Existing approved templates and Sheth project; implemented | Discuss website scope |
+| Month 1, weeks 1–2 / BOFU | Patient films, AI presenters and social content /services/* | Buyers choosing production support | Three separate services; describe distinct scope and approval steps | Approved offer; concept labels retained; implemented | Request relevant samples |
+| Month 1, weeks 3–4 / BOFU | Prof. Hemant Sheth website project /work/prof-hemant-sheth | Consultants assessing prior website work | Websites; show the actual treatment directory | Approved screenshot, live link and scope; implemented; add outcomes only with measurement/permission | Discuss similar needs |
+| Month 2, weeks 5–6 / MOFU | Keep your website or rebuild it when adding patient films? /insights/website-with-films-or-film-batch | UK practice managers comparing options | Websites + films; help scope a real decision | A first-hand example of each approach, deliverable checklist, integration responsibilities and review by the studio | Agree an appropriate package |
+| Month 2, weeks 7–8 / MOFU | What happens in an AI-presenter project? /insights/clinician-ai-presenter-process | Clinicians weighing recording time and control | AI presenter; explain actual consent and sign-off workflow | Real consent/usage terms, recording requirements, permitted sample, deletion arrangements and responsible reviewer | Discuss recording and consent |
+| Month 3, weeks 9–10 / TOFU | Planning a patient education film before production /insights/planning-patient-films | Clinicians selecting useful procedure topics | Films; give an original planning worksheet | Actual script brief, source-note example and clinician review; avoid publishing unreviewed medical advice | Share an agreed topic batch |
+| Month 3, weeks 11–12 / MOFU | From a full patient film to a captioned social short /insights/patient-film-to-social-short | Practices evaluating social production | Social; demonstrate a real adaptation rather than generic advice | Approved master/short pair, captions, format decisions, posting approval and usage permission | Plan channels and formats |
 
-## Month 1: foundations (BOFU)
+For each future article, credit the real author/reviewer, add a truthful publication date, link to the relevant commercial service and explain the source of first-hand observations. Use an updated date only after a material revision. Article markup can be added when an actual article with authorship is published. Educational medical statements need a clinical reviewer and source links.
 
-| Working title | Intent | Audience | Related service | Why it should exist | Evidence needed | CTA |
-|---|---|---|---|---|---|---|
-| Websites for consultants and private clinics (service page) | Core commercial | Consultants, clinic managers | Websites | Owns theme 1; currently an anchor | The real build process, timelines, what a site includes | Book a call |
-| Patient education films (service page) | Core commercial | Consultants | Films | Owns theme 2 | Real timelines, how scripts are sourced and signed off, one real approved film if possible | Book a call |
-| AI presenter for clinicians: consent, disclosure, how it works (service page) | Core commercial + trust | Consultants weighing it up | AI presenter | Owns theme 3; consent and disclosure are the real buyer objections | Consent form process, deletion policy, a real example (with permission) | Book a call |
-| Social content for private practices (service page) | Core commercial | Consultants, clinics | Social | Owns theme 4 | Real posting cadence, approval workflow | Book a call |
-| Case study: building londonroboticsurgeon.co.uk | Proof | Consultants | Websites | Your only real case; deserves its own URL | Approved facts (have), permission to expand, any outcome data the client will let you share | Book a call |
+Month 1 operational work: verify the preferred host in search tools, check indexing, supply receiving-provider/retention details and request real film samples. Month 2: gather approved first-hand comparisons. Month 3: publish only the useful, evidenced guides and review enquiries and query relevance before deciding on further topics.
 
-## Month 2: evaluation (MOFU)
-
-| Working title | Intent | Audience | Related service | Why | Evidence needed | CTA |
-|---|---|---|---|---|---|---|
-| What to ask a web agency before you commission a consultant website | Comparison | Consultants shortlisting | Websites | Real buyer question; you can answer it from the build | Your own checklist from real builds | Book a call |
-| AI presenter or filming yourself: an honest comparison for patient films | Comparison | Consultants | AI presenter, Films | Trade-offs only you can explain first-hand | Real production time for each route, costs if shareable | Book a call |
-| How AI assistants choose which consultant to name: what we found testing 50 patient questions | Problem / original research | Consultants, press | Websites (GEO) | **Original data**: the most citable piece you can make | Run the test properly: fixed questions, dates, assistants, screenshots. Publish the method. | Read the websites page |
-
-## Month 3: education (TOFU, authority)
-
-| Working title | Intent | Audience | Related service | Why | Evidence needed | CTA |
-|---|---|---|---|---|---|---|
-| Marketing a private practice within GMC and ASA rules: a plain-English checklist | Informational | Consultants | All | High trust value; shows you understand the regulated buyer | Cite GMC Good medical practice and the CAP Code directly; **review by a qualified person** | Read service pages |
-| How we write patient information from NHS and NICE sources | Methodology (E-E-A-T) | Consultants, assistants | Films | Explains the claim on every film; makes it checkable | Your actual method, source list, sign-off steps | Read the films page |
-
-## Not planned, on purpose
-
-- City pages, "best medical website agency [city]" listicles, specialty permutation pages.
-- Generic "10 tips for doctors on social media" articles.
-- Cost articles until real price ranges are confirmed.
+Measurement: Search Console/Bing query impressions and clicks, indexed canonical URLs, actual qualified enquiries and manually observed AI citations with date/prompt recorded. None is currently configured or measured by this implementation. Do not treat a screenshot of one assistant response as a visibility guarantee.

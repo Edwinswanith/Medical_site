@@ -1,0 +1,93 @@
+// Expanded from the approved offer in site.ts. UK-wide coverage confirmed by the user.
+export const SERVICE_PAGES = [
+  {
+    slug: "medical-websites", label: "Medical websites",
+    title: "Medical website design for UK consultants",
+    description: "Specialty websites for consultants and private clinics across the UK, with procedure pages, patient films and clear enquiry paths. See our real client work.",
+    heading: "Medical websites for consultants and private clinics",
+    intro: "CogniVerse Studio builds specialty websites for consultants and private clinics across the UK. We organise your services around the questions patients ask, with clear procedure pages, patient films and a direct route to an enquiry.",
+    sections: [
+      { heading: "A clear route from question to enquiry", body: "A patient needs to understand what you treat, how a procedure works and how to contact your practice. We bring those answers together in readable pages, rather than leaving essential details inside an image or a video. The structure also helps search engines and answer systems understand your practice." },
+      { heading: "Built around your specialty", body: "Our 12 specialty templates cover cardiology, orthopaedics, neurology, ophthalmology, respiratory medicine, upper GI and HPB, urology, colorectal surgery, spinal surgery, ENT and maxillofacial, hand and wrist, and private GP. They are starting points for your own services and content; the page plan is agreed with you." },
+      { heading: "From page plan to launch", body: "We begin with a short call about your specialty and the procedures you explain most often. We agree the pages and film topics, then build the site and prepare the content for your review. You approve the final pages before launch. Your real qualifications, appointments and contact details need your confirmation before publication." },
+    ],
+    includes: ["A specialty website and an agreed page plan", "Procedure content with patient films where included in the scope", "Film transcripts as readable page text", "Structured data that matches the practice, crawl rules and an XML sitemap", "Clear links to contact your practice"],
+    questions: [
+      { question: "Do we need a new website or films for our current site?", answer: "If you are happy with your current website, Films for your site supplies an agreed batch of patient films, transcripts and markup for your web team. Website with films brings a new specialty website and its procedure films together. We discuss your current site before agreeing the scope." },
+      { question: "Can you build a website with films included?", answer: "Yes. Our Website with films option combines a specialty website with a film embedded on each agreed procedure page. We agree the scope together; the number of pages and films is part of your proposal." },
+      { question: "Will the site be recommended by AI assistants?", answer: "Readable content, clear facts and suitable structured data improve discovery and understanding. They cannot guarantee indexing, rankings or a recommendation from Google, ChatGPT, Gemini or Perplexity." },
+      { question: "What will it cost and how long will it take?", answer: "We quote for your agreed pages, films and production requirements. Share your existing website, specialty and target launch date so we can prepare a project-specific proposal." },
+    ],
+    proof: "See the website we built for Prof. Hemant Sheth: 22 pages, 10 procedure guides and four treatment groups.",
+    proofHref: "/work/prof-hemant-sheth", proofLabel: "Explore the Prof. Hemant Sheth project",
+    related: ["patient-films", "social-content"],
+  },
+  {
+    slug: "patient-films", label: "Patient education films",
+    title: "Patient education films for UK practices",
+    description: "Plain-English patient films for UK clinicians, with clinician-approved scripts, full transcripts and versions for websites and social channels. Discuss your topics.",
+    heading: "Patient education films for your practice",
+    intro: "CogniVerse Studio makes two-to-three-minute patient education films for clinicians and practices across the UK. They explain a procedure in plain English and sit on the page where a patient is already looking for an answer.",
+    sections: [
+      { heading: "An explanation patients can return to", body: "A film gives patients another way to understand the procedures you discuss. It accompanies your written information rather than replacing it. Each film is patient education, not individual medical advice, and its full transcript gives visitors a readable alternative." },
+      { heading: "Clinical review before production", body: "We draft scripts from NHS, NICE and specialist sources and name the sources on each film. You review the script before production and the final cut before publication. The process gives you two reviews per film, with topics agreed together as a batch." },
+      { heading: "Use your current site or build a new one", body: "If you already have a website you are happy with, our Films for your site option supplies a batch of films, transcripts and markup for your web team. A website project can bring the films and the procedure pages together from the start." },
+    ],
+    includes: ["An agreed batch of procedure topics", "Source-based scripts for your clinical approval", "A 16:9 master, a 9:16 vertical version and a short", "Full transcript and markup for your web team", "Final-cut review before publishing"],
+    questions: [
+      { question: "Do you have topics ready?", answer: "The approved offer includes 16 films ready and 75 topics across 14 specialties. We discuss the fit for your practice and the review required before use. Bespoke topics can also be discussed." },
+      { question: "Are the films shown on this site finished client films?", answer: "The preview footage on this site is labelled AI-generated concept footage. It illustrates the visual approach. Ask us for real film samples relevant to your specialty." },
+      { question: "Can we use patient information in a film?", answer: "Our production process uses no patient data. Please do not send patient details through the enquiry form. The films explain procedures generally, with your clinical sign-off." },
+      { question: "How are the film budget and delivery date agreed?", answer: "The proposal sets the agreed batch of topics, production formats and review requirements. Tell us your specialty, existing website and target date so we can discuss a suitable scope. This website does not publish a fixed film price or turnaround time." },
+    ],
+    proof: "Our public previews are AI-generated concepts. Contact us to request real patient film samples and discuss your procedure topics.",
+    proofHref: "/contact", proofLabel: "Request relevant film samples",
+    related: ["medical-websites", "ai-presenter", "social-content"],
+  },
+  {
+    slug: "ai-presenter", label: "AI presenters",
+    title: "AI presenters for UK clinicians",
+    description: "A consent-based AI presenter using your face and voice for patient education films. UK clinicians approve the scripts and films, with clear AI disclosure.",
+    heading: "AI presenters for clinicians, with your approval",
+    intro: "CogniVerse Studio creates AI presenters for clinicians across the UK. From one recording session, an AI version of your face and voice can present your patient education films, with signed consent and your approval of each script and final film.",
+    sections: [
+      { heading: "A familiar presenter without repeated filming", body: "An AI presenter lets you explain an agreed batch of topics without recording each complete film yourself. It is an optional part of the patient-film service. You remain responsible for reviewing what is said before it reaches patients." },
+      { heading: "Consent comes first", body: "We make a clinician clone only with signed consent. Your face and voice stay yours, and the clone can be deleted on request. The recording and the topics are planned with you before production." },
+      { heading: "Make the use of AI clear", body: "Each film carries an on-screen disclosure that the presenter is an AI avatar. The AI-generated presenter visuals on this website are concepts, not real clinicians or evidence of a delivered client presenter. Ask to discuss the production approach and relevant samples." },
+    ],
+    includes: ["One agreed recording session for your face and voice", "Signed consent before a clone is created", "Script review and approval for each film", "Final-film review before publication", "An on-screen AI-avatar disclosure"],
+    questions: [
+      { question: "Can you create a presenter without my permission?", answer: "No. Signed consent is required before we create a clinician clone. The optional presenter is agreed as part of your project." },
+      { question: "Can I change or stop using the presenter?", answer: "You approve scripts and final cuts before publication, and can request deletion of the clone. Discuss the usage and consent arrangements with us before recording." },
+      { question: "Do I need an AI presenter to order films?", answer: "No. The presenter is optional. We can discuss patient films for your existing website or a new website without including a clinician clone." },
+      { question: "How is an AI presenter different from patient film production?", answer: "Patient film production covers the topic, sourced script, formats and reviews. An AI presenter is an optional way to present that approved script using an AI version of your face and voice. It adds a recording session and signed consent; it does not replace your clinical review." },
+    ],
+    proof: "The presenter visuals on this site are labelled AI-generated concepts. We can discuss suitable samples, consent and the recording process before you commission a presenter.",
+    proofHref: "/contact", proofLabel: "Discuss an AI presenter",
+    related: ["patient-films", "social-content"],
+  },
+  {
+    slug: "social-content", label: "Social content",
+    title: "Social content for UK medical practices",
+    description: "Patient films adapted into branded shorts for Instagram, TikTok, YouTube and Facebook. UK practices agree the posting plan and approve content before publishing.",
+    heading: "Social content for clinicians and practices",
+    intro: "CogniVerse Studio adapts patient education films into social content for clinicians and practices across the UK. We reframe films for phones, cut them into shorts and agree a posting plan for Instagram, TikTok, YouTube and Facebook.",
+    sections: [
+      { heading: "One topic, several useful formats", body: "The full film explains a topic in more detail on your website or YouTube channel. Shorter cuts introduce that same topic in a format suited to social viewing. We make 30-to-60-second shorts and reframe the films vertically, rather than asking you to produce separate material for every channel." },
+      { heading: "Readable with the sound off", body: "Captions are burned into the social versions for silent viewing, with your logo and colours. A 16:9 master and 9:16 versions give you material for full films, Shorts, Reels and Stories, according to the agreed channel plan." },
+      { heading: "A plan you approve", body: "We agree the posting plan with you, and nothing is published without your sign-off. Social content can form part of the Full media partner option alongside the website, film library and optional AI presenter. We discuss which channels make sense for your practice before setting the scope." },
+    ],
+    includes: ["Vertical versions of your patient films", "Shorts of 30 to 60 seconds", "Burned-in captions for silent viewing", "Your logo and colours", "An agreed posting plan and approval before publication"],
+    questions: [
+      { question: "Which platforms do you cover?", answer: "The offer covers Instagram, TikTok, YouTube and Facebook. We agree which channels and formats to use for your practice." },
+      { question: "Can the same film support our website and social channels?", answer: "Yes. The full film can sit on its procedure page, while vertical versions and shorts adapt the topic for social viewing. Keeping the script and reviews together makes the content easier to manage." },
+      { question: "Will this guarantee more enquiries or followers?", answer: "No. We agree the deliverables and publishing plan. Audience response and enquiries depend on many factors, so we do not promise a particular growth or lead result." },
+      { question: "Do we have to use all four social platforms?", answer: "No. We agree which of Instagram, TikTok, YouTube and Facebook make sense for your practice before setting the posting plan. Your proposal sets the formats and scope, and nothing is published without your sign-off." },
+    ],
+    proof: "The social clips displayed here are labelled AI-generated concepts. Ask us for relevant samples and a proposal for your channels.",
+    proofHref: "/contact", proofLabel: "Plan content for your practice",
+    related: ["patient-films", "ai-presenter", "medical-websites"],
+  },
+] as const;
+
+export type ServicePageContent = (typeof SERVICE_PAGES)[number];

@@ -2,16 +2,32 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { lockScroll, prefersReducedMotion } from "@/lib/motion";
+import { isTouch, lockScroll, prefersReducedMotion } from "@/lib/motion";
 import { Mark } from "./Mark";
 
+// Remembered only once the intro has finished, so an interrupted (or, in dev,
+// double-run) intro plays again. Blocked storage simply means it always plays.
+const SEEN = "cv-intro-seen";
+const seenThisSession = () => {
+  try {
+    return sessionStorage.getItem(SEEN) === "1";
+  } catch {
+    return false;
+  }
+};
+const rememberSeen = () => {
+  try {
+    sessionStorage.setItem(SEEN, "1");
+  } catch {}
+};
+
 /**
- * Intro panel, played on every full page load: the mark settles, the name rises, the
- * count runs to 100, then the panel lifts away (about 2 s) while the hero rises beneath it.
- * A refresh or back/forward visit plays the same intro at about three times the speed,
- * so returning visitors are not kept waiting. Read from the browser, nothing is stored.
- * Client-side page changes keep it hidden (it lives in the layout, which stays mounted).
- * Sets html[data-ready] as the lift begins, which starts the hero entrance.
+ * Intro panel, played once per browser session on the first full page load: the mark
+ * settles, the name rises, the count runs to 100, then the panel lifts away (about 2 s)
+ * while the hero rises beneath it. Later full loads skip it instantly but still trigger
+ * html[data-ready] and [data-intro-done] so the hero entrance and everything gated on
+ * those flags still run. Client-side page changes keep it hidden (it lives in the layout,
+ * which stays mounted). Sets html[data-ready] as the lift begins, which starts the hero entrance.
  */
 export function Preloader({ name }: { name: string }) {
   const root = useRef<HTMLDivElement>(null);
@@ -27,6 +43,8 @@ export function Preloader({ name }: { name: string }) {
       lockScroll(false);
     };
     if (html.dataset.introDone !== undefined || !el) return;
+
+    if (seenThisSession()) return finish();
     if (prefersReducedMotion()) return finish();
 
     // Always open at the top: the intro hands over to the hero.
@@ -58,9 +76,13 @@ export function Preloader({ name }: { name: string }) {
       .to(q(".loader__mark, .loader__count, .loader__bar"), { opacity: 0, duration: 0.3, ease: "power2.out" }, "<")
       .add(ready, "-=0.3")
       .to(el, { yPercent: -100, duration: 0.6, ease: "power4.inOut" }, "-=0.3")
-      .add(finish);
+      .add(() => {
+        rememberSeen();
+        finish();
+      });
     const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
     if (nav && nav.type !== "navigate") tl.timeScale(3);
+    else if (isTouch()) tl.timeScale(2); // retain the intro, with a shorter wait on phones
 
     // React dev mode runs effects twice: on cleanup, rewind instead of finishing,
     // so the second run plays the whole intro again.

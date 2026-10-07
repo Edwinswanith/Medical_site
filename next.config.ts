@@ -1,5 +1,11 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {};
+const nextConfig: NextConfig = {
+  headers: async () => [{
+    source: "/:path*",
+    has: [{ type: "host", value: ".*\\.vercel\\.app" }],
+    headers: [{ key: "X-Robots-Tag", value: "noindex, follow" }],
+  }],
+};
 
 export default nextConfig;

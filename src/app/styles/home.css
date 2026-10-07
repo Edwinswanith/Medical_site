@@ -1,0 +1,157 @@
+/* Home page: hero specialty switcher, numbers, GEO question picker. */
+
+/* ─ Hero: specialty picker in the browser chrome ─ */
+/* The address bar doubles as the control: the visitor changes the specialty
+   where a real site would change, and the screenshot below follows. */
+.hm-chrome {
+  gap: 7px;
+}
+.hm-pick {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 2px;
+}
+.hm-pick select {
+  appearance: none;
+  height: 24px;
+  padding: 0 26px 0 10px;
+  font: 500 11.5px/1 var(--fm);
+  color: var(--signal-ink);
+  background: #fff;
+  border: 1px solid rgba(0, 102, 184, 0.35);
+  border-radius: 99px;
+  field-sizing: content; /* as wide as the chosen specialty, not the longest */
+  cursor: pointer;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.hm-pick select:hover {
+  border-color: var(--signal-ink);
+}
+.hm-pick select:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+}
+.hm-pick svg {
+  position: absolute;
+  right: 10px;
+  width: 9px;
+  height: 6px;
+  pointer-events: none;
+  fill: none;
+  stroke: var(--signal-ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.hm-hint {
+  margin-left: 6px;
+  font: 500 10.5px/1 var(--fm);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--signal-ink);
+  white-space: nowrap;
+  transition: opacity 0.4s var(--ease);
+}
+html[data-ready] .hm-hint {
+  animation: hm-nudge 1.6s var(--ease) 2.2s 2 both;
+}
+.hm-hint[data-hidden] {
+  opacity: 0;
+}
+@keyframes hm-nudge {
+  0%, 100% { translate: 0 0; }
+  50% { translate: -4px 0; }
+}
+/* screenshots stack in a fixed 16:10 window; a new one wipes in from the top */
+.hm-site {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+.hs--site .hm-site img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+}
+.hm-site__in {
+  clip-path: inset(0 0 100% 0);
+}
+.hm-site__in[data-loaded] {
+  animation: hm-wipe 0.7s var(--ease) forwards;
+}
+@keyframes hm-wipe {
+  to { clip-path: inset(0 0 0 0); }
+}
+@media (max-width: 640px) {
+  .hm-hint,
+  .hm-chrome > span {
+    display: none;
+  }
+  .hm-chrome {
+    gap: 5px;
+    padding: 0 8px;
+  }
+  .hm-chrome i {
+    margin-left: 0;
+  }
+  /* the stack's frame labels stay on one line at phone size; the phone is too narrow
+     for a horizontal label, so its tag runs down the side of the screen */
+  .hero__stack .hs__tag {
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+  .hero__stack .hs--film .hs__tag {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+  .hero__stack .hs--phone .hs__tag {
+    writing-mode: vertical-rl;
+    top: 10px;
+    left: 4px;
+    padding: 6px 2px;
+    font-size: 9px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hm-site__in[data-loaded] {
+    animation-duration: 0.01s;
+  }
+  html[data-ready] .hm-hint {
+    animation: none;
+  }
+}
+
+/* ─ GEO: pick a patient question ─ */
+/* The chosen question keeps the original "asked" bubble; the others sit
+   quietly beneath it as alternatives, so the card still reads as one exchange. */
+.geo__asks {
+  display: grid;
+  justify-items: start;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+.geo__asks .geo__ask {
+  margin: 0;
+  min-height: 44px;
+  text-align: left;
+  font: inherit;
+  font-weight: 500;
+  color: var(--muted-l);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--line-l);
+  cursor: pointer;
+  transition: color 0.25s, background 0.25s, box-shadow 0.25s;
+}
+.geo__asks .geo__ask:hover {
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--signal-ink);
+}
+.geo__asks .geo__ask[aria-pressed="true"] {
+  color: var(--ink);
+  font-weight: 600;
+  background: var(--paper);
+  box-shadow: none;
+  cursor: default;
+}

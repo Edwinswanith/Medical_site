@@ -1,14 +1,7 @@
 import "server-only";
 
-export type Enquiry = {
-  name: string;
-  org: string;
-  email: string;
-  phone: string;
-  need: string;
-  budget: string;
-  message: string;
-};
+import type { Enquiry } from "./enquiry";
+export type { Enquiry } from "./enquiry";
 
 export type DeliveryResult = { ok: true } | { ok: false; reason: "unconfigured" | "failed" };
 
@@ -36,6 +29,7 @@ export async function deliver(e: Enquiry): Promise<DeliveryResult> {
       const { RESEND_API_KEY, CONTACT_TO, CONTACT_FROM } = process.env;
       if (!RESEND_API_KEY || !CONTACT_TO || !CONTACT_FROM) return { ok: false, reason: "unconfigured" };
       const res = await fetch("https://api.resend.com/emails", {
+        signal: AbortSignal.timeout(15000),
         method: "POST",
         headers: { Authorization: `Bearer ${RESEND_API_KEY}`, "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -53,6 +47,7 @@ export async function deliver(e: Enquiry): Promise<DeliveryResult> {
       const url = process.env.CONTACT_WEBHOOK_URL;
       if (!url) return { ok: false, reason: "unconfigured" };
       const res = await fetch(url, {
+        signal: AbortSignal.timeout(15000),
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...e, text: text(e), receivedAt: new Date().toISOString() }),

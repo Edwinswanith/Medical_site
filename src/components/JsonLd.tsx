@@ -11,8 +11,8 @@ export function JsonLd({ data }: { data: object }) {
 }
 
 /**
- * The organisation and the site: only facts shown on the page. No address, area served or
- * sameAs until they are confirmed; no LocalBusiness type, because no public office is stated.
+ * The organisation and the site: only facts shown on the page. UK coverage is confirmed;
+ * no address or sameAs is supplied, and no public office is stated.
  */
 export function SiteJsonLd({ description }: { description: string }) {
   return (
@@ -24,11 +24,13 @@ export function SiteJsonLd({ description }: { description: string }) {
             "@type": "Organization",
             "@id": ORG_ID,
             name: BRAND.name,
+            legalName: BRAND.legalName,
             url: absolute("/"),
-            logo: { "@type": "ImageObject", url: absolute("/logo.png"), width: 512, height: 512 },
+            logo: { "@type": "ImageObject", url: absolute("/brand/mark.png"), width: 256, height: 256 },
             description,
             email: BRAND.email,
             telephone: BRAND.phone.tel,
+            areaServed: { "@type": "Country", name: "United Kingdom" },
             contactPoint: { "@type": "ContactPoint", contactType: "sales", email: BRAND.email, telephone: BRAND.phone.tel, availableLanguage: "en" },
           },
           { "@type": "WebSite", "@id": SITE_ID, url: absolute("/"), name: BRAND.name, inLanguage: "en-GB", publisher: { "@id": ORG_ID } },
@@ -39,7 +41,10 @@ export function SiteJsonLd({ description }: { description: string }) {
 }
 
 /** One page of the site, tied to the site and the organisation. */
-export function PageJsonLd({ path, name, description, type = "WebPage" }: { path: string; name: string; description: string; type?: string }) {
+export function PageJsonLd({ path, name, description, type = "WebPage", mainEntity, breadcrumbs = false, image }: {
+  path: string; name: string; description: string; type?: string; mainEntity?: string; breadcrumbs?: boolean;
+  image?: { webp: string; w: number; h: number; alt: string };
+}) {
   return (
     <JsonLd
       data={{
@@ -52,7 +57,23 @@ export function PageJsonLd({ path, name, description, type = "WebPage" }: { path
         inLanguage: "en-GB",
         isPartOf: { "@id": SITE_ID },
         about: { "@id": ORG_ID },
+        ...(breadcrumbs ? { breadcrumb: { "@id": `${absolute(path)}#breadcrumbs` } } : {}),
+        ...(image ? { primaryImageOfPage: { "@type": "ImageObject", url: absolute(image.webp), width: image.w, height: image.h, caption: image.alt } } : {}),
+        ...(mainEntity ? { mainEntity: { "@id": mainEntity } } : {}),
       }}
     />
   );
+}
+
+/** A directory whose listed destinations and labels are visible on the same page. */
+export function ItemListJsonLd({ path, fragment, name, items }: {
+  path: string; fragment: string; name: string; items: { name: string; path: string }[];
+}) {
+  return <JsonLd data={{
+    "@context": "https://schema.org", "@type": "ItemList", "@id": `${absolute(path)}#${fragment}`,
+    name, numberOfItems: items.length,
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem", position: index + 1, name: item.name, url: absolute(item.path),
+    })),
+  }} />;
 }

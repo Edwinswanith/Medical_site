@@ -9,7 +9,14 @@ import { Footer } from "@/components/Footer";
 import { Cursor } from "@/components/Cursor";
 import { Preloader } from "@/components/Preloader";
 import { ChapterRail } from "@/components/ChapterRail";
+import { StickyCta } from "@/components/StickyCta";
 import "./globals.css";
+import "./styles/chrome.css";
+import "./styles/form.css";
+import "./styles/home.css";
+import "./styles/service.css";
+import "./styles/pages.css";
+import "./styles/sticky-cta.css";
 
 const display = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--f-display" });
 const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--f-serif" });
@@ -22,13 +29,17 @@ export const metadata: Metadata = {
   applicationName: BRAND.name,
   openGraph: { type: "website", siteName: BRAND.name, locale: "en_GB" },
   twitter: { card: "summary_large_image" },
+  verification: {
+    ...(process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : {}),
+    ...(process.env.BING_SITE_VERIFICATION ? { other: { "msvalidate.01": process.env.BING_SITE_VERIFICATION } } : {}),
+  },
 };
 
 export const viewport: Viewport = { themeColor: "#f5f8fc" };
 
 // Runs before paint: marks JS as available; reduced motion skips the intro.
 // Safety net: if the app bundle never runs, reveal everything after 10 s anyway.
-const boot = `(function(){var d=document.documentElement,o=function(){d.dataset.ready="";d.dataset.introDone=""};d.dataset.js="";try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)o()}catch(e){}setTimeout(o,10000)})()`;
+const boot = `(function(){var d=document.documentElement,o=function(){d.dataset.ready="";d.dataset.introDone="";d.dataset.motionFallback="";d.classList.remove("is-locked")};d.dataset.js="";try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)o()}catch(e){}setTimeout(function(){if(!d.hasAttribute("data-motion-ready")||!d.hasAttribute("data-intro-done"))o()},10000)})()`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -47,6 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main id="main">{children}</main>
           <Footer />
           <ChapterRail />
+          <StickyCta />
         </Motion>
         <Cursor />
       </body>

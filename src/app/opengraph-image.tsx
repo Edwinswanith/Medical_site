@@ -2,8 +2,9 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { BRAND } from "@/content/site";
+import { SOCIAL_IMAGE } from "@/lib/social-image";
 
-export const alt = `${BRAND.name}: websites, patient films and AI presenters for clinicians`;
+export const alt = SOCIAL_IMAGE.alt;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -15,6 +16,8 @@ export default async function OpenGraphImage() {
     (
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 72, background: "#f5f8fc", color: "#0b1830", fontFamily: "Archivo", textTransform: "uppercase" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 18, fontSize: 34 }}>
+          {/* ImageResponse renders embedded pixels; next/image is unavailable in this renderer. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={icon} width={60} height={60} alt="" />
           {BRAND.name}
         </div>
