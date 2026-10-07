@@ -3102,7 +3102,7 @@ html {
   clip-path: inset(0 round calc((1 - var(--r, 1)) * 50vw) calc((1 - var(--r, 1)) * 50vw) 0 0);
 }
 .arg__inner {
-  padding: clamp(120px, 15vw, 220px) var(--gut) clamp(100px, 12vw, 170px);
+  padding: clamp(100px, 11vw, 160px) var(--gut) clamp(70px, 8vw, 110px);
   background: radial-gradient(60% 40% at 80% 18%, rgba(192, 138, 60, 0.16), transparent 70%), var(--bg);
   color: var(--bone);
   /* the exit: corners round off and the panel settles into the next section */
@@ -3134,24 +3134,21 @@ html {
   background: var(--gold);
 }
 
-/* The stage: pinned while the real page scrolls in its frame and the phone and details layer in */
+/* The stage: one screen, no pin. As it scrolls past, the real page pans in its frame and the phone and details layer in */
 .arg__pin {
-  height: 160vh;
-  margin-top: clamp(32px, 4vw, 64px);
+  margin-top: clamp(20px, 2.5vw, 40px);
 }
 .arg__stage {
   --e: var(--r, 1);
   --q: var(--r, 0.5);
   --s: var(--r, 0);
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100svh;
+  position: relative;
+  height: min(88vh, 820px);
   perspective: 1600px;
 }
 .arg__desk {
   --cut: 22px;
-  --sh: min(62vh, 39vw);
+  --sh: min(56vh, 36vw);
   display: block;
   position: absolute;
   left: 0;
@@ -3240,7 +3237,7 @@ html {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(32px, 5vw, 80px);
-  margin-top: clamp(40px, 5vw, 72px);
+  margin-top: clamp(16px, 2vw, 32px);
   align-items: start;
 }
 .arg__links {
@@ -3267,9 +3264,6 @@ html {
   }
   .arg__inner {
     padding: 110px var(--gut) 80px;
-  }
-  .arg__pin {
-    height: auto;
   }
   .arg__stage {
     --e: 1;
@@ -3319,12 +3313,3 @@ html {
   }
 }
 
-/* Reduced motion: the same composition, still, and no pinned scroll to wait through */
-@media (prefers-reduced-motion: reduce) {
-  .arg__pin {
-    height: auto;
-  }
-  .arg__stage {
-    position: relative;
-  }
-}

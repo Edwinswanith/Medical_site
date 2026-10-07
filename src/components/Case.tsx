@@ -6,8 +6,8 @@ import { AROGYA, CASE } from "@/content/site";
  * 01 Hemant: a giant name, the real home page scrolling inside a browser frame as you
  *    read, and what was built. As Arogya arrives, the whole case settles back.
  * 02 Arogya: rises over it through an arch (the shape that runs through Arogya's own
- *    site), then a pinned stage layers the real desktop page, the phone view and two
- *    details. Its closing corners round off into the next section.
+ *    site), then a one-screen stage layers the real desktop page, the phone view and two
+ *    details as it scrolls past (no pin). Its closing corners round off into the next section.
  *
  * Reduced motion and no-JS read every --r fallback as the finished state.
  */
@@ -118,7 +118,7 @@ export function Case() {
             </span>
           </h2>
 
-          <div className="arg__pin" data-scrub="" data-scrub-start="top top" data-scrub-end="bottom bottom">
+          <div className="arg__pin" data-scrub="" data-scrub-start="top 85%" data-scrub-end="bottom 15%">
             <div className="arg__stage">
               <a className="arg__desk" href={AROGYA.live.href} target="_blank" rel="noreferrer" data-cursor="view" data-cursor-label="Visit">
                 <div className="chrome" aria-hidden>
