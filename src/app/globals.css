@@ -3136,7 +3136,7 @@ html {
 
 /* The stage: pinned while the real page scrolls in its frame and the phone and details layer in */
 .arg__pin {
-  height: 230vh;
+  height: 160vh;
   margin-top: clamp(32px, 4vw, 64px);
 }
 .arg__stage {

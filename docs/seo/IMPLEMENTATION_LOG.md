@@ -101,7 +101,7 @@ Validation: build PASS, typecheck PASS, `seo:check` 99/99 (now with /privacy), J
 | Facts | Observed on the site: 18 pages (sitemap), 10 treatment pages, 7-question dosha quiz, structured data, WhatsApp booking. Confirmed by the user: client project; scope design, build, copy, imagery, SEO; described as a wellness practice (its own footer: not medical treatment). No results, traffic or testimonials claimed. |
 | Hemant | Same wording, facts and image. The home page now scrolls inside its frame as you read (was hover-only); the case settles back as Arogya arrives; "01 / 02" index. |
 | Hand-off | Arogya rises over Hemant through an arch (the shape that runs through Arogya's own site) that opens to full width. |
-| Arogya | Its own palette (forest, cream, gold) via scoped tokens. Pinned stage: real desktop page panning inside a browser frame, phone view, treatment-card and dosha details, layered with depth. Facts, built list, "View live website" (new tab, labelled) and an internal link to the websites section. |
+| Arogya | Its own palette (forest, cream, gold) via scoped tokens. Pinned stage (160vh, about 1.6 screens): real desktop page panning inside a browser frame, phone view, treatment-card and dosha details, layered with depth. Facts, built list, "View live website" (new tab, labelled) and an internal link to the websites section. |
 | Exit | The Arogya panel's corners round off into "Websites that get found". |
 | Motion | No new controller: everything reads the existing `[data-scrub]` --r and CSS sticky. Reduced motion and no-JS: finished, still composition, no pin. Mobile: no pin, deliberate crops. |
 | Assets | About 440 KB on desktop, about 290 KB on mobile (640px page strip served below 900px), all lazy-loaded. |
