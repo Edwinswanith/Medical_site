@@ -136,3 +136,15 @@ Confirm provider/retention/controller details before enabling real form delivery
 | Labelling | Cogniverse: "Built by CogniVerse Studio", not "Client" (see `docs/work/COGNIVERSE_AUDIT.md`). |
 
 Validation: build, typecheck, lint (0 errors), unit tests 15/15, `seo:check` 1,816 pass. 3 external-link fails are environment network blocks or proxy drops (londonroboticsurgeon.co.uk, ico.org.uk, and a dropped tunnel to cogniversetech.com, which answers 200 directly). Desktop and mobile captures of both pages and `/work`: no overflow, no broken images, no console errors.
+
+## Homepage work: one fixed-height showcase (8 Oct 2026)
+
+The stacked Hemant and Arogya block (arch hand-off, pinned stage) is replaced by one showcase of all three projects (`SHOWCASE` in `src/content/projects.ts`; `src/components/Case.tsx`; styles in `src/app/styles/home.css`). Adding a project adds a tab, not page length.
+
+- Desktop: tab row, then one card per project in its own colours (Hemant navy, Arogya forest and gold, Cogniverse pale blue): details, facts, skills, verified "Built with", case study and live links, and a preview where the real page scrolls once in its frame beside a phone view. Switching wipes the new card in from the direction of travel. Tabs (ARIA tablist with arrow, Home and End keys), arrows, drag; inactive cards inert.
+- Mobile: the same cards as a native swipe carousel, synced with the tabs and counter.
+- Reduced motion: instant switch, no scrolling preview.
+- "Built with" lists only what was verified on the live sites: Arogya React, Vite, Vercel (asset pattern, React stylesheet precedence, `server: Vercel`); Cogniverse Next.js (`/_next/`). Hemant's stack is not verified (site blocked from this environment), so none is shown.
+- Section height: about 1.07 screens on desktop (was about 4.5), 1.53 on mobile. Homepage 18,819 px to 16,851 px on desktop, 17,490 to 15,656 on mobile.
+
+Validation: build, typecheck, lint (0 errors, 0 warnings in src), unit tests 15/15, `seo:check` 1,821 pass (2 environment-blocked external links), interaction tests 11/11 (keyboard, drag, inert, links, crawlable HTML, mobile swipe and tab sync, reduced motion), existing regression and accessibility checks pass, no console errors.

@@ -1,204 +1,252 @@
-import Image from "next/image";
-import { AROGYA, CASE } from "@/content/site";
+"use client";
+
+import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import { SHOWCASE } from "@/content/projects";
 import { TLink } from "./TLink";
 
 /**
- * Scene 8. Two client sites, one continuous chapter, all driven by the shared --r scrub.
+ * Scene 8. Selected work: every project in one fixed-height stage, so adding a project adds a
+ * tab, never page length.
  *
- * 01 Hemant: a giant name, the real home page scrolling inside a browser frame as you
- *    read, and what was built. As Arogya arrives, the whole case settles back.
- * 02 Arogya: rises over it through an arch (the shape that runs through Arogya's own
- *    site), then a one-screen stage layers the real desktop page, the phone view and two
- *    details as it scrolls past (no pin). Its closing corners round off into the next section.
- *
- * Reduced motion and no-JS read every --r fallback as the finished state.
+ * Desktop: a tab row, then the active project's details beside a live preview in its own
+ * colours. Switching wipes the new preview in from the direction of travel; the real page
+ * then scrolls once inside its frame (paused on hover). Tabs, arrows, keyboard and drag.
+ * Mobile: the same panels as a native swipe carousel. Every project stays in the HTML, so
+ * crawlers read all of them; each links to its full case study.
+ * Reduced motion: no wipe, no scrolling preview.
  */
 export function Case() {
+  const [active, setActive] = useState(0);
+  const [dir, setDir] = useState<1 | -1>(1);
+  const [desktop, setDesktop] = useState(true);
+  const track = useRef<HTMLDivElement>(null);
+  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  const drag = useRef<number | null>(null);
+  const moved = useRef(false);
+  const n = SHOWCASE.length;
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 900px)");
+    const on = () => setDesktop(mq.matches);
+    on();
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, []);
+
+  const go = useCallback(
+    (i: number, focus = false) => {
+      const next = (i + n) % n;
+      setDir(next >= active ? 1 : -1);
+      setActive(next);
+      if (focus) tabs.current[next]?.focus();
+      // Phones: the carousel is the source of truth, so scroll it to the chosen panel.
+      const el = track.current;
+      if (el && !window.matchMedia("(min-width: 900px)").matches) {
+        const panel = el.children[next] as HTMLElement | undefined;
+        if (panel) el.scrollTo({ left: panel.offsetLeft - el.offsetLeft, behavior: "smooth" });
+      }
+    },
+    [active, n],
+  );
+
+  // Phones: follow the swipe.
+  useEffect(() => {
+    const el = track.current;
+    if (!el || desktop) return;
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.intersectionRatio > 0.6) setActive(Number((e.target as HTMLElement).dataset.index));
+        }),
+      { root: el, threshold: [0.6] },
+    );
+    [...el.children].forEach((c) => io.observe(c));
+    return () => io.disconnect();
+  }, [desktop]);
+
+  const onKey = (e: KeyboardEvent) => {
+    if (e.key === "ArrowRight") go(active + 1, true);
+    else if (e.key === "ArrowLeft") go(active - 1, true);
+    else if (e.key === "Home") go(0, true);
+    else if (e.key === "End") go(n - 1, true);
+    else return;
+    e.preventDefault();
+  };
+
+  // Desktop: drag the stage sideways to change project.
+  const down = (e: PointerEvent) => {
+    if (!desktop || e.pointerType !== "mouse" || e.button !== 0) return;
+    drag.current = e.clientX;
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+  };
+  const up = (e: PointerEvent) => {
+    if (drag.current === null) return;
+    const dx = e.clientX - drag.current;
+    drag.current = null;
+    if (Math.abs(dx) > 70) {
+      moved.current = true;
+      go(active + (dx < 0 ? 1 : -1));
+    }
+  };
+  // A drag that changed project must not also open the preview link underneath.
+  const swallowClick = (e: React.MouseEvent) => {
+    if (!moved.current) return;
+    moved.current = false;
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const pad = (i: number) => String(i + 1).padStart(2, "0");
+
   return (
-    <section id="work" className="work" data-chapter="Work" aria-labelledby="case-h">
-      <article className="case case--hemant" data-scrub="" data-scrub-start="bottom bottom" data-scrub-end="bottom top">
-        <p className="label proj__meta">
-          <span>Built, launched, in use</span>
-          <span aria-hidden>01 / 02</span>
-        </p>
-        <h2 id="case-h" className="case__name" data-reveal>
-          <span className="line">
-            <span>{CASE.name},</span>
-          </span>
-          {" "}
-          <span className="line">
-            <span>
-              <em>{CASE.em}</em>
-            </span>
-          </span>
-        </h2>
-
-        <div className="case__grid">
-          <a
-            className="case__shot notch wipe"
-            href={CASE.live.href}
-            target="_blank"
-            rel="noreferrer"
-            data-reveal
-            data-scrub=""
-            data-scrub-start="top 80%"
-            data-scrub-end="bottom 20%"
-            data-cursor="view"
-            data-cursor-label="Visit"
-          >
-            <div className="chrome" aria-hidden>
-              <span />
-              <span />
-              <span />
-              <i>{CASE.live.label}</i>
-            </div>
-            <div className="case__viewport">
-              <picture>
-                <Image src={CASE.shot.webp} alt={CASE.shot.alt} width={CASE.shot.w} height={CASE.shot.h} sizes="(max-width: 899px) 90vw, 55vw" />
-              </picture>
-            </div>
-            <span className="sr-only">Visit {CASE.live.label} (opens in a new tab)</span>
-          </a>
-
-          <div className="case__body">
-            <p className="chips">
-              <span className="chip chip--signal">Client work</span>
-              <span className="chip">Live</span>
-            </p>
-            <p className="case__client">{CASE.client}</p>
-            <p className="case__summary">{CASE.summary}</p>
-            <dl className="case__facts" data-scrub="" data-scrub-start="top 85%" data-scrub-end="top 40%">
-              {CASE.facts.map((f, i) => (
-                <div key={f.label}>
-                  <dt>{f.label}</dt>
-                  <dd>
-                    {f.value}
-                    {i === 0 && (
-                      <svg className="scribble scribble--ring" viewBox="0 0 200 160" preserveAspectRatio="none" aria-hidden>
-                        <path pathLength={1} d="M30 90 C 20 40, 110 10, 165 40 C 200 65, 185 130, 110 145 C 50 155, 15 120, 35 80 C 45 62, 70 50, 95 46" />
-                      </svg>
-                    )}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-            <ul className="case__built">
-              {CASE.built.map((b) => (
-                <li key={b}>{b}</li>
-              ))}
-            </ul>
-            <a className="arrow-link" href={CASE.live.href} target="_blank" rel="noreferrer">
-              {CASE.live.label} <span aria-hidden>↗</span>
-            </a>
-            <p>
-              <TLink className="arrow-link" href="/work/prof-hemant-sheth">
-                Read about the project <span aria-hidden>→</span>
-              </TLink>
-            </p>
-          </div>
-        </div>
-      </article>
-
-      <article
-        className="case case--arogya"
-        data-tone="dark"
-        data-scrub=""
-        data-scrub-start="top bottom"
-        data-scrub-end="top 15%"
-        aria-labelledby="arogya-h"
-      >
-        <div className="arg__inner" data-scrub="" data-scrub-start="bottom 85%" data-scrub-end="bottom 25%">
-          <p className="label proj__meta">
-            <span>Client work · Colindale, London</span>
-            <span aria-hidden>02 / 02</span>
-          </p>
-          <h2 id="arogya-h" className="case__name arg__name" data-reveal>
-            <span className="line">
-              <span>{AROGYA.name}</span>
-            </span>
-            {" "}
+    <section id="work" className="sc" data-chapter="Work" aria-labelledby="case-h">
+      <div className="sc__head">
+        <div>
+          <p className="label">Built, launched, in use</p>
+          <h2 id="case-h" className="mid" data-reveal>
             <span className="line">
               <span>
-                <em>{AROGYA.em}</em>
+                Selected <em>work.</em>
               </span>
             </span>
           </h2>
-
-          <div className="arg__pin" data-scrub="" data-scrub-start="top 85%" data-scrub-end="bottom 15%">
-            <div className="arg__stage">
-              <a className="arg__desk" href={AROGYA.live.href} target="_blank" rel="noreferrer" data-cursor="view" data-cursor-label="Visit">
-                <div className="chrome" aria-hidden>
-                  <span />
-                  <span />
-                  <span />
-                  <i>{AROGYA.live.label}</i>
-                </div>
-                <div className="arg__screen">
-                  <picture>
-                    <source media="(max-width: 899px)" srcSet={AROGYA.page.webpSmall} type="image/webp" />
-                    <source srcSet={AROGYA.page.webp} type="image/webp" />
-                    <img src={AROGYA.page.jpg} alt={AROGYA.page.alt} width={AROGYA.page.w} height={AROGYA.page.h} loading="lazy" decoding="async" />
-                  </picture>
-                </div>
-                <span className="sr-only">Visit the Arogya Studio website (opens in a new tab)</span>
-              </a>
-              {AROGYA.details.map((d) => (
-                <figure key={d.key} className={`arg__detail arg__detail--${d.key}`}>
-                  <picture>
-                    <source srcSet={d.webp} type="image/webp" />
-                    <img src={d.jpg} alt={d.alt} width={d.w} height={d.h} loading="lazy" decoding="async" />
-                  </picture>
-                </figure>
-              ))}
-              <figure className="arg__phone">
-                <div className="arg__phone-screen">
-                  <picture>
-                    <source srcSet={AROGYA.phone.webp} type="image/webp" />
-                    <img src={AROGYA.phone.jpg} alt={AROGYA.phone.alt} width={AROGYA.phone.w} height={AROGYA.phone.h} loading="lazy" decoding="async" />
-                  </picture>
-                </div>
-              </figure>
-            </div>
-          </div>
-
-          <div className="arg__body">
-            <div className="arg__intro">
-              <p className="chips">
-                <span className="chip chip--signal">Client work</span>
-                <span className="chip">Live preview</span>
-              </p>
-              <p className="case__client">{AROGYA.client}</p>
-              <p className="case__summary">{AROGYA.summary}</p>
-              <p className="arg__links">
-                <a className="btn btn--signal" href={AROGYA.live.href} target="_blank" rel="noreferrer" aria-label="View the live Arogya Studio website (opens in a new tab)">
-                  View live website <span aria-hidden>↗</span>
-                </a>
-                <TLink className="arrow-link" href="/work/arogya-studio">
-                  Read about the project <span aria-hidden>→</span>
-                </TLink>
-                <TLink className="arrow-link" href="/work">
-                  See all our work <span aria-hidden>→</span>
-                </TLink>
-              </p>
-            </div>
-            <div>
-              <dl className="case__facts" data-scrub="" data-scrub-start="top 85%" data-scrub-end="top 40%">
-                {AROGYA.facts.map((f) => (
-                  <div key={f.label}>
-                    <dt>{f.label}</dt>
-                    <dd>{f.value}</dd>
-                  </div>
-                ))}
-              </dl>
-              <ul className="case__built">
-                {AROGYA.built.map((b) => (
-                  <li key={b}>{b}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
         </div>
-      </article>
+        <div className="sc__nav">
+          <p className="sc__count" aria-live="polite">
+            <span>{pad(active)}</span> / {pad(n - 1)}
+          </p>
+          <button className="sc__arrow" type="button" onClick={() => go(active - 1)} aria-label="Previous project">
+            <span aria-hidden>←</span>
+          </button>
+          <button className="sc__arrow" type="button" onClick={() => go(active + 1)} aria-label="Next project">
+            <span aria-hidden>→</span>
+          </button>
+          <TLink className="arrow-link sc__all" href="/work">
+            All work <span aria-hidden>→</span>
+          </TLink>
+        </div>
+      </div>
+
+      <div className="sc__tabs" role="tablist" aria-label="Projects" onKeyDown={onKey}>
+        {SHOWCASE.map((p, i) => (
+          <button
+            key={p.slug}
+            ref={(el) => {
+              tabs.current[i] = el;
+            }}
+            id={`sc-tab-${p.slug}`}
+            className="sc__tab"
+            role="tab"
+            type="button"
+            aria-selected={i === active}
+            aria-controls={`sc-panel-${p.slug}`}
+            tabIndex={i === active ? 0 : -1}
+            onClick={() => go(i)}
+          >
+            <span className="sc__tab-n">{pad(i)}</span>
+            <span className="sc__tab-name">{p.name}</span>
+            <span className="sc__tab-sector">{p.sector}</span>
+          </button>
+        ))}
+      </div>
+
+      <div ref={track} className="sc__stage" data-dir={dir} onPointerDown={down} onPointerUp={up} onPointerCancel={() => (drag.current = null)} onClickCapture={swallowClick}>
+        {SHOWCASE.map((p, i) => {
+          const on = i === active;
+          return (
+            <article
+              key={p.slug}
+              id={`sc-panel-${p.slug}`}
+              className="sc__panel"
+              role="tabpanel"
+              aria-labelledby={`sc-tab-${p.slug}`}
+              data-index={i}
+              data-on={on || undefined}
+              inert={desktop && !on ? true : undefined}
+              style={
+                {
+                  "--p-bg": p.theme.bg,
+                  "--p-ink": p.theme.ink,
+                  "--p-muted": p.theme.muted,
+                  "--p-accent": p.theme.accent,
+                } as React.CSSProperties
+              }
+            >
+              <div className="sc__info">
+                <p className="sc__status">
+                  <span>{p.status}</span>
+                  <span>{p.sector}</span>
+                </p>
+                <h3 className="sc__name">
+                  {p.name}, <em>{p.em}</em>
+                </h3>
+                <p className="sc__summary">{p.summary}</p>
+                <dl className="sc__facts">
+                  {p.facts.map((f) => (
+                    <div key={f.label}>
+                      <dt>{f.label}</dt>
+                      <dd>{f.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <div className="sc__tags">
+                  <p className="sc__tags-label">Skills</p>
+                  <ul>
+                    {p.skills.map((s) => (
+                      <li key={s}>{s}</li>
+                    ))}
+                  </ul>
+                </div>
+                {p.tech.length > 0 && (
+                  <div className="sc__tags sc__tags--tech">
+                    <p className="sc__tags-label">Built with</p>
+                    <ul>
+                      {p.tech.map((s) => (
+                        <li key={s}>{s}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                <p className="sc__links">
+                  <TLink className="btn btn--signal" href={`/work/${p.slug}`}>
+                    Read the case study <span aria-hidden>→</span>
+                  </TLink>
+                  <a className="arrow-link" href={p.live.href} target="_blank" rel="noreferrer">
+                    {p.live.label} <span aria-hidden>↗</span>
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                </p>
+              </div>
+
+              <div className="sc__preview">
+                <a className="sc__frame" href={p.live.href} target="_blank" rel="noreferrer" tabIndex={-1} aria-hidden draggable={false} data-cursor="view" data-cursor-label="Visit">
+                  <span className="sc__chrome">
+                    <i />
+                    <i />
+                    <i />
+                    <b>{p.live.label}</b>
+                  </span>
+                  <span className="sc__screen">
+                    <picture>
+                      {p.preview.srcSmall && <source media="(max-width: 899px)" srcSet={p.preview.srcSmall} type="image/webp" />}
+                      <img src={p.preview.src} alt="" width={p.preview.w} height={p.preview.h} loading="lazy" decoding="async" draggable={false} />
+                    </picture>
+                  </span>
+                </a>
+                {p.phone && (
+                  <span className="sc__phone" aria-hidden>
+                    <span className="sc__phone-screen">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={p.phone.src} alt="" width={p.phone.w} height={p.phone.h} loading="lazy" decoding="async" draggable={false} />
+                    </span>
+                  </span>
+                )}
+                <p className="sr-only">{p.preview.alt}</p>
+              </div>
+            </article>
+          );
+        })}
+      </div>
     </section>
   );
 }

@@ -1,4 +1,4 @@
-import { AROGYA } from "./site";
+import { AROGYA, CASE } from "./site";
 
 /*
  * Project pages beyond the original Prof. Hemant Sheth case (which keeps its own page).
@@ -141,3 +141,75 @@ export const PROJECTS: Project[] = [
 ];
 
 export const projectBySlug = (slug: string) => PROJECTS.find((p) => p.slug === slug);
+
+/*
+ * Homepage showcase: every project in one fixed-height section. Adding a project here adds a
+ * tab, not page length. Skills come from the scope each client confirmed; "Built with" lists
+ * only technology verified on the live site (Hemant's stack is not verified yet, so none shown).
+ */
+export type ShowcaseItem = {
+  slug: string;
+  name: string;
+  em: string;
+  sector: string;
+  status: string;
+  summary: string;
+  skills: string[];
+  tech: string[];
+  facts: { value: string; label: string }[];
+  preview: { src: string; srcSmall?: string; w: number; h: number; alt: string };
+  phone?: { src: string; w: number; h: number; alt: string };
+  theme: { bg: string; ink: string; muted: string; accent: string };
+  live: { label: string; href: string };
+};
+
+const byslug = (slug: string) => PROJECTS.find((p) => p.slug === slug)!;
+const arogya = byslug("arogya-studio");
+const cogniverse = byslug("cogniverse");
+
+export const SHOWCASE: ShowcaseItem[] = [
+  {
+    slug: "prof-hemant-sheth",
+    name: CASE.name,
+    em: CASE.em,
+    sector: "Consultant surgeon · London and Hertfordshire",
+    status: "Client website",
+    summary: CASE.summary,
+    skills: ["Information architecture", "Procedure guides", "Structured data", "Technical SEO"],
+    tech: [],
+    facts: CASE.facts,
+    preview: { src: CASE.shot.webp, w: CASE.shot.w, h: CASE.shot.h, alt: CASE.shot.alt },
+    theme: { bg: "#0b1f3a", ink: "#f5f8fc", muted: "rgba(245, 248, 252, 0.72)", accent: "#7cc4ff" },
+    live: CASE.live,
+  },
+  {
+    slug: arogya.slug,
+    name: arogya.name,
+    em: arogya.em,
+    sector: "Ayurvedic wellness studio · Colindale, London",
+    status: "Client website",
+    summary: arogya.summary,
+    skills: ["Web design", "Front-end build", "Copywriting", "Imagery", "Local SEO"],
+    tech: ["React", "Vite", "Vercel"],
+    facts: arogya.facts,
+    preview: arogya.page,
+    phone: arogya.gallery.find((g) => g.kind === "phone"),
+    theme: { bg: "#141a12", ink: "#f0ebe0", muted: "rgba(240, 235, 224, 0.74)", accent: "#e6c98c" },
+    live: arogya.live,
+  },
+  {
+    slug: cogniverse.slug,
+    name: cogniverse.name,
+    em: cogniverse.em,
+    sector: "Healthcare technology · London",
+    status: "Built by CogniVerse Studio",
+    summary: cogniverse.summary,
+    skills: ["Web design", "Front-end build", "Copywriting", "Imagery"],
+    tech: ["Next.js"],
+    facts: cogniverse.facts,
+    preview: cogniverse.page,
+    phone: cogniverse.gallery.find((g) => g.kind === "phone"),
+    theme: { bg: "#e6f1f7", ink: "#030f18", muted: "#41505b", accent: "#0b6a9b" },
+    live: cogniverse.live,
+  },
+];
