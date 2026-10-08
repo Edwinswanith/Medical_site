@@ -47,9 +47,9 @@ export const SEO = {
       "CogniVerse Studio works with clinicians across the UK on websites, patient films and social content. See our approval process and the Prof. Hemant Sheth project.",
   },
   work: {
-    title: "Consultant website work and specialty templates",
+    title: "Healthcare website work and specialty templates",
     description:
-      "See the consultant website we built for Prof. Hemant Sheth, and the 12 specialty templates we use as starting points for UK clinicians and practices.",
+      "Websites we built for Prof. Hemant Sheth, Arogya Studio and Cogniverse, and the 12 specialty templates we use as starting points for UK clinicians and practices.",
   },
   services: {
     title: "Healthcare websites, films and social content UK",

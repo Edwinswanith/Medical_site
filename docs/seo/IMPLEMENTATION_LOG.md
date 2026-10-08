@@ -123,3 +123,16 @@ The in-app browser backend was unavailable; local Chrome's debugging protocol pr
 ## Outstanding owner and hosting work
 
 Confirm provider/retention/controller details before enabling real form delivery and completing privacy information. Supply genuine film/presenter/social proof, office/in-person arrangements for any GBP decision, legal identity and verified profiles if applicable. Review Vercel's HTTP apex redirect chain. Deploy this code, rerun the live checks and use the launch checklist for search accounts. No ranking outcome is promised.
+
+## Project pages: Arogya Studio and Cogniverse (8 Oct 2026)
+
+| Change | Notes |
+|---|---|
+| `/work/arogya-studio`, `/work/cogniverse` | Same editorial layout as `/work/prof-hemant-sheth` (left untouched), driven by `src/content/projects.ts` through `ProjectPage`. Full page strip in the frame (peek on first view and hover), purpose, facts, structure, a gallery of real captures (phone view and two details), what we built with its caveat, close. |
+| Structured data | WebPage with breadcrumbs, and the website as a CreativeWork with the studio as creator, as on the Hemant page. No results, reviews or ratings. |
+| `/work` | Title and intro cover all three projects; Hemant card, then the two new cards; ItemList of three. |
+| Homepage | Arogya links to its project page and to `/work`. Cogniverse is not on the homepage (project-pages layout chosen by the user). |
+| Sitemap, llms.txt | Both new pages through `PUBLIC_PAGES`; sitemap images are the hero captures. |
+| Labelling | Cogniverse: "Built by CogniVerse Studio", not "Client" (see `docs/work/COGNIVERSE_AUDIT.md`). |
+
+Validation: build, typecheck, lint (0 errors), unit tests 15/15, `seo:check` 1,816 pass. 3 external-link fails are environment network blocks or proxy drops (londonroboticsurgeon.co.uk, ico.org.uk, and a dropped tunnel to cogniversetech.com, which answers 200 directly). Desktop and mobile captures of both pages and `/work`: no overflow, no broken images, no console errors.

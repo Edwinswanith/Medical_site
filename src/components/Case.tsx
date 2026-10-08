@@ -173,9 +173,12 @@ export function Case() {
                 <a className="btn btn--signal" href={AROGYA.live.href} target="_blank" rel="noreferrer" aria-label="View the live Arogya Studio website (opens in a new tab)">
                   View live website <span aria-hidden>↗</span>
                 </a>
-                <a className="arrow-link" href="#websites">
-                  How we build specialty websites <span aria-hidden>→</span>
-                </a>
+                <TLink className="arrow-link" href="/work/arogya-studio">
+                  Read about the project <span aria-hidden>→</span>
+                </TLink>
+                <TLink className="arrow-link" href="/work">
+                  See all our work <span aria-hidden>→</span>
+                </TLink>
               </p>
             </div>
             <div>
