@@ -502,8 +502,9 @@ html[data-ready] .hm-hint {
   width: 100%;
   height: auto;
 }
-.sc__panel[data-on] .sc__screen img {
-  animation: sc-scroll 18s cubic-bezier(0.45, 0, 0.2, 1) 1.2s both;
+/* only while the section is on screen: down, hold, back up, on a loop */
+.sc[data-inview] .sc__panel[data-on] .sc__screen img {
+  animation: sc-scroll 16s cubic-bezier(0.45, 0, 0.2, 1) 0.9s infinite both;
 }
 @keyframes sc-scroll {
   0%, 6% { transform: translateY(0); }
@@ -536,8 +537,8 @@ html[data-ready] .hm-hint {
   overflow: hidden;
   border-radius: 21px;
 }
-.sc__panel[data-on] .sc__phone-screen img {
-  animation: sc-scroll-phone 18s cubic-bezier(0.45, 0, 0.2, 1) 1.6s both;
+.sc[data-inview] .sc__panel[data-on] .sc__phone-screen img {
+  animation: sc-scroll-phone 16s cubic-bezier(0.45, 0, 0.2, 1) 1.3s infinite both;
 }
 @keyframes sc-scroll-phone {
   0%, 6% { transform: translateY(0); }
@@ -611,10 +612,6 @@ html[data-ready] .hm-hint {
   .sc__phone {
     opacity: 1;
     transform: none;
-  }
-  .sc__panel .sc__screen img,
-  .sc__panel .sc__phone-screen img {
-    animation: none;
   }
   .sc__links {
     margin-top: 0;

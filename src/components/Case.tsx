@@ -9,8 +9,9 @@ import { TLink } from "./TLink";
  * tab, never page length.
  *
  * Desktop: a tab row, then the active project's details beside a live preview in its own
- * colours. Switching wipes the new preview in from the direction of travel; the real page
- * then scrolls once inside its frame (paused on hover). Tabs, arrows, keyboard and drag.
+ * colours. Switching wipes the new preview in from the direction of travel. While the section
+ * is on screen, the real page scrolls down and back up inside its frame on a loop (paused on
+ * hover, reset when the section leaves). Tabs, arrows, keyboard and drag.
  * Mobile: the same panels as a native swipe carousel. Every project stays in the HTML, so
  * crawlers read all of them; each links to its full case study.
  * Reduced motion: no wipe, no scrolling preview.
@@ -19,6 +20,8 @@ export function Case() {
   const [active, setActive] = useState(0);
   const [dir, setDir] = useState<1 | -1>(1);
   const [desktop, setDesktop] = useState(true);
+  const [inView, setInView] = useState(false);
+  const section = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const drag = useRef<number | null>(null);
@@ -48,6 +51,16 @@ export function Case() {
     },
     [active, n],
   );
+
+  // The previews scroll only while the section is on screen, so a visitor arriving by
+  // scrolling sees them start; they stop and reset when the section leaves.
+  useEffect(() => {
+    const el = section.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.3 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   // Phones: follow the swipe.
   useEffect(() => {
@@ -99,7 +112,7 @@ export function Case() {
   const pad = (i: number) => String(i + 1).padStart(2, "0");
 
   return (
-    <section id="work" className="sc" data-chapter="Work" aria-labelledby="case-h">
+    <section ref={section} id="work" className="sc" data-chapter="Work" data-inview={inView || undefined} aria-labelledby="case-h">
       <div className="sc__head">
         <div>
           <p className="label">Built, launched, in use</p>
