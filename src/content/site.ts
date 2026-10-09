@@ -309,7 +309,7 @@ export const CASE = {
   em: "robotic surgeon.",
   client: "Consultant Upper GI, Laparoscopic & Hepatobiliary Surgeon, London and Hertfordshire",
   summary:
-    "A website that explains what he does in the terms patients search for, organised by operation and built to be read by machines too.",
+    "A website that explains what he does in the terms patients search for, organised by operation and designed around clear patient journeys.",
   live: { label: "londonroboticsurgeon.co.uk", href: "https://londonroboticsurgeon.co.uk/" },
   shot: { webp: "/media/work/sheth-home.webp", jpg: "/media/work/sheth-home.jpg", w: 1200, h: 1250, alt: "Home page of Prof. Hemant Sheth’s website" },
   facts: [
