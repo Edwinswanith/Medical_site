@@ -1,4 +1,5 @@
 import { BRAND } from "@/content/site";
+import { FOUNDERS } from "@/content/team";
 import { absolute } from "@/lib/site-url";
 
 /** Stable entity ids, so every page points at the same organisation and site. */
@@ -32,7 +33,18 @@ export function SiteJsonLd({ description }: { description: string }) {
             telephone: BRAND.phone.tel,
             areaServed: { "@type": "Country", name: "United Kingdom" },
             contactPoint: { "@type": "ContactPoint", contactType: "sales", email: BRAND.email, telephone: BRAND.phone.tel, availableLanguage: "en" },
+            founder: FOUNDERS.map((f) => ({ "@id": absolute(`/about#${f.id}`) })),
           },
+          // The founders as shown on /about: name, title, portrait and LinkedIn only.
+          ...FOUNDERS.map((f) => ({
+            "@type": "Person",
+            "@id": absolute(`/about#${f.id}`),
+            name: f.name,
+            jobTitle: f.title,
+            image: absolute(f.photo.src),
+            sameAs: [f.linkedin],
+            worksFor: { "@id": ORG_ID },
+          })),
           { "@type": "WebSite", "@id": SITE_ID, url: absolute("/"), name: BRAND.name, inLanguage: "en-GB", publisher: { "@id": ORG_ID } },
         ],
       }}

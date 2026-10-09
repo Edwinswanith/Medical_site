@@ -2,6 +2,7 @@ import { PageJsonLd } from "@/components/JsonLd";
 import { pageMetadata } from "@/lib/seo";
 import { SEO } from "@/content/site";
 import { AboutHero } from "@/components/AboutHero";
+import { AboutFounders } from "@/components/AboutFounders";
 import { AboutTogether } from "@/components/AboutTogether";
 import { AboutProcess } from "@/components/AboutProcess";
 import { AboutPrinciples } from "@/components/AboutPrinciples";
@@ -16,7 +17,7 @@ export default function AboutPage() {
     <>
       <PageJsonLd path="/about" type="AboutPage" name={title} description={description} breadcrumbs />
       <AboutHero />
-      {/* A founder/team section goes here once real names, photos and bios are supplied. */}
+      <AboutFounders />
       <AboutTogether />
       <AboutProcess />
       <AboutPrinciples />
